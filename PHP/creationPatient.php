@@ -7,31 +7,36 @@
     if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         // Création d'un nouveau patient
         $patient = new Patient($_POST['civilite'], $_POST['nom'], $_POST['prenom'],
-            $_POST['adresse'], $_POST['dateNaissance'], $_POST['lieuNaissance'],
-            $_POST['numSecu'], $_POST['idMedecin']);
-        $civilite = $patient->getCivilite();
-        $nom = $patient->getNom();
-        $prenom = $patient->getPrenom();
+            $_POST['adresse'], $_POST['ville'], $_POST['code_postal'], 
+            $_POST['date_nais'], $_POST['lieu_nais'], $_POST['sexe'],
+            $_POST['num_secu']);
+        $civilite = $patient->getcivilite();
+        $nom = $patient->getnom();
+        $prenom = $patient->getprenom();
         $adresse = $patient->getAdresse();
-        $dateNaissance = date('Y-m-d', strtotime($patient->getDateNaissance()));
-        $lieuNaissance = $patient->getLieuNaissance();
-        $numSecu = $patient->getNumSecu();
-        $idMedecin = $patient->getIdMedecin();
+        $code_postal = $patient->getCodePostal();
+        $ville = $patient->getVille();
+        $date_nais = date('Y-m-d', strtotime($patient->getDateNaissance()));
+        $lieu_nais = $patient->getLieuNaissance();
+        $num_secu = $patient->getNumSecu();
+        $sexe = $patient->getSexe();
 
         // Ajout du patient dans la BD
         try{
             $sql = "INSERT INTO usager
-                (Civilite, Nom, Prenom, Adresse, DateNaissance, LieuNaissance, NumSecu, Id_Medecin)
-                VALUES(:Civilite, :Nom, :Prenom, :Adresse, :DateNaissance, :LieuNaissance, :NumSecu, :Id_Medecin)";
+                (civilite, nom, prenom, adresse, ville, code_postal, date_nais, lieu_nais, num_secu, sexe)
+                VALUES(:civilite, :nom, :prenom, :adresse, :ville, :code_postal, :date_nais, :lieu_nais, :num_secu, :sexe)";
             $stmt = $bdd->prepare($sql);
-            $stmt->bindParam(':Civilite', $civilite, PDO::PARAM_STR);
-            $stmt->bindParam(':Nom', $nom, PDO::PARAM_STR);
-            $stmt->bindParam(':Prenom', $prenom, PDO::PARAM_STR);
-            $stmt->bindParam(':Adresse', $adresse, PDO::PARAM_STR);
-            $stmt->bindParam(':DateNaissance', $dateNaissance, PDO::PARAM_STR);
-            $stmt->bindParam(':LieuNaissance', $lieuNaissance, PDO::PARAM_STR);
-            $stmt->bindParam(':NumSecu', $numSecu, PDO::PARAM_STR);
-            $stmt->bindParam(':Id_Medecin', $idMedecin, PDO::PARAM_INT);
+            $stmt->bindParam(':civilite', $civilite, PDO::PARAM_STR);
+            $stmt->bindParam(':nom', $nom, PDO::PARAM_STR);
+            $stmt->bindParam(':prenom', $prenom, PDO::PARAM_STR);
+            $stmt->bindParam(':adresse', $adresse, PDO::PARAM_STR);
+            $stmt->bindParam(':ville', $ville, PDO::PARAM_STR);
+            $stmt->bindParam(':code_postal', $code_postal, PDO::PARAM_STR);
+            $stmt->bindParam(':date_nais', $date_nais, PDO::PARAM_STR);
+            $stmt->bindParam(':lieu_nais', $lieu_nais, PDO::PARAM_STR);
+            $stmt->bindParam(':num_secu', $num_secu, PDO::PARAM_STR);
+            $stmt->bindParam(':sexe', $sexe, PDO::PARAM_INT);
             $stmt->execute();
             
             // Stocker le message dans la variable de session
@@ -76,36 +81,32 @@
                 <input type="text" name="prenom" id="prenom" required>
             </p>
             <p>
+                <label for="prenom">Sexe :</label>
+                <input type="text" name="sexe" id="sexe" required>
+            </p>
+            <p>
                 <label for="adresse">Adresse :</label>
                 <input type="text" name="adresse" id="adresse" required>
             </p>
             <p>
-                <label for="dateNaissance">Date de naissance :</label>
-                <input type="date" name="dateNaissance" id="dateNaissance" required>
+                <label for="prenom">Ville :</label>
+                <input type="text" name="ville" id="ville" required>
             </p>
             <p>
-                <label for="lieuNaissance">Lieu de naissance :</label>
-                <input type="text" name="lieuNaissance" id="lieuNaissance" required>
+                <label for="prenom">Code postal :</label>
+                <input type="text" name="code_postal" id="code_postal" required>
             </p>
             <p>
-                <label for="numSecu">Numéro de sécurité sociale :</label>
-                <input type="text" name="numSecu" id="numSecu" required>
+                <label for="date_nais">Date de naissance :</label>
+                <input type="date" name="date_nais" id="date_nais" required>
             </p>
             <p>
-                <label for="idMedecin">Médecin référant :</label>
-                <select name="idMedecin" id="idMedecin">
-                    <?php
-                        // Récupération des médecins
-                        $sql = "SELECT * FROM medecin";
-                        $stmt = $bdd->prepare($sql);
-                        $stmt->execute();
-                        $medecins = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                        // Affichage des médecins
-                        foreach($medecins as $medecin){
-                            echo '<option value="'.$medecin['Id_Medecin'].'">'.$medecin['Nom'].' '.$medecin['Prenom'].'</option>';
-                        }
-                    ?>
+                <label for="lieu_nais">Lieu de naissance :</label>
+                <input type="text" name="lieu_nais" id="lieu_nais" required>
+            </p>
+            <p>
+                <label for="num_secu">Numéro de sécurité sociale :</label>
+                <input type="text" name="num_secu" id="num_secu" required>
             </p>
             <p>
                 <input type="submit" value="Créer le patient">

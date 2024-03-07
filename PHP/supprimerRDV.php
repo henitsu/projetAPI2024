@@ -15,23 +15,25 @@
 			require 'connexionBD.php';
 			
 			try {
-				// Stockage de l'identifiant de l'usager
-				$idusager = $_GET['idusager'];	
-                $Id_Medecin = $_GET['Id_Medecin'];
-                $dateHeureRDV = $_GET['dateHeure'];		
+				// Stockage de l'identifiant de la consultation
+				$id_consultation = $_GET['id_consultation'];	
+                $date = $_GET['date'];
+                $heure = $_GET['heure'];	
+				$duree = $_GET['duree'];	
 				
 				// Utilisation de la clause WHERE avec une requête préparée
 				// Suppression RDV
-				$suppressionRDV = "DELETE FROM rdv WHERE idusager = :idusager AND Id_Medecin = :Id_Medecin AND
-                dateHeureRDV = :DateHeureRDV";
+				$suppressionRDV = "DELETE FROM consultation WHERE id_consultation = :id_consultation AND date = :date AND
+                heure = :heure AND duree = :duree";
 				
 				// Préparation des requêtes
 				$stmt = $bdd->prepare($suppressionRDV);
 				
 				// Liaison des paramètres requête suppression RDV
-				$stmt->bindParam(':idusager', $idusager, PDO::PARAM_STR);
-                $stmt->bindParam(':Id_Medecin', $Id_Medecin, PDO::PARAM_STR);
-                $stmt->bindParam(':DateHeureRDV', $dateHeureRDV, PDO::PARAM_STR);
+				$stmt->bindParam(':id_consultation', $id_consultation, PDO::PARAM_STR);
+                $stmt->bindParam(':date', $date, PDO::PARAM_STR);
+                $stmt->bindParam(':heure', $heure, PDO::PARAM_STR);
+				$stmt->bindParam(':duree', $duree, PDO::PARAM_STR);
 
 				// Exécution des requêtes
 				$stmt->execute();

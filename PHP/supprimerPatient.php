@@ -15,29 +15,29 @@
 			
 			try {
 				// Stockage de l'identifiant de l'usager
-				$idusager = $_GET['id'];
+				$id_usager = $_GET['id'];
 				$nom = $_GET['nom'];
 				$prenom = $_GET['prenom'];
 
 				// Utilisation de la clause WHERE avec une requête préparée
 				// Suppression usager
-				$suppressionUsager = "DELETE FROM usager WHERE idusager = :idusager";
+				$suppressionUsager = "DELETE FROM usager WHERE id_usager = :id_usager";
 				
-				// Suppression RDV
-				$suppressionRDV = "DELETE FROM rdv WHERE idusager = :idusager";
+				// Suppression Consultation
+				$suppressionConsultation = "DELETE FROM consultation WHERE id_usager = :id_usager";
 				
 				// Préparation des requêtes
-				$stmtRDV = $bdd->prepare($suppressionRDV);
+				$stmtConsultation = $bdd->prepare($suppressionConsultation);
 				$stmtUsager = $bdd->prepare($suppressionUsager);
 				
-				// Liaison des paramètres requête suppression RDV
-				$stmtRDV->bindParam(':idusager', $idusager, PDO::PARAM_STR);
+				// Liaison des paramètres requête suppression Consultation
+				$stmtConsultation->bindParam(':id_usager', $id_usager, PDO::PARAM_STR);
 
 				// idem pour l'usager
-				$stmtUsager->bindParam(':idusager', $idusager, PDO::PARAM_STR);
+				$stmtUsager->bindParam(':id_usager', $id_usager, PDO::PARAM_STR);
 
 				// Exécution des requêtes
-				$stmtRDV->execute();
+				$stmtConsultation->execute();
 				$stmtUsager->execute();
 				
 				// Stocker le message dans la variable de session

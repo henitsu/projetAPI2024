@@ -33,14 +33,14 @@
         // Affiche les résultats
         
         echo '<tr>';
-        echo '<td>' . $donnee['Id_Medecin'] . '</td>';
-        echo '<td>' . $donnee['Nom'] . '</td>';
-        echo '<td>' . $donnee['Prenom'] . '</td>';
-        echo '<td>' . $donnee['Civilite'] . '</td>';
-        echo '<td><a href="modifierMedecin.php?Id_Medecin=' . $donnee['Id_Medecin'] . '&nom=' . $donnee['Nom'] . '&prenom=' . $donnee['Prenom'] 
-        . '&civilite=' . $donnee['Civilite'] . '">Modifier</a> | 
-        <a href="supprimerMedecin.php?Id_Medecin=' . $donnee['Id_Medecin'] . '&nom=' . $donnee['Nom'] . '&prenom=' . $donnee['Prenom'] 
-        . '&civilite=' . $donnee['Civilite'] . '">Supprimer</a></td>';
+        echo '<td>' . $donnee['id_medecin'] . '</td>';
+        echo '<td>' . $donnee['nom'] . '</td>';
+        echo '<td>' . $donnee['prenom'] . '</td>';
+        echo '<td>' . $donnee['civilite'] . '</td>';
+        echo '<td><a href="modifierMedecin.php?id_medecin=' . $donnee['id_medecin'] . '&nom=' . $donnee['nom'] . '&prenom=' . $donnee['prenom'] 
+        . '&civilite=' . $donnee['civilite'] . '">Modifier</a> | 
+        <a href="supprimerMedecin.php?id_medecin=' . $donnee['id_medecin'] . '&nom=' . $donnee['nom'] . '&prenom=' . $donnee['prenom'] 
+        . '&civilite=' . $donnee['civilite'] . '">Supprimer</a></td>';
         echo '</tr>';
         
     }

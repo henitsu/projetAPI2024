@@ -14,23 +14,23 @@
 
         require 'connexionBD.php';
 
-        $reponseNbFemmesMoins25Ans = $bdd->query("SELECT COUNT(*) NbFemmes FROM usager WHERE DATEDIFF(DATE_FORMAT(DATE(NOW()), '%Y-%m-%d'), dateNaissance) < 9125 AND civilite='Mme'");
+        $reponseNbFemmesMoins25Ans = $bdd->query("SELECT COUNT(*) NbFemmes FROM usager WHERE DATEDIFF(DATE_FORMAT(DATE(NOW()), '%Y-%m-%d'), date_nais) < 9125 AND sexe='F'");
         $nbFemmesMoins25Ans = $reponseNbFemmesMoins25Ans->fetchAll(); 
 
-        $reponseFemmesMilieu = $bdd->query("SELECT COUNT(*) NbFemmes FROM usager WHERE civilite='Mme' AND DATEDIFF(DATE_FORMAT(DATE(NOW()), '%Y-%m-%d'), dateNaissance) BETWEEN 9125 AND 14600");
+        $reponseFemmesMilieu = $bdd->query("SELECT COUNT(*) NbFemmes FROM usager WHERE sexe='F' AND DATEDIFF(DATE_FORMAT(DATE(NOW()), '%Y-%m-%d'), date_nais) BETWEEN 9125 AND 14600");
         $nbFemmesMilieu = $reponseFemmesMilieu->fetchAll();
 
-        $reponseFemmesPlus50 = $bdd->query("SELECT COUNT(*) NbFemmes FROM usager WHERE civilite='Mme' AND DATEDIFF(DATE_FORMAT(DATE(NOW()), '%Y-%m-%d'), dateNaissance) > 14600");
+        $reponseFemmesPlus50 = $bdd->query("SELECT COUNT(*) NbFemmes FROM usager WHERE sexe='F' AND DATEDIFF(DATE_FORMAT(DATE(NOW()), '%Y-%m-%d'), date_nais) > 14600");
         $nbFemmesPlus50Ans = $reponseFemmesPlus50->fetchAll();
 
 
-        $reponseNbHommesMoins25Ans = $bdd->query("SELECT COUNT(*) NbHommes FROM usager WHERE civilite='M' AND DATEDIFF(DATE_FORMAT(DATE(NOW()), '%Y-%m-%d'), dateNaissance) < 9125");
+        $reponseNbHommesMoins25Ans = $bdd->query("SELECT COUNT(*) NbHommes FROM usager WHERE sexe='H' AND DATEDIFF(DATE_FORMAT(DATE(NOW()), '%Y-%m-%d'), date_nais) < 9125");
         $nbHommesMoins25Ans = $reponseNbHommesMoins25Ans->fetchAll();    
 
-        $reponseHommesMilieu = $bdd->query("SELECT COUNT(*) NbHommes FROM usager WHERE civilite='M' AND DATEDIFF(DATE_FORMAT(DATE(NOW()), '%Y-%m-%d'), dateNaissance) BETWEEN 9125 AND 14600");
+        $reponseHommesMilieu = $bdd->query("SELECT COUNT(*) NbHommes FROM usager WHERE sexe='H' AND DATEDIFF(DATE_FORMAT(DATE(NOW()), '%Y-%m-%d'), date_nais) BETWEEN 9125 AND 14600");
         $nbHommesMilieu = $reponseHommesMilieu->fetchAll();
 
-        $reponseHommesPlus50 = $bdd->query("SELECT COUNT(*) NbHommes FROM usager WHERE civilite='M' AND DATEDIFF(DATE_FORMAT(DATE(NOW()), '%Y-%m-%d'), dateNaissance) > 14600");
+        $reponseHommesPlus50 = $bdd->query("SELECT COUNT(*) NbHommes FROM usager WHERE sexe='H' AND DATEDIFF(DATE_FORMAT(DATE(NOW()), '%Y-%m-%d'), date_nais) > 14600");
         $nbHommesPlus50Ans = $reponseHommesPlus50->fetchAll();
         
         echo 
@@ -83,7 +83,7 @@
             </tr>
         </table></div><br><br>";
 
-        $reponseNbHeuresParMedecin = $bdd->query("SELECT SUM(DureeConsultationMinutes)/60, medecin.Nom FROM rdv, medecin WHERE medecin.Id_Medecin = rdv.Id_Medecin GROUP BY medecin.Id_Medecin");
+        $reponseNbHeuresParMedecin = $bdd->query("SELECT SUM(duree)/60, medecin.nom FROM consultation, medecin WHERE medecin.id_medecin = rdv.id_medecin GROUP BY medecin.id_medecin");
         $NbHeuresConsultation = $reponseNbHeuresParMedecin->fetchAll();
         foreach($NbHeuresConsultation as $NbHeures){
             echo "<div class='stats'>Le médecin " . $NbHeures[1] . " a réalisé " . round($NbHeures[0],2) . " heures de consultation <br> </div>";

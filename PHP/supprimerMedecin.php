@@ -16,23 +16,23 @@
 			
 			try {
 				// Stockage de l'identifiant du médecin
-				$id = $_GET['Id_Medecin'];	
+				$id = $_GET['id_medecin'];	
 				$nom = $_GET['nom'];
 				$prenom = $_GET['prenom'];		
 				
 				// Si le médecin n'est pas référent d'un usager, on peut le supprimer
 				try {
 					// Suppression medecin
-					$suppressionMedecin = "DELETE FROM medecin WHERE Id_Medecin = :Id_Medecin";
+					$suppressionMedecin = "DELETE FROM medecin WHERE id_medecin = :id_medecin";
 					
 					// Suppression RDV
-					$suppressionRDV = "DELETE FROM rdv WHERE Id_Medecin = :Id_Medecin";
+					$suppressionRDV = "DELETE FROM rdv WHERE id_medecin = :id_medecin";
 
 					$stmtRDV = $bdd->prepare($suppressionRDV);
 					$stmtMedecin = $bdd->prepare($suppressionMedecin);
 					
-					$stmtMedecin->bindParam(':Id_Medecin', $id, PDO::PARAM_STR);
-					$stmtRDV->bindParam(':Id_Medecin', $id, PDO::PARAM_STR);
+					$stmtMedecin->bindParam(':id_medecin', $id, PDO::PARAM_STR);
+					$stmtRDV->bindParam(':id_medecin', $id, PDO::PARAM_STR);
 
 					$stmtMedecin->execute();
 					$stmtRDV->execute();

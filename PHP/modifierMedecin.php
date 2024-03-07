@@ -17,27 +17,27 @@
 				$prenom = $_GET['prenom'];
 				$civilite = $_GET['civilite'];
 
-				$sql = "SELECT * FROM medecin WHERE Nom = :Nom AND Prenom = :Prenom AND Civilite = :Civilite";
+				$sql = "SELECT * FROM medecin WHERE nom = :nom AND prenom = :prenom AND civilite = :civilite";
 				$stmt = $bdd->prepare($sql);
-				$stmt->bindParam(':Nom', $nom, PDO::PARAM_STR);
-				$stmt->bindParam(':Prenom', $prenom, PDO::PARAM_STR);
-				$stmt->bindParam(':Civilite', $civilite, PDO::PARAM_STR);
+				$stmt->bindParam(':nom', $nom, PDO::PARAM_STR);
+				$stmt->bindParam(':prenom', $prenom, PDO::PARAM_STR);
+				$stmt->bindParam(':civilite', $civilite, PDO::PARAM_STR);
 				$stmt->execute();
 				$medecin = $stmt->fetch(PDO::FETCH_ASSOC);
-				$id = $medecin['Id_Medecin'];
+				$id = $medecin['id_medecin'];
 
 				?>
 				<h1>Modification des informations de <?php echo $prenom ." ". $nom; ?></h1>
 				<div class="form">
-					<form action="modifierMedecin.php?Id_Medecin=<?php echo $id; ?>" method="post">
-						<label for="Nom">Nom :</label>
-						<input type="text" id="nom" name="Nom" value="<?php echo $medecin['Nom']; ?>" required><br>
+					<form action="modifierMedecin.php?id_medecin=<?php echo $id; ?>" method="post">
+						<label for="nom">Nom :</label>
+						<input type="text" id="nom" name="nom" value="<?php echo $medecin['nom']; ?>" required><br>
 
-						<label for="Prenom">Prénom :</label>
-						<input type="text" id="prenom" name="Prenom" value="<?php echo $medecin['Prenom']; ?>" required><br>
+						<label for="prenom">Prénom :</label>
+						<input type="text" id="prenom" name="prenom" value="<?php echo $medecin['prenom']; ?>" required><br>
 
-						<label for="Civilite">Civilité :</label>
-						<input type="text" id="civilite" name="Civilite" value="<?php echo $medecin['Civilite']; ?>" required><br>
+						<label for="civilite">Civilité :</label>
+						<input type="text" id="civilite" name="civilite" value="<?php echo $medecin['civilite']; ?>" required><br>
 
 						<input type="submit" value="Enregistrer les modifications">
 					</form>
@@ -45,17 +45,17 @@
 				
 				<?php
 			} elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
-				$id = $_GET['Id_Medecin'];
-				$nom = $_POST['Nom'];
-				$prenom = $_POST['Prenom'];
-				$civilite = $_POST['Civilite'];
+				$id = $_GET['id_medecin'];
+				$nom = $_POST['nom'];
+				$prenom = $_POST['prenom'];
+				$civilite = $_POST['civilite'];
 
-				$sql = "UPDATE medecin SET Nom = :Nom, Prenom = :Prenom, Civilite = :Civilite WHERE Id_Medecin = :Id_Medecin";
+				$sql = "UPDATE medecin SET nom = :nom, prenom = :prenom, civilite = :civilite WHERE id_medecin = :id_medecin";
 				$stmt = $bdd->prepare($sql);
-				$stmt->bindParam(':Nom', $nom, PDO::PARAM_STR);
-				$stmt->bindParam(':Prenom', $prenom, PDO::PARAM_STR);
-				$stmt->bindParam(':Civilite', $civilite, PDO::PARAM_STR);
-				$stmt->bindParam(':Id_Medecin', $id, PDO::PARAM_INT);
+				$stmt->bindParam(':nom', $nom, PDO::PARAM_STR);
+				$stmt->bindParam(':prenom', $prenom, PDO::PARAM_STR);
+				$stmt->bindParam(':civilite', $civilite, PDO::PARAM_STR);
+				$stmt->bindParam(':id_medecin', $id, PDO::PARAM_INT);
 				$stmt->execute();
 
 				echo 'Médecin modifié avec succès';

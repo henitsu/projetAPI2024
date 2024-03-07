@@ -13,11 +13,11 @@
 
         // Ajout du patient dans la BD
         try{
-            $sql = "INSERT INTO medecin (Civilite, Nom, Prenom) VALUES (:Civilite, :Nom, :Prenom)";
+            $sql = "INSERT INTO medecin (civilite, nom, prenom) VALUES (:civilite, :nom, :prenom)";
             $stmt = $bdd->prepare($sql);
-            $stmt->bindParam(':Civilite', $civilite, PDO::PARAM_STR);
-            $stmt->bindParam(':Nom', $nom, PDO::PARAM_STR);
-            $stmt->bindParam(':Prenom', $prenom, PDO::PARAM_STR);
+            $stmt->bindParam(':civilite', $civilite, PDO::PARAM_STR);
+            $stmt->bindParam(':nom', $nom, PDO::PARAM_STR);
+            $stmt->bindParam(':prenom', $prenom, PDO::PARAM_STR);
             $stmt->execute();
 
             // Stocker le message dans la variable de session
@@ -54,7 +54,7 @@
                 </select>
             </p>
             <p>
-                <label for="nom">Nom :</label>
+                <label for="nom">nom :</label>
                 <input type="text" name="nom" id="nom" required>
             </p>
             <p>

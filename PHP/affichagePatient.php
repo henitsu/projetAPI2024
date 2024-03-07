@@ -27,25 +27,30 @@
     $reponse = $bdd->query("SELECT * FROM usager");
     $donnees = $reponse->fetchAll();
     echo '<table border="1">';
-    echo '<tr><th>ID</th><th>Nom</th><th>Prénom</th><th>Adresse</th><th>Date naissance</th><th>Lieu naissance</th><th>Numéro sécurité sociale</th><th>Action</th></tr>';
+    echo '<tr><th>ID</th><th>Nom</th><th>Prénom</th><th>Civilité</th><th>adresse</th><th>Ville</th><th>Code postal</th>
+    <th>Sexe</th><th>Date naissance</th><th>Lieu naissance</th><th>Numéro sécurité sociale</th><th>Action</th></tr>';
 
     foreach ($donnees as $donnee) {
         // Affiche les résultats
         
         echo '<tr>';
-        echo '<td>' . $donnee['idusager'] . '</td>';
-        echo '<td>' . $donnee['Nom'] . '</td>';
-        echo '<td>' . $donnee['Prenom'] . '</td>';
-        echo '<td>' . $donnee['Adresse'] . '</td>';
-        echo '<td>' . date('d/m/Y', strtotime($donnee['DateNaissance'])) . '</td>';
-        echo '<td>' . $donnee['LieuNaissance'] . '</td>';
-        echo '<td>' . $donnee['NumSecu'] . '</td>';
-        echo '<td><a href="modifierPatient.php?id=' . $donnee['idusager'] . '&nom=' . $donnee['Nom'] . '&prenom=' . $donnee['Prenom'] 
-        . '&adresse=' . $donnee['Adresse'] . '&dateNaissance=' . $donnee['DateNaissance'] . '&lieuNaissance=' . $donnee['LieuNaissance'] 
-        . '&numSecu=' . $donnee['NumSecu'] . '">Modifier</a> | 
-        <a href="supprimerPatient.php?id=' . $donnee['idusager'] . '&nom=' . $donnee['Nom'] . '&prenom=' . $donnee['Prenom'] 
-        . '&adresse=' . $donnee['Adresse'] . '&dateNaissance=' . $donnee['DateNaissance'] . '&lieuNaissance=' . $donnee['LieuNaissance'] 
-        . '&numSecu=' . $donnee['NumSecu'] . '">Supprimer</a></td>';
+        echo '<td>' . $donnee['id_usager'] . '</td>';
+        echo '<td>' . $donnee['nom'] . '</td>';
+        echo '<td>' . $donnee['prenom'] . '</td>';
+        echo '<td>' . $donnee['civilite'] . '</td>';
+        echo '<td>' . $donnee['adresse'] . '</td>';
+        echo '<td>' . $donnee['ville'] . '</td>';
+        echo '<td>' . $donnee['code_postal'] . '</td>';
+        echo '<td>' . date('d/m/Y', strtotime($donnee['date_nais'])) . '</td>';
+        echo '<td>' . $donnee['sexe'] . '</td>';
+        echo '<td>' . $donnee['lieu_nais'] . '</td>';
+        echo '<td>' . $donnee['num_secu'] . '</td>';
+        echo '<td><a href="modifierPatient.php?id=' . $donnee['id_usager'] . '&nom=' . $donnee['nom'] . '&prenom=' . $donnee['prenom'] 
+        . '&adresse=' . $donnee['adresse'] . '&ville='. $donnee['ville'] . '&code_postal=' . $donnee['code_postal'] . '&sexe=' . $donnee["sexe"]
+        . '&date_nais=' . $donnee['date_nais'] . '&lieu_nais=' . $donnee['lieu_nais'] 
+        . '&num_secu=' . $donnee['num_secu'] . '">Modifier</a> | 
+        <a href="supprimerPatient.php?id=' . $donnee['id_usager'] . '&nom=' . $donnee['nom'] . '&prenom='
+        . '&num_secu=' . $donnee['num_secu'] . '">Supprimer</a></td>';
         echo '</tr>';
     }
     

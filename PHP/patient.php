@@ -4,22 +4,26 @@
         private $nom;
         private $prenom;
         private $civilite;
-        private $dateNaissance;
+        private $date_nais;
         private $adresse;
-        private $lieuNaissance;
-        private $numSecu;
-        private $idMedecin;
+        private $ville;
+        private $code_postal;
+        private $sexe;
+        private $lieu_nais;
+        private $num_secu;
 
         // Constructeur
-        public function __construct($civilite, $nom, $prenom, $adresse, $dateNaissance, $lieuNaissance, $numSecu, $idMedecin){
+        public function __construct($civilite, $nom, $prenom, $adresse, $ville, $code_postal, $date_nais, $lieu_nais, $num_secu, $sexe){
             $this->nom = $nom;
             $this->prenom = $prenom;
             $this->civilite = $civilite;
-            $this->dateNaissance = $dateNaissance;
+            $this->date_nais = $date_nais;
             $this->adresse = $adresse;
-            $this->lieuNaissance = $lieuNaissance;
-            $this->numSecu = $numSecu;
-            $this->idMedecin = $idMedecin;
+            $this->ville = $ville;
+            $this->code_postal = $code_postal;
+            $this->lieu_nais = $lieu_nais;
+            $this->num_secu = $num_secu;
+            $this->sexe = $sexe;
         }
 
         // Getters
@@ -36,7 +40,7 @@
         }
 
         public function getDateNaissance(){
-            return $this->dateNaissance;
+            return $this->date_nais;
         }
 
         public function getAdresse(){
@@ -44,15 +48,23 @@
         }
 
         public function getLieuNaissance(){
-            return $this->lieuNaissance;
+            return $this->lieu_nais;
         }
 
         public function getNumSecu(){
-            return $this->numSecu;
+            return $this->num_secu;
         }
 
-        public function getIdMedecin(){
-            return $this->idMedecin;
+        public function getSexe(){
+            return $this->sexe;
+        }
+
+        public function getCodePostal(){
+            return $this->code_postal;
+        }
+
+        public function getVille(){
+            return $this->ville;
         }
 
         // Setters
@@ -69,24 +81,33 @@
         }
 
         public function setDateNaissance($dateNaissance){
-            $this->dateNaissance = $dateNaissance;
+            $this->date_nais = $dateNaissance;
         }
 
         public function setAdresse($adresse){
             $this->adresse = $adresse;
         }
 
-        public function setLieuNaissance($lieuNaissance){
-            $this->lieuNaissance = $lieuNaissance;
+        public function setLieuNaissance($lieu_nais){
+            $this->lieu_nais = $lieu_nais;
         }
 
-        public function setNumSecu($numSecu){
-            $this->numSecu = $numSecu;
+        public function setNum_secu($num_secu){
+            $this->num_secu = $num_secu;
+        }
+        
+        public function setSexe($sexe){
+            $this->sexe = $sexe;
+        }
+        
+        public function setCodePostal($code_postal){
+            $this->codePostal = $code_postal;
+        }
+        
+        public function setVille($ville){
+            $this->ville = $ville;
         }
 
-        public function setIdMedecin($idMedecin){
-            $this->idMedecin = $idMedecin;
-        }
     }
 
 ?>
