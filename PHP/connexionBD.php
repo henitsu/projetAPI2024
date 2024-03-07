@@ -2,7 +2,7 @@
     // Connexion à la base de données
     // $servname = "localhost";
     $servname = "mysql-patientele.alwaysdata.net";
-    $dbname = "patientele_db";
+    $dbname = "patientele_db_app";
     $user = "344078_etu";
     $pass = "iutinfo";
      
