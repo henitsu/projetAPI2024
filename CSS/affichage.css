@@ -1,0 +1,44 @@
+table {
+    border-collapse: collapse;
+    margin: 20px 50px;
+}
+
+th, td {
+    border: 1px solid #D2DEEA;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #70CFE1;
+    text-align: center;
+}
+
+tr:hover {
+    background-color: #81A7CA;
+}
+
+a {
+    text-decoration: none;
+    color: #1A212E;
+}
+
+a:hover {
+    color: #D2DEEA;   
+}
+
+.creer{
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #70CFE1;
+    border-radius: 5px;
+    text-align: center;
+    width: fit-content;
+}
+
+.stats {
+    margin-left: 50px;
+}

@@ -1,0 +1,29 @@
+/* Style de base pour les éléments du formulaire */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input,
+textarea,
+select {
+    width: 300px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+
+
+button {
+    background-color: #70CFE1;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    
+}

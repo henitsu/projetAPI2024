@@ -1,0 +1,27 @@
+.box{
+    background-color: #D2DEEA;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.box:hover{
+    background-color: #81A7CA;
+    color: #fff;
+}
+
+a{
+    text-decoration: none;
+    color: #333;
+}
+
+a:hover{
+    color: #fff;
+}
+
+.grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    margin: 20px;
+}
