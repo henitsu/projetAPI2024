@@ -15,17 +15,17 @@
 			if ($_SERVER["REQUEST_METHOD"] == "GET") {
 				$nom_usager = $_GET['nom_usager'];
 				$nom_medecin = $_GET['nom_medecin'];
-				$duree = $_GET['duree'];
+				$duree_consult = $_GET['duree_consult'];
                 $date_consult = $_GET["date_consult"];
 				$heure_consult = $_GET["heure_consult"];
 
-				$sql = "SELECT consultation.id_usager, consultation.id_medecin, consultation.date_consult, consultation.heure_consult, consultation.duree 
+				$sql = "SELECT consultation.id_usager, consultation.id_medecin, consultation.date_consult, consultation.heure_consult, consultation.duree_consult 
                 FROM consultation, usager, medecin WHERE usager.Nom = :nom_usager AND medecin.Nom = :nom_medecin AND 
-                consultation.date_consult = :date_consult AND consultation.heure_consult = :heure_consult AND consultation.duree = :duree ORDER BY consultation.date_consult, consultation.heure_consult";
+                consultation.date_consult = :date_consult AND consultation.heure_consult = :heure_consult AND consultation.duree_consult = :duree_consult ORDER BY consultation.date_consult, consultation.heure_consult";
 				$stmt = $bdd->prepare($sql);
 				$stmt->bindParam(':nom_usager', $nom_usager, PDO::PARAM_STR);
 				$stmt->bindParam(':nom_medecin', $nom_medecin, PDO::PARAM_STR);
-				$stmt->bindParam(':duree', $duree, PDO::PARAM_STR);
+				$stmt->bindParam(':duree_consult', $duree_consult, PDO::PARAM_STR);
                 $stmt->bindParam(':date_consult', $date_consult, PDO::PARAM_STR);
 				$stmt->bindParam(':heure_consult', $heure_consult, PDO::PARAM_STR);
 				$stmt->execute();
@@ -47,15 +47,15 @@
 						<br><br>
 						
 						<label for="date_consult">Date :</label>
-						<input type="date-time-local" id="date_consult" name="date_consult" value="<?php echo $consultation['date_consult']; ?>" readonly="readonly"><br>
+						<input type="date" id="date_consult" name="date_consult" value="<?php echo $consultation['date_consult']; ?>" readonly="readonly"><br>
                         <br><br>
 
 						<label for="date_consult">Heure :</label>
-						<input type="date-time-local" id="heure_consult" name="heure_consult" value="<?php echo $consultation['heure_consult']; ?>" readonly="readonly"><br>
+						<input type="time" id="heure_consult" name="heure_consult" value="<?php echo $consultation['heure_consult']; ?>" readonly="readonly"><br>
                         <br><br>
 
-                        <label for="duree">Durée :</label>
-						<input type="text" id="duree" name="duree" value="<?php echo $consultation['duree']; ?>" required><br>
+                        <label for="duree_consult">Durée :</label>
+						<input type="text" id="duree_consult" name="duree_consult" value="<?php echo $consultation['duree_consult']; ?>" required><br>
 
 						<input type="submit" value="Enregistrer les modifications">
 					</form>
@@ -63,7 +63,7 @@
 				
 			<?php
 			} elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
-				$duree = $_POST['duree'];
+				$duree_consult = $_POST['duree_consult'];
                 $date_consult = $_POST["date_consult"];
 				$heure_consult = $_POST["heure_consult"];
 				$id_usager = $_GET['id_usager'];
@@ -77,12 +77,12 @@
 				$ids = $etat->fetch(PDO::FETCH_ASSOC);
 				$id = $ids['id_medecin'];
 
-                $sql = "UPDATE consultation SET duree = :duree WHERE id_usager = :id_usager and id_medecin = :id_medecin and date_consult = :date_consult AND heure_consult = :heure_consult";
+                $sql = "UPDATE consultation SET duree_consult = :duree_consult WHERE id_usager = :id_usager and id_medecin = :id_medecin and date_consult = :date_consult AND heure_consult = :heure_consult";
                 
 				$stmt = $bdd->prepare($sql);
 				$stmt->bindParam(':id_usager', $id_usager, PDO::PARAM_STR);
 				$stmt->bindParam(':id_medecin', $id, PDO::PARAM_STR);
-				$stmt->bindParam(':duree', $duree, PDO::PARAM_STR);
+				$stmt->bindParam(':duree_consult', $duree_consult, PDO::PARAM_STR);
                 $stmt->bindParam(':date_consult', $date_consult, PDO::PARAM_STR);
 				$stmt->bindParam(':heure_consult', $heure_consult, PDO::PARAM_STR);
 				$stmt->execute();

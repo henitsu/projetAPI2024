@@ -6,10 +6,10 @@
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         // Création d'un nouveau consultation
-        $consultation = new rdv($_POST["heure_consult"], $_POST['date_consult_consult'], $_POST['duree'], $_POST['id_medecin'], $_POST['id_usager']);
+        $consultation = new rdv($_POST['date_consult'], $_POST["heure_consult"], $_POST['duree_consult'], $_POST['id_medecin'], $_POST['id_usager']);
         $heure_consult_consult = $consultation->getHeure();
         $date_consult = $consultation->getDate();
-        $duree = $consultation->getDuree();
+        $duree_consult = $consultation->getDuree();
         $id_medecin = $consultation->getId_medecin();
         $id_usager = $consultation->getId_usager();
 
@@ -23,23 +23,23 @@
                     IF (SELECT COUNT(*) FROM consultation WHERE id_medecin = NEW.id_medecin and id_usager = :NEW.id_usager AND date_consult = NEW.date_consult AND heure_consult = NEW.heure_consult) > 0 THEN
                         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Il y a déjà une consultation à cette date et heure';
                     END IF;
-                    IF (SELECT COUNT(*) FROM consultation WHERE id_medecin = NEW.id_medecin AND date_consult + INTERVAL duree MINUTE < NEW.date_consult + NEW.duree 
-                    AND NEW.date_consult + INTERVAL New.duree MINUTE > date_consult AND id_usager != NEW.id_usager) > 0 THEN
+                    IF (SELECT COUNT(*) FROM consultation WHERE id_medecin = NEW.id_medecin AND date_consult + INTERVAL duree_consult MINUTE < NEW.date_consult + NEW.duree_consult 
+                    AND NEW.date_consult + INTERVAL New.duree_consult MINUTE > date_consult AND id_usager != NEW.id_usager) > 0 THEN
                         SIGNAL SQLSTATE '45001' SET MESSAGE_TEXT = 'Ce médecin sera encore en consultation à cette date et heure.';
                     END IF;                    
                 END;";
             
             $bdd->exec($sql_trigger_consultation);
 
-            $sql = "INSERT INTO consultation (id_medecin, id_usager, date_consult, heure_consult, duree)
-            VALUES(:id_medecin, :id_usager, :date_consult, :heure_consult :duree)";
+            $sql = "INSERT INTO consultation (id_medecin, id_usager, date_consult, heure_consult, duree_consult)
+            VALUES(:id_medecin, :id_usager, :date_consult, :heure_consult :duree_consult)";
 
             $stmt = $bdd->prepare($sql);
             $stmt->bindParam(':id_medecin', $id_medecin, PDO::PARAM_INT);
             $stmt->bindParam(':id_usager', $id_usager, PDO::PARAM_INT);
             $stmt->bindParam(':heure_consult', $heure_consult, PDO::PARAM_STR);
             $stmt->bindParam(':date_consult', $date_consult, PDO::PARAM_STR);
-            $stmt->bindParam(':duree', $duree, PDO::PARAM_INT);
+            $stmt->bindParam(':duree_consult', $duree_consult, PDO::PARAM_INT);
             $stmt->execute();
 
             // Stocker le message dans la variable de session
@@ -102,15 +102,15 @@
             </p>
             <p>
                 <label for="date_consult">Date :</label>
-                <input type="date_consulttime-local" name="date_consult" id="date_consult">
+                <input type="date" name="date_consult" id="date_consult">
             </p>
             <p>
                 <label for="heure_consult">Heure :</label>
-                <input type="date_consulttime-local" name="heure_consult" id="heure_consult">
+                <input type="time" name="heure_consult" id="heure_consult">
             </p>
             <p>
-                <label for="duree">Durée:</label>
-                <input type="number" name="duree" id="duree" value="30">
+                <label for="duree_consult">Durée:</label>
+                <input type="number" name="duree_consult" id="duree_consult" value="30">
             </p>
             <p>
                 <input type="submit" value="Créer le rendez-vous">
