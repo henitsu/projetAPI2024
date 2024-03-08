@@ -35,8 +35,7 @@
     
                     // Récupération du payload
                     $jwt_payload = ['user_id' => $user['id'],
-                        'login' => $user['login'], 
-                        'role' => $user['role'], 
+                        'login' => $user['login'],
                         'exp' => time()*3000];
     
                     // Le secret ??
