@@ -46,7 +46,7 @@
             $_SESSION['message'] = 'Le rendez-vous a bien été créé !';
 
             // Redirection vers la page d'affichage des médecins
-            header('Location: /PHP/affichageRDV.php');
+            header('Location: affichageRDV.php');
             exit();
 
         } catch(Exception $e){
@@ -59,9 +59,9 @@
 <head>
     <meta charset="utf-8">
     <title>Création d'une consultation</title>
-    <link rel="shortcut icon" href="/Donnees/patientele_icon.ico" />
-    <link rel="stylesheet" href="/CSS/base.css">
-    <link rel="stylesheet" href="/CSS/creation.css">
+    <link rel="shortcut icon" href="../Donnees/patientele_icon.ico" />
+    <link rel="stylesheet" href="../CSS/base.css">
+    <link rel="stylesheet" href="../CSS/creation.css">
 </head>
 <body>
     <h1>Création d'une consultation</h1>
@@ -116,6 +116,6 @@
                 <input type="submit" value="Créer le rendez-vous">
             </p> 
         </form>
-        <button onclick="window.location.href='/PHP/affichageRDV.php'">Retour</button>
+        <button onclick="window.location.href='affichageRDV.php'">Retour</button>
     </body>
 </html>

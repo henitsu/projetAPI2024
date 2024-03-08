@@ -38,16 +38,16 @@
                 <h1>Bienvenue ' . $prenom . " " . $nom . ' !</h1>
                 <div class="grid">
                     <div id="usagers" class="box">
-                        <a href="/PHP/affichagePatient.php"><h2>Usagers</h2></a>
+                        <a href="affichagePatient.php"><h2>Usagers</h2></a>
                     </div>
                     <div id="medecins" class="box">
-                        <a href="/PHP/affichageMedecin.php"><h2>Médecins</h2></a>
+                        <a href="affichageMedecin.php"><h2>Médecins</h2></a>
                     </div>
                     <div id="consultations" class="box">
-                        <a href="/PHP/affichageRDV.php"><h2>Consultations</h2></a>
+                        <a href="affichageRDV.php"><h2>Consultations</h2></a>
                     </div>
                     <div id="statistiques" class="box">
-                        <a href="/PHP/stats.php"><h2>Statistiques</h2></a>
+                        <a href="stats.php"><h2>Statistiques</h2></a>
                     </div>
                 </div>
             </main>

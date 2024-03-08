@@ -4,13 +4,13 @@
 
 <!DOCTYPE html>
 <html lang="fr">
-    <link rel="stylesheet" href="/CSS/header.css">
-    <link rel="stylesheet" href="/CSS/base.css">
+    <link rel="stylesheet" href="../CSS/header.css">
+    <link rel="stylesheet" href="../CSS/base.css">
 <body>
     <header>
             <div class="menu-container">
                 <div class="logo">
-                    <a href="/PHP/menu.php"><img src="/Donnees/doctor.png" alt="logo"></a>
+                    <a href="menu.php"><img src="../Donnees/doctor.png" alt="logo"></a>
                 </div>
                 <div class="burger-menu" onclick="toggleMenu()">
                     <div class="bar"></div>
@@ -29,16 +29,16 @@
             <div class="card hidden">
                 <ul>
                     <li>
-                        <img src="/Donnees/login.svg" alt="login">
-                        <a href="/PHP/profil.php">Compte</a>
+                        <img src="../Donnees/login.svg" alt="login">
+                        <a href="profil.php">Compte</a>
                     </li>
                     <li>
-                        <img src="/Donnees/logout.png" alt="logout">
-                        <a href="/PHP/deconnexion.php">Se déconnecter</a>
+                        <img src="../Donnees/logout.png" alt="logout">
+                        <a href="deconnexion.php">Se déconnecter</a>
                     </li>
                 </ul>
             </div>
     </header>
-    <script src="/JS/header.js"></script>
+    <script src="../JS/header.js"></script>
 </body>
 </html>

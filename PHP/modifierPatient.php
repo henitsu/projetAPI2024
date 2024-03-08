@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8">
     <title>Modification patient</title>
-	<link rel="shortcut icon" href="/Donnees/patientele_icon.ico" />
-    <link rel="stylesheet" href="/CSS/base.css">
-    <link rel="stylesheet" href="/CSS/modifier.css">
+	<link rel="shortcut icon" href="../Donnees/patientele_icon.ico" />
+    <link rel="stylesheet" href="../CSS/base.css">
+    <link rel="stylesheet" href="../CSS/modifier.css">
 </head>
 <body>
 	<?php include 'header.php';
@@ -117,5 +117,5 @@
 			echo "Erreur : " . $e->getMessage();
 		}
 	?>
-	<button onclick="window.location.href='/PHP/affichagePatient.php'">Retour</button>
+	<button onclick="window.location.href='affichagePatient.php'">Retour</button>
 </body>
