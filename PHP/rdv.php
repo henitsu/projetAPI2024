@@ -3,15 +3,15 @@
     class rdv{
         private $date_consult;
         private $heure_consult;
-        private $duree;
+        private $duree_consult;
         private $id_medecin;
         private $id_usager;
 
         // Constructeur
-        public function __construct($date_consult, $heure_consult, $duree, $id_medecin, $id_usager){
+        public function __construct($date_consult, $heure_consult, $duree_consult, $id_medecin, $id_usager){
             $this->date_consult = $date_consult;
             $this->heure_consult = $heure_consult;
-            $this->duree = $duree;
+            $this->duree_consult = $duree_consult;
             $this->id_medecin = $id_medecin;
             $this->id_usager = $id_usager;
         }
@@ -26,7 +26,7 @@
         }
 
         public function getDuree(){
-            return $this->duree;
+            return $this->duree_consult;
         }
 
         public function getId_medecin(){
@@ -38,16 +38,16 @@
         }
 
         // Setters
-        public function setDate($date){
-            $this->date_consult = $date;
+        public function setDate($date_consult){
+            $this->date_consult = $date_consult;
         }
 
-        public function setHeure($heure){
-            $this->heure_consult = $heure;
+        public function setHeure($heure_consult){
+            $this->heure_consult = $heure_consult;
         }
 
-        public function setDuree($duree){
-            $this->duree = $duree;
+        public function setDuree($duree_consult){
+            $this->duree_consult = $duree_consult;
         }
 
         public function setIdMedecin($id_medecin){
