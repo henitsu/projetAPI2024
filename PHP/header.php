@@ -18,10 +18,10 @@
                     <div class="bar"></div>
                 </div>
                 <ul class="menuheader">
-                    <li><a href="/PHP/affichagePatient.php">Usagers</a></li>
-                    <li><a href="/PHP/affichageMedecin.php">Médecins</a></li>
-                    <li><a href="/PHP/affichageRDV.php">Consultations</a></li>
-                    <li><a href="/PHP/stats.php">Statistiques</a></li>
+                    <li><a href="affichagePatient.php">Usagers</a></li>
+                    <li><a href="affichageMedecin.php">Médecins</a></li>
+                    <li><a href="affichageRDV.php">Consultations</a></li>
+                    <li><a href="stats.php">Statistiques</a></li>
                     <li><a href="#" class="display-picture"><img src="https://i.pravatar.cc/85" alt="profil"></a></li>
                 </ul>
             </div>
