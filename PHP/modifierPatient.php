@@ -29,7 +29,7 @@
 					AND adresse = :adresse
 					AND ville = :ville
 					AND code_postal = :code_postal
-					AND dateNais = :date_nais
+					AND date_nais = :date_nais
 					AND lieu_nais = :lieu_nais
 					AND num_secu = :num_secu
 					AND sexe = :sexe";

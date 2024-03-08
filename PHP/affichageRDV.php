@@ -11,7 +11,7 @@
     <?php include 'header.php'; ?>
     <h1>Affichage des consultations</h1>
     <div class="creer">
-        Ajouter une nouvelle consultation : <strong><a href="creationconsultation.php">Ajouter</a></strong>
+        Ajouter une nouvelle consultation : <strong><a href="creationRDV.php">Ajouter</a></strong>
     </div>
     <?php
 
@@ -25,7 +25,7 @@
 
     $reponseTri = $bdd->query("SELECT DISTINCT nom FROM medecin");
     $medecins = $reponseTri->fetchAll();
-    echo '<form action="affichageconsultation.php" method="post">';
+    echo '<form action="affichageRDV.php" method="post">';
     echo '<label for="medecin">Trier par médecin : </label>';
     echo '<select name="medecin" id="medecin">';
     echo '<option value="tous">Tous</option>';
@@ -40,7 +40,7 @@
     if (isset($_POST['medecin'])) {
         if ($_POST['medecin'] != 'tous') {
             $reponse = $bdd->query(
-                "SELECT DISTINCT usager.id_usager id_usager, medecin.id_medecin id_medecin, usager.nom nom_usager, medecin.nom nom_medecin, consultation.date_consultHeureconsultation, consultation.duree
+                "SELECT DISTINCT usager.id_usager id_usager, medecin.id_medecin id_medecin, usager.nom nom_usager, medecin.nom nom_medecin, consultation.date_consult, consultation.heure_consult, consultation.duree
                 FROM consultation, usager, medecin
                 WHERE consultation.id_usager = usager.id_usager AND medecin.id_medecin = consultation.id_medecin AND medecin.nom = '" . $_POST['medecin'] . "'
                 ORDER BY 2, 3");
@@ -48,7 +48,7 @@
         }
         else {
             $reponse = $bdd->query(
-                "SELECT DISTINCT usager.id_usager id_usager, medecin.id_medecin id_medecin, usager.nom nom_usager, medecin.nom nom_medecin, consultation.date_consult_consult, consultation.heure_consult, consultation.duree
+                "SELECT DISTINCT usager.id_usager id_usager, medecin.id_medecin id_medecin, usager.nom nom_usager, medecin.nom nom_medecin, consultation.date_consult, consultation.heure_consult
                 FROM consultation, usager, medecin
                 WHERE consultation.id_usager = usager.id_usager AND medecin.id_medecin = consultation.id_medecin");
             $donnees = $reponse->fetchAll();

@@ -24,7 +24,7 @@
             $_SESSION['message'] = 'Le médecin a bien été créé !';
 
             // Redirection vers la page d'affichage des médecins
-            header('Location: /PHP/affichageMedecin.php');
+            header('Location: affichageMedecin.php');
             exit();
 
         } catch(Exception $e){
