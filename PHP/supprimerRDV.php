@@ -17,22 +17,22 @@
 			try {
 				// Stockage de l'identifiant de la consultation
 				$id_consultation = $_GET['id_consultation'];	
-                $date = $_GET['date'];
-                $heure = $_GET['heure'];	
+                $date_consult = $_GET['date_consult'];
+                $heure_consult = $_GET['heure_consult'];	
 				$duree = $_GET['duree'];	
 				
 				// Utilisation de la clause WHERE avec une requête préparée
 				// Suppression RDV
-				$suppressionRDV = "DELETE FROM consultation WHERE id_consultation = :id_consultation AND date = :date AND
-                heure = :heure AND duree = :duree";
+				$suppressionRDV = "DELETE FROM consultation WHERE id_consultation = :id_consultation AND date_consult = :date_consult AND
+                heure_consult = :heure_consult AND duree = :duree";
 				
 				// Préparation des requêtes
 				$stmt = $bdd->prepare($suppressionRDV);
 				
 				// Liaison des paramètres requête suppression RDV
 				$stmt->bindParam(':id_consultation', $id_consultation, PDO::PARAM_STR);
-                $stmt->bindParam(':date', $date, PDO::PARAM_STR);
-                $stmt->bindParam(':heure', $heure, PDO::PARAM_STR);
+                $stmt->bindParam(':date_consult', $date_consult, PDO::PARAM_STR);
+                $stmt->bindParam(':heure_consult', $heure_consult, PDO::PARAM_STR);
 				$stmt->bindParam(':duree', $duree, PDO::PARAM_STR);
 
 				// Exécution des requêtes

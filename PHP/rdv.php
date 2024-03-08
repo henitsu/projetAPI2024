@@ -1,16 +1,16 @@
 <?php
     // Création de la classe RDV
     class rdv{
-        private $date;
-        private $heure;
+        private $date_consult;
+        private $heure_consult;
         private $duree;
         private $id_medecin;
         private $id_usager;
 
         // Constructeur
-        public function __construct($date, $heure, $duree, $id_medecin, $id_usager){
-            $this->date = $date;
-            $this->heure = $heure;
+        public function __construct($date_consult, $heure_consult, $duree, $id_medecin, $id_usager){
+            $this->date_consult = $date_consult;
+            $this->heure_consult = $heure_consult;
             $this->duree = $duree;
             $this->id_medecin = $id_medecin;
             $this->id_usager = $id_usager;
@@ -18,11 +18,11 @@
 
         // Getters
         public function getDate(){
-            return $this->date;
+            return $this->date_consult;
         }
 
         public function getHeure(){
-            return $this->heure;
+            return $this->heure_consult;
         }
 
         public function getDuree(){
@@ -39,11 +39,11 @@
 
         // Setters
         public function setDate($date){
-            $this->date = $date;
+            $this->date_consult = $date;
         }
 
         public function setHeure($heure){
-            $this->heure = $heure;
+            $this->heure_consult = $heure;
         }
 
         public function setDuree($duree){

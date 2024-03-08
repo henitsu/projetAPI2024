@@ -40,7 +40,7 @@
     if (isset($_POST['medecin'])) {
         if ($_POST['medecin'] != 'tous') {
             $reponse = $bdd->query(
-                "SELECT DISTINCT usager.id_usager id_usager, medecin.id_medecin id_medecin, usager.nom nom_usager, medecin.nom nom_medecin, consultation.DateHeureconsultation, consultation.duree
+                "SELECT DISTINCT usager.id_usager id_usager, medecin.id_medecin id_medecin, usager.nom nom_usager, medecin.nom nom_medecin, consultation.date_consultHeureconsultation, consultation.duree
                 FROM consultation, usager, medecin
                 WHERE consultation.id_usager = usager.id_usager AND medecin.id_medecin = consultation.id_medecin AND medecin.nom = '" . $_POST['medecin'] . "'
                 ORDER BY 2, 3");
@@ -48,7 +48,7 @@
         }
         else {
             $reponse = $bdd->query(
-                "SELECT DISTINCT usager.id_usager id_usager, medecin.id_medecin id_medecin, usager.nom nom_usager, medecin.nom nom_medecin, consultation.DateHeureconsultation, consultation.duree
+                "SELECT DISTINCT usager.id_usager id_usager, medecin.id_medecin id_medecin, usager.nom nom_usager, medecin.nom nom_medecin, consultation.date_consult_consult, consultation.heure_consult, consultation.duree
                 FROM consultation, usager, medecin
                 WHERE consultation.id_usager = usager.id_usager AND medecin.id_medecin = consultation.id_medecin");
             $donnees = $reponse->fetchAll();
@@ -56,7 +56,7 @@
     } 
     else {
         $reponse = $bdd->query(
-            "SELECT DISTINCT usager.id_usager id_usager, medecin.id_medecin id_medecin, usager.nom nom_usager, medecin.nom nom_medecin, consultation.DateHeureconsultation, consultation.duree
+            "SELECT DISTINCT usager.id_usager id_usager, medecin.id_medecin id_medecin, usager.nom nom_usager, medecin.nom nom_medecin, consultation.date_consult, consultation.heure_consult, consultation.duree
             FROM consultation, usager, medecin
             WHERE consultation.id_usager = usager.id_usager AND medecin.id_medecin = consultation.id_medecin");
         $donnees = $reponse->fetchAll();
@@ -75,9 +75,9 @@
         echo '<td>' . date('d/m/Y', strtotime($donnee['date'])) . '</td>';
         echo '<td>' . date('H:i', strtotime($donnee['heure'])) . '</td>';
         echo '<td>' . $donnee['duree'] . '</td>';
-        echo '<td><a href="modifierRDV.php?id_usager=' . $donnee['id_usager'] . '&id_medecin=' . $donnee['id_medecin'] . '&nom_usager=' . $donnee['nom_usager'] . '&nom_medecin=' . $donnee['nom_medecin'] . '&dateHeure=' . $donnee['DateHeureconsultation'] 
+        echo '<td><a href="modifierRDV.php?id_usager=' . $donnee['id_usager'] . '&id_medecin=' . $donnee['id_medecin'] . '&nom_usager=' . $donnee['nom_usager'] . '&nom_medecin=' . $donnee['nom_medecin'] . '&date_consult=' . $donnee['date_consult'] . '&heure_consult=' . $donnee['heure_consult']
         . '&duree=' . $donnee['duree'] . '">Modifier</a> | 
-        <a href="supprimerRDV.php?id_usager=' . $donnee['id_usager'] . '&id_medecin=' . $donnee['id_medecin'] . '&nom_usager=' . $donnee['nom_usager'] . '&nom_medecin=' . $donnee['nom_medecin'] . '&dateHeure=' . $donnee['DateHeureconsultation'] 
+        <a href="supprimerRDV.php?id_usager=' . $donnee['id_usager'] . '&id_medecin=' . $donnee['id_medecin'] . '&nom_usager=' . $donnee['nom_usager'] . '&nom_medecin=' . $donnee['nom_medecin'] . '&date_consult=' . $donnee['date_consult'] . '&heure_consult=' . $donnee['heure_consult']
         . '&duree=' . $donnee['duree'] . '">Supprimer</a></td>';
         echo '</tr>';
         
