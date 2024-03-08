@@ -43,7 +43,7 @@
             $_SESSION['message'] = 'Le patient a bien été créé !';
 
             // Redirection vers la page d'affichage des médecins
-            header('Location: /PHP/affichagePatient.php');
+            header('Location: affichagePatient.php');
             exit();
 
         } catch(Exception $e){
@@ -57,9 +57,9 @@
     <head>
         <meta charset="utf-8">
         <title>Création d'un patient</title>
-        <link rel="shortcut icon" href="/Donnees/patientele_icon.ico" />
-        <link rel="stylesheet" href="/CSS/base.css">
-        <link rel="stylesheet" href="/CSS/creation.css">
+        <link rel="shortcut icon" href="../Donnees/patientele_icon.ico" />
+        <link rel="stylesheet" href="../CSS/base.css">
+        <link rel="stylesheet" href="../CSS/creation.css">
     </head>
     <body>
         <h1>Création d'un patient</h1>
@@ -112,6 +112,6 @@
                 <input type="submit" value="Créer le patient">
             </p>
         </form>
-    <button onclick="window.location.href='/PHP/affichagePatient.php'">Retour</button>
+    <button onclick="window.location.href='affichagePatient.php'">Retour</button>
     </body>
 </html>

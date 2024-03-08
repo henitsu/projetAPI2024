@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8">
     <title>Gestion d'un cabinet médical</title>
-    <link rel="shortcut icon" href="/Donnees/patientele_icon.ico" />
-    <link rel="stylesheet" href="/CSS/base.css">
-    <link rel="stylesheet" href="/CSS/affichage.css">
+    <link rel="shortcut icon" href="../Donnees/patientele_icon.ico" />
+    <link rel="stylesheet" href="../CSS/base.css">
+    <link rel="stylesheet" href="../CSS/affichage.css">
 </head>
 <body>
     <?php include 'header.php'; ?>

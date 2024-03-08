@@ -2,8 +2,8 @@
 <html>
     <head>
         <title>Suppression d'un médecin</title>
-		<link rel="shortcut icon" href="/Donnees/patientele_icon.ico" />
-		<link rel="stylesheet" href="/CSS/base.css">
+		<link rel="shortcut icon" href="../Donnees/patientele_icon.ico" />
+		<link rel="stylesheet" href="../CSS/base.css">
         <meta charset='utf-8'>
     </head>
     <body>
@@ -48,7 +48,7 @@
 				catch(PDOException) {
 					$_SESSION['message'] = "Le médecin est un référent auprès d'autres patients, il ne peut pas être supprimé.";
 					// Redirection vers la page d'affichage des médecins
-					header('Location: /PHP/affichageMedecin.php');
+					header('Location: affichageMedecin.php');
 					exit();
 				}
 				

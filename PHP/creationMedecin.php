@@ -38,9 +38,9 @@
     <head>
         <meta charset="utf-8">
         <title>Création d'un médecin</title>
-        <link rel="shortcut icon" href="/Donnees/patientele_icon.ico" />
-        <link rel="stylesheet" href="/CSS/base.css">
-        <link rel="stylesheet" href="/CSS/creation.css">
+        <link rel="shortcut icon" href="../Donnees/patientele_icon.ico" />
+        <link rel="stylesheet" href="../CSS/base.css">
+        <link rel="stylesheet" href="../CSS/creation.css">
     </head>
     <body>
         <h1>Création d'un médecin</h1>
@@ -65,7 +65,7 @@
                 <input type="submit" value="Créer le médecin">
             </p>
         </form>
-        <button onclick="window.location.href='/PHP/affichageMedecin.php'">Retour</button>
+        <button onclick="window.location.href='affichageMedecin.php'">Retour</button>
     </body>
     
 </html>

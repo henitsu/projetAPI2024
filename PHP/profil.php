@@ -16,9 +16,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Profil</title>
-    <link rel="shortcut icon" href="/Donnees/patientele_icon.ico" />
-    <link rel="stylesheet" href="/CSS/base.css">
-    <link rel="stylesheet" href="/CSS/profil.css">
+    <link rel="shortcut icon" href="../Donnees/patientele_icon.ico" />
+    <link rel="stylesheet" href="../CSS/base.css">
+    <link rel="stylesheet" href="../CSS/profil.css">
 </head>
 <body>
     <main>

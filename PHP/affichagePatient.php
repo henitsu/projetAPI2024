@@ -3,15 +3,15 @@
 <head>
     <meta charset="utf-8">
     <title>Gestion d'un cabinet médical</title>
-    <link rel="shortcut icon" href="/Donnees/patientele_icon.ico" />
-    <link rel="stylesheet" href="/CSS/base.css">
-    <link rel="stylesheet" href="/CSS/affichage.css">
+    <link rel="shortcut icon" href="../Donnees/patientele_icon.ico" />
+    <link rel="stylesheet" href="../CSS/base.css">
+    <link rel="stylesheet" href="../CSS/affichage.css">
 </head>
 <body>
     <?php include 'header.php'; ?>
     <h1>Affichage des patients</h1>
     <div class="creer">
-        Ajouter un nouveau patient : <strong><a href="/PHP/creationPatient.php">Ajouter</a></strong>
+        Ajouter un nouveau patient : <strong><a href="creationPatient.php">Ajouter</a></strong>
     </div>
     <?php
     // Connexion à la base de données

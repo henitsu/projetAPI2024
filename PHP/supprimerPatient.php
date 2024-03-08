@@ -2,8 +2,8 @@
 <html>
     <head>
         <title>Suppression d'un usager</title>
-		<link rel="shortcut icon" href="/Donnees/patientele_icon.ico" />
-		<link rel="stylesheet" href="/CSS/base.css">
+		<link rel="shortcut icon" href="../Donnees/patientele_icon.ico" />
+		<link rel="stylesheet" href="../CSS/base.css">
         <meta charset='utf-8'>
     </head>
     <body>
@@ -44,7 +44,7 @@
 				$_SESSION['message'] = "Le patient a été supprimé avec succès";;
 
 				// Redirection vers la page d'affichage des médecins
-				header('Location: /PHP/affichagePatient.php');
+				header('Location: affichagePatient.php');
 				exit();
 				
 			} catch(PDOException $e) {
