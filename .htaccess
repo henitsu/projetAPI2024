@@ -30,4 +30,4 @@ RewriteRule ^stats/medecins stats/medecins/index.php [L]
 RewriteRule ^stats/usagers stats/usagers/index.php [L]
 
 ## Pour l'utilisation de AuthAPI
-RewriteRule authapi authapi.php [L]
+RewriteRule ^authapi/authapi authapi/authapi.php [L]
