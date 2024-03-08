@@ -40,7 +40,7 @@
                         'exp' => time()*3000];
     
                     // Le secret ??
-                    $jwt_secret = "Chut !";
+                    $jwt_secret = "Un truc random hehe";
     
                     // Création du token
                     $jwt_token = generate_jwt($jwt_headers, $jwt_payload, $jwt_secret);
