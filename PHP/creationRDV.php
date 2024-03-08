@@ -7,7 +7,7 @@
     if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         // Création d'un nouveau consultation
         $consultation = new rdv($_POST['date_consult'], $_POST["heure_consult"], $_POST['duree_consult'], $_POST['id_medecin'], $_POST['id_usager']);
-        $heure_consult_consult = $consultation->getHeure();
+        $heure_consult = $consultation->getHeure();
         $date_consult = $consultation->getDate();
         $duree_consult = $consultation->getDuree();
         $id_medecin = $consultation->getId_medecin();
@@ -16,6 +16,7 @@
         // Ajout du consultation dans la BD
         try{
 
+            /*
             $sql_trigger_consultation = "
                 CREATE OR REPLACE TRIGGER consultation_avant_insert BEFORE INSERT ON consultation
                 FOR EACH ROW
@@ -27,12 +28,12 @@
                     AND NEW.date_consult + INTERVAL New.duree_consult MINUTE > date_consult AND id_usager != NEW.id_usager) > 0 THEN
                         SIGNAL SQLSTATE '45001' SET MESSAGE_TEXT = 'Ce médecin sera encore en consultation à cette date et heure.';
                     END IF;                    
-                END;";
+                END";
             
             $bdd->exec($sql_trigger_consultation);
-
+*/
             $sql = "INSERT INTO consultation (id_medecin, id_usager, date_consult, heure_consult, duree_consult)
-            VALUES(:id_medecin, :id_usager, :date_consult, :heure_consult :duree_consult)";
+            VALUES(:id_medecin, :id_usager, :date_consult, :heure_consult, :duree_consult)";
 
             $stmt = $bdd->prepare($sql);
             $stmt->bindParam(':id_medecin', $id_medecin, PDO::PARAM_INT);
@@ -67,8 +68,8 @@
     <h1>Création d'une consultation</h1>
         <form method="POST" action="creationRDV.php">
             <p>
-                <label for="patient">Patient:</label>
-                <select name="patient" id="patient">
+                <label for="id_usager">Patient:</label>
+                <select name="id_usager" id="id_usager">
                     <?php
                         // Récupération des patients
                         $sql = "SELECT * FROM usager";
@@ -84,8 +85,8 @@
                 </select>
             </p>
             <p>
-                <label for="medecin">Médecin :</label>
-                <select name="medecin" id="medecin">
+                <label for="id_medecin">Médecin :</label>
+                <select name="id_medecin" id="id_medecin">
                     <?php
                         // Récupération des médecins
                         $sql = "SELECT * FROM medecin";

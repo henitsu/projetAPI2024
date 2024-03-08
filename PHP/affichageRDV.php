@@ -72,8 +72,8 @@
         echo '<tr>';
         echo '<td>' . $donnee['nom_medecin'] . '</td>';
         echo '<td>' . $donnee['nom_usager'] . '</td>';
-        echo '<td>' . date('d/m/Y', strtotime($donnee['date'])) . '</td>';
-        echo '<td>' . date('H:i', strtotime($donnee['heure'])) . '</td>';
+        echo '<td>' . date('d/m/Y', strtotime($donnee['date_consult'])) . '</td>';
+        echo '<td>' . date('H:i', strtotime($donnee['heure_consult'])) . '</td>';
         echo '<td>' . $donnee['duree_consult'] . '</td>';
         echo '<td><a href="modifierRDV.php?id_usager=' . $donnee['id_usager'] . '&id_medecin=' . $donnee['id_medecin'] . '&nom_usager=' . $donnee['nom_usager'] . '&nom_medecin=' . $donnee['nom_medecin'] . '&date_consult=' . $donnee['date_consult'] . '&heure_consult=' . $donnee['heure_consult']
         . '&duree_consult=' . $donnee['duree_consult'] . '">Modifier</a> | 

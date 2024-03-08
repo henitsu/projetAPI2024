@@ -14,7 +14,8 @@
 
         require 'connexionBD.php';
 
-        $reponseNbFemmesMoins25Ans = $bdd->query("SELECT COUNT(*) NbFemmes FROM usager WHERE DATEDIFF(DATE_FORMAT(DATE(NOW()), '%Y-%m-%d'), date_nais) < 9125 AND sexe='F'");
+
+        $reponseNbFemmesMoins25Ans = $bdd->query("SELECT COUNT(*) NbFemmes from  usager WHERE DATEDIFF(DATE(NOW()), date_nais) > 9125");
         $nbFemmesMoins25Ans = $reponseNbFemmesMoins25Ans->fetchAll(); 
 
         $reponseFemmesMilieu = $bdd->query("SELECT COUNT(*) NbFemmes FROM usager WHERE sexe='F' AND DATEDIFF(DATE_FORMAT(DATE(NOW()), '%Y-%m-%d'), date_nais) BETWEEN 9125 AND 14600");
