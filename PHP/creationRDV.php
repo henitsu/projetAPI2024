@@ -1,59 +1,6 @@
 <?php
     // Inclusion de la classe Patient et de la BD
     include 'header.php';
-    require 'rdv.php';
-    require 'connexionBD.php';
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-        // Création d'un nouveau consultation
-        $consultation = new rdv($_POST['date_consult'], $_POST["heure_consult"], $_POST['duree_consult'], $_POST['id_medecin'], $_POST['id_usager']);
-        $heure_consult = $consultation->getHeure();
-        $date_consult = $consultation->getDate();
-        $duree_consult = $consultation->getDuree();
-        $id_medecin = $consultation->getId_medecin();
-        $id_usager = $consultation->getId_usager();
-
-        // Ajout du consultation dans la BD
-        try{
-
-            /*
-            $sql_trigger_consultation = "
-                CREATE OR REPLACE TRIGGER consultation_avant_insert BEFORE INSERT ON consultation
-                FOR EACH ROW
-                BEGIN
-                    IF (SELECT COUNT(*) FROM consultation WHERE id_medecin = NEW.id_medecin and id_usager = :NEW.id_usager AND date_consult = NEW.date_consult AND heure_consult = NEW.heure_consult) > 0 THEN
-                        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Il y a déjà une consultation à cette date et heure';
-                    END IF;
-                    IF (SELECT COUNT(*) FROM consultation WHERE id_medecin = NEW.id_medecin AND date_consult + INTERVAL duree_consult MINUTE < NEW.date_consult + NEW.duree_consult 
-                    AND NEW.date_consult + INTERVAL New.duree_consult MINUTE > date_consult AND id_usager != NEW.id_usager) > 0 THEN
-                        SIGNAL SQLSTATE '45001' SET MESSAGE_TEXT = 'Ce médecin sera encore en consultation à cette date et heure.';
-                    END IF;                    
-                END";
-            
-            $bdd->exec($sql_trigger_consultation);
-*/
-            $sql = "INSERT INTO consultation (id_medecin, id_usager, date_consult, heure_consult, duree_consult)
-            VALUES(:id_medecin, :id_usager, :date_consult, :heure_consult, :duree_consult)";
-
-            $stmt = $bdd->prepare($sql);
-            $stmt->bindParam(':id_medecin', $id_medecin, PDO::PARAM_INT);
-            $stmt->bindParam(':id_usager', $id_usager, PDO::PARAM_INT);
-            $stmt->bindParam(':heure_consult', $heure_consult, PDO::PARAM_STR);
-            $stmt->bindParam(':date_consult', $date_consult, PDO::PARAM_STR);
-            $stmt->bindParam(':duree_consult', $duree_consult, PDO::PARAM_INT);
-            $stmt->execute();
-
-            // Stocker le message dans la variable de session
-            $_SESSION['message'] = 'Le rendez-vous a bien été créé !';
-
-            // Redirection vers la page d'affichage des médecins
-            header('Location: affichageRDV.php');
-            exit();
-
-        } catch(Exception $e){
-            echo 'Erreur : '.$e->getMessage();
-        }
-    }
 ?>
 <!DOCTYPE html>
 <html lang="fr">
