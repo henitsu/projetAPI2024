@@ -14,7 +14,7 @@
 				<h1>Authentification</h1>
 				<input name="identifiant" type="text" placeholder="Identifiant" />
 				<input type="password" placeholder="Mot de passe" />
-				<p>Entrez n'importe quel mot de passe</p>
+				<p>Mot de passe oublié ? Consultez le README</p>
 				<button>Se connecter</button>
 			</form>
 		</div>

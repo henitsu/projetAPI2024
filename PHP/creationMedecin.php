@@ -1,36 +1,5 @@
 <?php
-    // Inclusion de la classe Medecin et de la BD
     include 'header.php';
-    require 'medecin.php';
-    require 'connexionBD.php';
-
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        // Création d'un nouveau medecin
-        $medecin = new Medecin($_POST['civilite'], $_POST['nom'], $_POST['prenom']);
-        $civilite = $medecin->getCivilite();
-        $nom = $medecin->getNom();
-        $prenom = $medecin->getPrenom();
-
-        // Ajout du patient dans la BD
-        try{
-            $sql = "INSERT INTO medecin (civilite, nom, prenom) VALUES (:civilite, :nom, :prenom)";
-            $stmt = $bdd->prepare($sql);
-            $stmt->bindParam(':civilite', $civilite, PDO::PARAM_STR);
-            $stmt->bindParam(':nom', $nom, PDO::PARAM_STR);
-            $stmt->bindParam(':prenom', $prenom, PDO::PARAM_STR);
-            $stmt->execute();
-
-            // Stocker le message dans la variable de session
-            $_SESSION['message'] = 'Le médecin a bien été créé !';
-
-            // Redirection vers la page d'affichage des médecins
-            header('Location: affichageMedecin.php');
-            exit();
-
-        } catch(Exception $e){
-            echo 'Erreur : '.$e->getMessage();
-        }  
-    }
 ?>
 
 <!DOCTYPE html>
@@ -44,7 +13,7 @@
     </head>
     <body>
         <h1>Création d'un médecin</h1>
-        <form action="creationMedecin.php" method="post">
+        <form action="/cabmed/medecins/creationMedecin.php" method="post">
             <p>
                 <label for="civilite">Civilité :</label>
                 <select name="civilite" id="civilite" required>
@@ -54,7 +23,7 @@
                 </select>
             </p>
             <p>
-                <label for="nom">nom :</label>
+                <label for="nom">Nom :</label>
                 <input type="text" name="nom" id="nom" required>
             </p>
             <p>
