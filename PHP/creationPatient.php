@@ -1,55 +1,5 @@
 <?php
-    // Inclusion de la classe Patient et de la BD
     include 'header.php';
-    require 'patient.php';
-    require 'connexionBD.php';
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-        // Création d'un nouveau patient
-        $patient = new Patient($_POST['civilite'], $_POST['nom'], $_POST['prenom'],
-            $_POST['adresse'], $_POST['ville'], $_POST['code_postal'], 
-            $_POST['date_nais'], $_POST['lieu_nais'], $_POST['sexe'],
-            $_POST['num_secu']);
-        $civilite = $patient->getcivilite();
-        $nom = $patient->getnom();
-        $prenom = $patient->getprenom();
-        $adresse = $patient->getAdresse();
-        $code_postal = $patient->getCodePostal();
-        $ville = $patient->getVille();
-        $date_nais = date('Y-m-d', strtotime($patient->getDateNaissance()));
-        $lieu_nais = $patient->getLieuNaissance();
-        $num_secu = $patient->getNumSecu();
-        $sexe = $patient->getSexe();
-
-        // Ajout du patient dans la BD
-        try{
-            $sql = "INSERT INTO usager
-                (civilite, nom, prenom, adresse, ville, code_postal, date_nais, lieu_nais, num_secu, sexe)
-                VALUES(:civilite, :nom, :prenom, :adresse, :ville, :code_postal, :date_nais, :lieu_nais, :num_secu, :sexe)";
-            $stmt = $bdd->prepare($sql);
-            $stmt->bindParam(':civilite', $civilite, PDO::PARAM_STR);
-            $stmt->bindParam(':nom', $nom, PDO::PARAM_STR);
-            $stmt->bindParam(':prenom', $prenom, PDO::PARAM_STR);
-            $stmt->bindParam(':adresse', $adresse, PDO::PARAM_STR);
-            $stmt->bindParam(':ville', $ville, PDO::PARAM_STR);
-            $stmt->bindParam(':code_postal', $code_postal, PDO::PARAM_STR);
-            $stmt->bindParam(':date_nais', $date_nais, PDO::PARAM_STR);
-            $stmt->bindParam(':lieu_nais', $lieu_nais, PDO::PARAM_STR);
-            $stmt->bindParam(':num_secu', $num_secu, PDO::PARAM_STR);
-            $stmt->bindParam(':sexe', $sexe, PDO::PARAM_INT);
-            $stmt->execute();
-            
-            // Stocker le message dans la variable de session
-            $_SESSION['message'] = 'Le patient a bien été créé !';
-
-            // Redirection vers la page d'affichage des médecins
-            header('Location: affichagePatient.php');
-            exit();
-
-        } catch(Exception $e){
-            echo 'Erreur : '.$e->getMessage();
-        }
-    }
 ?>
 
 <!DOCTYPE html>
