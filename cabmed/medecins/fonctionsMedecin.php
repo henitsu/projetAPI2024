@@ -7,13 +7,6 @@
     // FONCTIONS de gestion des médecins
     // POST
     function createMedecin($linkpdo, $nom, $prenom, $civilite){
-        // if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            // Création d'un nouveau medecin
-            // $medecin = new Medecin($_POST['civilite'], $_POST['nom'], $_POST['prenom']);
-            // $civilite = $medecin->getCivilite();
-            // $nom = $medecin->getNom();
-            // $prenom = $medecin->getPrenom();
-    
         // Ajout du patient dans la BD
         try{
             $sql = "INSERT INTO medecin (civilite, nom, prenom) VALUES (:civilite, :nom, :prenom)";
@@ -31,7 +24,7 @@
             $id = $linkpdo->lastInsertId();
             $linkpdo->commit();
             
-            deliverResponse(200, "Phrase rajoutée", $id);
+            deliverResponse(200, "Médecin rajouté", $id);
         } catch(Exception $e){
             echo 'Erreur : '.$e->getMessage();
         }  
