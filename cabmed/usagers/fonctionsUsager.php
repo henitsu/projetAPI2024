@@ -20,10 +20,10 @@
         }
         $resExec=$sth->execute();
         if(!$resExec){
-            deliver_response(500, "Erreur serveur", NULL);
+            deliverResponse(500, "Erreur serveur", NULL);
             die('Erreur Exécution Requête : ');
         }
-        deliver_response(200, "OK (récupération patient(s))", $sth->fetchAll(PDO::FETCH_ASSOC));
+        deliverResponse(200, "OK (récupération patient(s))", $sth->fetchAll(PDO::FETCH_ASSOC));
     }
 
 
@@ -53,7 +53,7 @@
 
         $resExec=$sth->execute();
         if(!$resExec){
-            deliver_response(500, "Erreur serveur", NULL);
+            deliverResponse(500, "Erreur serveur", NULL);
             die('Erreur Exécution Requête : ');
         }
 
@@ -61,7 +61,7 @@
 
         $linkpdo->commit(); // Fin de la transaction et application des données
 
-        deliver_response(201, "Patient créé ", $newId);
+        deliverResponse(201, "Patient créé ", $newId);
 
     }  
     
@@ -94,12 +94,12 @@
             $stmtM->execute();
             $rowCount = $stmt->rowCount();
             if ($rowCount === 0) {
-                deliver_response(200, "Aucune modification nécessaire", 0);
+                deliverResponse(200, "Aucune modification nécessaire", 0);
             } else {
-                deliver_response(200, "Patient modifié", $stmtM->fetch());
+                deliverResponse(200, "Patient modifié", $stmtM->fetch());
             }
         } catch (PDOException $e) {
-            deliver_response(500, "Erreur lors de la modification du patient");
+            deliverResponse(500, "Erreur lors de la modification du patient");
             die('Erreur préparation/execution requête : ' . $e-> getMessage());
         }
     }
@@ -115,11 +115,11 @@
         
         $resExec=$sth->execute();
         if(!$resExec){
-            deliver_response(500, "Erreur serveur", NULL);
+            deliverResponse(500, "Erreur serveur", NULL);
             die('Erreur exécution requête : ');
         }
         
-        deliver_response(200, "Patient supprimé", $id);
+        deliverResponse(200, "Patient supprimé", $id);
     }    
     
 ?>
