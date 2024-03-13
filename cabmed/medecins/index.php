@@ -31,12 +31,12 @@
             $id = htmlspecialchars($_GET['id']);
             $modifiedData = file_get_contents('php://input');
             $data = json_decode($modifiedData,true);
-            $matchingdata = updateChuckFact($linkpdo, $id, $data);
+            $matchingdata = updateMedecin($linkpdo, $id, $data);
             echo $matchingdata;
             break;
         case 'DELETE':
             $id = htmlspecialchars($_GET['id']);
-            $matchingdata = deleteChuckFact($linkpdo, $id);
+            $matchingdata = deleteMedecin($linkpdo, $id);
             echo $matchingdata;
             break;
     }
