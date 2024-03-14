@@ -1,8 +1,8 @@
 <?php 
 
     require 'usager.php';
-    require './cabmed/connexionBD.php';
-    require './cabmed/deliverResponse.php';
+    require '../connexionBD.php';
+    require '../deliverResponse.php';
 
     function getPatients($linkpdo, $id = null){
         if (isset($id)){

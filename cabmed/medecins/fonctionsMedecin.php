@@ -1,8 +1,8 @@
 <?php
     // Inclusion de la classe Medecin et de la BD
     require 'medecin.php';
-    require './cabmed/connexionBD.php';
-    require './cabmed/deliverResponse.php';
+    require '../connexionBD.php';
+    require '../deliverResponse.php';
 
     // FONCTIONS de gestion des médecins
     // POST
@@ -18,8 +18,8 @@
             $linkpdo->beginTransaction();
             $res = $stmt->execute();
             if(!$res){
-                die('Erreur exécution requête : '.$stmt->errorInfo()[2]);
                 deliverResponse(500, "Erreur lors de l'ajout de la phrase", null);
+                die('Erreur exécution requête : '.$stmt->errorInfo()[2]);
             }
             $id = $linkpdo->lastInsertId();
             $linkpdo->commit();

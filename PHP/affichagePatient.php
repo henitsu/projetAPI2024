@@ -14,46 +14,41 @@
         Ajouter un nouveau patient : <strong><a href="creationPatient.php">Ajouter</a></strong>
     </div>
     <?php
-    // Connexion à la base de données
-    require 'connexionBD.php';
+    // Connexion à l'API pour récupérer les données des patients
+    $url = 'http://localhost/API/projetAPI2024/cabmed/usagers/index.php';
+    $response = file_get_contents($url);
+    $patients = json_decode($response, true);
 
-    // Vérifier s'il y a un message dans la variable de session
-    if(isset($_SESSION['message'])){
-        echo '<p>' . $_SESSION['message'] . '</p>';
-        // Supprimer le message de la variable de session pour éviter qu'il ne soit affiché à chaque chargement de la page
-        unset($_SESSION['message']);
+    if ($patients !== null && !empty($patients)) {
+        echo '<table border="1">';
+        echo '<tr><th>ID</th><th>Nom</th><th>Prénom</th><th>Civilité</th><th>Adresse</th><th>Ville</th><th>Code postal</th>
+        <th>Sexe</th><th>Date naissance</th><th>Lieu naissance</th><th>Numéro sécurité sociale</th><th>Action</th></tr>';
+
+        foreach ($patients as $patient) {
+            echo '<tr>';
+            echo '<td>' . $patient['id'] . '</td>';
+            echo '<td>' . $patient['nom'] . '</td>';
+            echo '<td>' . $patient['prenom'] . '</td>';
+            echo '<td>' . $patient['civilite'] . '</td>';
+            echo '<td>' . $patient['adresse'] . '</td>';
+            echo '<td>' . $patient['ville'] . '</td>';
+            echo '<td>' . $patient['code_postal'] . '</td>';
+            echo '<td>' . $patient['sexe'] . '</td>';
+            echo '<td>' . date('d/m/Y', strtotime($patient['date_nais'])) . '</td>';
+            echo '<td>' . $patient['lieu_nais'] . '</td>';
+            echo '<td>' . $patient['num_secu'] . '</td>';
+            echo '<td><a href="modifierPatient.php?id=' . $patient['id'] . '&nom=' . $patient['nom'] . '&prenom=' . $patient['prenom'] 
+            . '&adresse=' . $patient['adresse'] . '&ville='. $patient['ville'] . '&code_postal=' . $patient['code_postal'] . '&sexe=' . $patient["sexe"]
+            . '&date_nais=' . $patient['date_nais'] . '&lieu_nais=' . $patient['lieu_nais'] 
+            . '&num_secu=' . $patient['num_secu'] . '">Modifier</a> | 
+            <a href="supprimerPatient.php?id=' . $patient['id'] . '&nom=' . $patient['nom'] . '&prenom='
+            . '&num_secu=' . $patient['num_secu'] . '">Supprimer</a></td>';
+            echo '</tr>';
+        }
+        echo '</table>';
+    } else {
+        echo "<p>Aucun patient trouvé.</p>";
     }
-
-    $reponse = $bdd->query("SELECT * FROM usager");
-    $donnees = $reponse->fetchAll();
-    echo '<table border="1">';
-    echo '<tr><th>ID</th><th>Nom</th><th>Prénom</th><th>Civilité</th><th>adresse</th><th>Ville</th><th>Code postal</th>
-    <th>Sexe</th><th>Date naissance</th><th>Lieu naissance</th><th>Numéro sécurité sociale</th><th>Action</th></tr>';
-
-    foreach ($donnees as $donnee) {
-        // Affiche les résultats
-        
-        echo '<tr>';
-        echo '<td>' . $donnee['id_usager'] . '</td>';
-        echo '<td>' . $donnee['nom'] . '</td>';
-        echo '<td>' . $donnee['prenom'] . '</td>';
-        echo '<td>' . $donnee['civilite'] . '</td>';
-        echo '<td>' . $donnee['adresse'] . '</td>';
-        echo '<td>' . $donnee['ville'] . '</td>';
-        echo '<td>' . $donnee['code_postal'] . '</td>';
-        echo '<td>' . date('d/m/Y', strtotime($donnee['date_nais'])) . '</td>';
-        echo '<td>' . $donnee['sexe'] . '</td>';
-        echo '<td>' . $donnee['lieu_nais'] . '</td>';
-        echo '<td>' . $donnee['num_secu'] . '</td>';
-        echo '<td><a href="modifierPatient.php?id=' . $donnee['id_usager'] . '&nom=' . $donnee['nom'] . '&prenom=' . $donnee['prenom'] 
-        . '&adresse=' . $donnee['adresse'] . '&ville='. $donnee['ville'] . '&code_postal=' . $donnee['code_postal'] . '&sexe=' . $donnee["sexe"]
-        . '&date_nais=' . $donnee['date_nais'] . '&lieu_nais=' . $donnee['lieu_nais'] 
-        . '&num_secu=' . $donnee['num_secu'] . '">Modifier</a> | 
-        <a href="supprimerPatient.php?id=' . $donnee['id_usager'] . '&nom=' . $donnee['nom'] . '&prenom='
-        . '&num_secu=' . $donnee['num_secu'] . '">Supprimer</a></td>';
-        echo '</tr>';
-    }
-    
-    echo '</table>';
     ?>
 </body>
+</html>
