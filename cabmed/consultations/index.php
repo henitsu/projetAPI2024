@@ -9,11 +9,11 @@
         case "GET" :
             // Lecture 
             if(!isset($_GET['id'])) {
-                echo getConsultations($bdd, null);
+                echo getConsultations($linkpdo, null);
             }
             else {
                 $id = htmlspecialchars($_GET['id']);
-                echo getConsultations($bdd, $id);
+                echo getConsultations($linkpdo, $id);
             }
             break;
         
@@ -24,7 +24,7 @@
             $data = json_decode($postedData, true); // Reçoit du json et renvoie une adaptation exploitable en php. 
             // Le paramètre true impose un tableau en retour et non un objet.
             
-            echo createConsultation($bdd, $data['id_medecin'], $data['id_patient'], $data['date_consult'], $data['heure_consult'], $data['duree_consult']);
+            echo createConsultation($linkpdo, $data['id_medecin'], $data['id_patient'], $data['date_consult'], $data['heure_consult'], $data['duree_consult']);
             break;
         
         case "PATCH":
@@ -34,7 +34,7 @@
             // Récupération des données dans le corps
             $modifiedData = file_get_contents('php://input');
             $data = json_decode($modifiedData, true);
-            echo updateConsultation($bdd, $id, $data);
+            echo updateConsultation($linkpdo, $id, $data);
 
             break;
         
@@ -45,7 +45,7 @@
                 deliverResponse(404, "Requête mal formée", NULL);
             }
 
-            echo deleteConsultation($bdd, $id);
+            echo deleteConsultation($linkpdo, $id);
                      
             break;
         

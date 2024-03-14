@@ -12,18 +12,18 @@
             $id = null;
             if(!isset($_GET['id']))
             {
-                $matchingdata = getMedecins($bdd, $id);
+                $matchingdata = getMedecins($linkpdo, $id);
                 echo $matchingdata;
             } else {
                 $id=htmlspecialchars($_GET['id']);
-                $matchingdata = getMedecins($bdd, $id);
+                $matchingdata = getMedecins($linkpdo, $id);
                 echo $matchingdata;
             }
             break;
         case 'POST':
             $postedData = file_get_contents('php://input');
             $data = json_decode($postedData, true);
-            $matchingdata = createMedecin($bdd, $data['nom'], $data['prenom'], $data['civilite']);
+            $matchingdata = createMedecin($linkpdo, $data['nom'], $data['prenom'], $data['civilite']);
             echo $matchingdata;
             break;
         case 'PATCH':
@@ -31,12 +31,12 @@
             $id = htmlspecialchars($_GET['id']);
             $modifiedData = file_get_contents('php://input');
             $data = json_decode($modifiedData,true);
-            $matchingdata = updateMedecin($bdd, $id, $data);
+            $matchingdata = updateMedecin($linkpdo, $id, $data);
             echo $matchingdata;
             break;
         case 'DELETE':
             $id = htmlspecialchars($_GET['id']);
-            $matchingdata = deleteMedecin($bdd, $id);
+            $matchingdata = deleteMedecin($linkpdo, $id);
             echo $matchingdata;
             break;
     }
