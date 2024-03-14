@@ -12,7 +12,8 @@
     }
 
     function getNbFemmesMilieu($linkpdo){
-        $sql = "SELECT COUNT(*) NbFemmes from  usager WHERE sexe = 'F' DATEDIFF(DATE(NOW()), date_nais) BETWEEN 9125 AND 14600";
+        $sql = "SELECT COUNT(*) NbFemmes from  usager 
+        WHERE sexe = 'F' DATEDIFF(DATE(NOW()), date_nais) BETWEEN 9125 AND 14600";
         $stmt = $linkpdo->query($sql);
         deliverResponse(200, "OK", $stmt->fetchAll(PDO::FETCH_ASSOC));
     }
@@ -32,7 +33,8 @@
     }  
 
     function getNbHommesMilieu($linkpdo){
-        $sql = "SELECT COUNT(*) NbHommes from  usager WHERE sexe = 'H' DATEDIFF(DATE(NOW()), date_nais) BETWEEN 9125 AND 14600";
+        $sql = "SELECT COUNT(*) NbHommes from  usager 
+        WHERE sexe = 'H' DATEDIFF(DATE(NOW()), date_nais) BETWEEN 9125 AND 14600";
         $stmt = $linkpdo->query($sql);
         deliverResponse(200, "OK", $stmt->fetchAll(PDO::FETCH_ASSOC));
     }
@@ -45,7 +47,8 @@
     }
 
     function getNbHeuresConsultations($linkpdo){
-        $sql = "SELECT SUM(nbr_heures) as nbHeures FROM medecin";
+        $sql = "SELECT SUM(duree_consult)/60, medecin.nom FROM consultation, medecin 
+        WHERE medecin.id_medecin = consultation.id_medecin GROUP BY medecin.id_medecin";
         $stmt = $linkpdo->query($sql);
         deliverResponse(200, "OK", $stmt->fetchAll(PDO::FETCH_ASSOC));
     }
