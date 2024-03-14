@@ -12,28 +12,7 @@
     <h1>Statistiques</h1>
     <?php
 
-        require 'connexionBD.php';
-
-
-        $reponseNbFemmesMoins25Ans = $bdd->query("SELECT COUNT(*) NbFemmes from  usager WHERE DATEDIFF(DATE(NOW()), date_nais) > 9125");
-        $nbFemmesMoins25Ans = $reponseNbFemmesMoins25Ans->fetchAll(); 
-
-        $reponseFemmesMilieu = $bdd->query("SELECT COUNT(*) NbFemmes FROM usager WHERE sexe='F' AND DATEDIFF(DATE_FORMAT(DATE(NOW()), '%Y-%m-%d'), date_nais) BETWEEN 9125 AND 14600");
-        $nbFemmesMilieu = $reponseFemmesMilieu->fetchAll();
-
-        $reponseFemmesPlus50 = $bdd->query("SELECT COUNT(*) NbFemmes FROM usager WHERE sexe='F' AND DATEDIFF(DATE_FORMAT(DATE(NOW()), '%Y-%m-%d'), date_nais) > 14600");
-        $nbFemmesPlus50Ans = $reponseFemmesPlus50->fetchAll();
-
-
-        $reponseNbHommesMoins25Ans = $bdd->query("SELECT COUNT(*) NbHommes FROM usager WHERE sexe='H' AND DATEDIFF(DATE_FORMAT(DATE(NOW()), '%Y-%m-%d'), date_nais) < 9125");
-        $nbHommesMoins25Ans = $reponseNbHommesMoins25Ans->fetchAll();    
-
-        $reponseHommesMilieu = $bdd->query("SELECT COUNT(*) NbHommes FROM usager WHERE sexe='H' AND DATEDIFF(DATE_FORMAT(DATE(NOW()), '%Y-%m-%d'), date_nais) BETWEEN 9125 AND 14600");
-        $nbHommesMilieu = $reponseHommesMilieu->fetchAll();
-
-        $reponseHommesPlus50 = $bdd->query("SELECT COUNT(*) NbHommes FROM usager WHERE sexe='H' AND DATEDIFF(DATE_FORMAT(DATE(NOW()), '%Y-%m-%d'), date_nais) > 14600");
-        $nbHommesPlus50Ans = $reponseHommesPlus50->fetchAll();
-        
+        require './cabmed/connexionBD.php';        
         echo 
         "
         <div class='stats'>

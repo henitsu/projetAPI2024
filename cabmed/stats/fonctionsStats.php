@@ -31,20 +31,20 @@
         deliverResponse(200, "OK", $stmt->fetchAll(PDO::FETCH_ASSOC));
     }  
 
-    function getHommesMilieu($linkpdo){
+    function getNbHommesMilieu($linkpdo){
         $sql = "SELECT COUNT(*) NbHommes from  usager WHERE sexe = 'H' DATEDIFF(DATE(NOW()), date_nais) BETWEEN 9125 AND 14600";
         $stmt = $linkpdo->query($sql);
         deliverResponse(200, "OK", $stmt->fetchAll(PDO::FETCH_ASSOC));
     }
 
-    function getHommesPlus50Ans($linkpdo){
+    function getNbHommesPlus50Ans($linkpdo){
         $sql = "SELECT COUNT(*) NbHommes from  usager WHERE DATEDIFF(DATE(NOW()), date_nais) > 14600
         AND sexe = 'H'";
         $stmt = $linkpdo->query($sql);
         deliverResponse(200, "OK", $stmt->fetchAll(PDO::FETCH_ASSOC));
     }
 
-    function nBHeuresMedecin($linkpdo){
+    function getNbHeuresConsultations($linkpdo){
         $sql = "SELECT SUM(nbr_heures) as nbHeures FROM medecin";
         $stmt = $linkpdo->query($sql);
         deliverResponse(200, "OK", $stmt->fetchAll(PDO::FETCH_ASSOC));
