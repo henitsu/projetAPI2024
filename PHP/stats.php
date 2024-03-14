@@ -10,7 +10,14 @@
 <body>
     <?php
         include 'header.php';
-        require './cabmed/connexionBD.php';
+
+        $baseUrl = 'http://localhost/API2024/projetAPI2024/cabmed/medecins/';
+        $resource = 'index.php';
+
+        $result = file_get_contents($baseUrl . $resource);
+
+        $data = json_decode($result, true);
+        echo $data;
     ?>
     <h1>Statistiques</h1>
         <div class='stats'>
@@ -31,10 +38,14 @@
                     Moins de 25 ans
                 </td>
                 <td>
-                    <?php echo getNbFemmesMoins25Ans($linkpdo)[0]['NbFemmes']; ?>
+                    <?php
+                    echo $data['NbFemmesMoins25Ans'][0]['NbFemmesMoins25ans'];
+                    ?>
                 </td>
                 <td>
-                    <?php echo getNbHommesMoins25Ans($linkpdo)[0]['NbHommes']; ?>
+                    <?php
+                    echo $data['NbHommesMoins25Ans'][0]['NbHommesMoins25ans'];
+                    ?>
                 </td>
             </tr>
             <tr>
@@ -42,10 +53,14 @@
                     Entre 25 ans et 50 ans
                 </td>
                 <td>
-                    <?php echo getNbFemmesMilieu($linkpdo)[0]['NbFemmes']; ?>
+                    <?php
+                    echo $data['NbFemmesMilieu'][0]['NbFemmesMilieu'];
+                    ?>
                 </td>
                 <td>
-                    <?php echo getNbHommesMilieu($linkpdo)[0]['NbHommes']; ?>
+                    <?php
+                    echo $data['NbHommesMilieu'][0]['NbHommesMilieu'];
+                    ?>
                 </td>
             </tr>
             <tr>
@@ -53,18 +68,22 @@
                     Plus de 50 ans
                 </td>
                 <td>
-                    <?php echo getNbFemmesPlus50Ans($linkpdo)[0]['NbFemmes']; ?>
+                    <?php
+                    echo $data['NbFemmesPlus50Ans'][0]['NbFemmesPlus50ans'];
+                    ?>
                 </td>
                 <td>
-                    <?php echo getNbHommesPlus50Ans($linkpdo)[0]['NbHommes']; ?>
+                    <?php
+                    echo $data['NbHommesPlus50Ans'][0]['NbHommesPlus50ans'];
+                    ?>
                 </td>
             </tr>
         </table></div><br><br>
 
         <?php
-            $NbHeuresConsultation = getNbHeuresConsultations($linkpdo)[0];
+            $NbHeuresConsultation = $data['NbHeuresConsultations'];
             foreach($NbHeuresConsultation as $NbHeures){
-                echo "<div class='stats'>Le médecin " . $NbHeures[1] . " a réalisé " . round($NbHeures[0],2) . " heures de consultation <br> </div>";
+                echo "<div class='stats'>Le médecin " . $NbHeures['NomMedecin'] . " a réalisé " . round($NbHeures['NbHeures'],2) . " heures de consultation <br> </div>";
             }
         ?>
 </body>

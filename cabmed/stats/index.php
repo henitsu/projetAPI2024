@@ -1,36 +1,24 @@
 <?php
     // Connexion à la base de données
-    require '../connexionBD.php';
     require 'fonctionsStats.php';
 
     $http_method = $_SERVER['REQUEST_METHOD'];
-
-    if($http_method=="GET"){
-        // Récupération des statistiques
-        $numero = htmlspecialchars($_GET['numero']);
-        switch($numero){
-            case 1:
-                echo json_encode(getNbFemmesMoins25Ans($linkpdo));
-                break;
-            case 2:
-                echo json_encode(getNbHommesMoins25Ans($linkpdo));
-                break;
-            case 3:
-                echo json_encode(getNbFemmesMilieu($linkpdo));
-                break;
-            case 4:
-                echo json_encode(getNbHommesMilieu($linkpdo));
-                break;
-            case 5:
-                echo json_encode(getNbFemmesPlus50Ans($linkpdo));
-                break;
-            case 6:
-                echo json_encode(getNbHommesPlus50Ans($linkpdo));
-                break;
-            case 7:
-                echo json_encode(getNbHeuresConsultations($linkpdo));
-                break;
+    // fonction de retour des données
+    function returnData($linkpdo, $http_method){
+        if($http_method == 'GET'){
+            $data = array();
+            $data['NbFemmesMoins25Ans'] = getNbFemmesMoins25Ans($linkpdo);
+            $data['NbFemmesMilieu'] = getNbFemmesMilieu($linkpdo);
+            $data['NbFemmesPlus50Ans'] = getNbFemmesPlus50Ans($linkpdo);
+            $data['NbHommesMoins25Ans'] = getNbHommesMoins25Ans($linkpdo);
+            $data['NbHommesMilieu'] = getNbHommesMilieu($linkpdo);
+            $data['NbHommesPlus50Ans'] = getNbHommesPlus50Ans($linkpdo);
+            $data['NbHeuresConsultations'] = getNbHeuresConsultations($linkpdo);
+            return $data;
+        } else {
+            return "Méthode non autorisée";
         }
     }
 
+    $data = returnData($linkpdo, $http_method);
 ?>
