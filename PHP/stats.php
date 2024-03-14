@@ -11,13 +11,13 @@
     <?php
         include 'header.php';
 
-        $baseUrl = 'http://localhost/API2024/projetAPI2024/cabmed/medecins/';
+        $baseUrl = 'http://localhost/API2024/projetAPI2024/cabmed/stats/';
         $resource = 'index.php';
-
-        $result = file_get_contents($baseUrl . $resource);
-
-        $data = json_decode($result, true);
-        echo $data;
+        // Récupérer les données JSON à partir de l'API
+        $jsonData = file_get_contents($baseUrl . $resource);
+        echo $jsonData;
+        // Décoder les données JSON
+        $data = json_decode($jsonData, true);
     ?>
     <h1>Statistiques</h1>
         <div class='stats'>
