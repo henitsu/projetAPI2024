@@ -35,8 +35,8 @@
             echo $matchingdata;
             break;
         case 'DELETE':
-            $id = htmlspecialchars($_GET['id']);
-            $matchingdata = deleteMedecin($linkpdo, $id);
+            $id_medecin = htmlspecialchars($_GET['id']);
+            $matchingdata = deleteMedecin($linkpdo, $id_medecin);
             echo $matchingdata;
             break;
     }
