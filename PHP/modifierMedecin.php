@@ -9,7 +9,7 @@
 </head>
 <body>
 	<?php include 'header.php';
-		require 'connexionBD.php';
+		require '../cabmed/connexionBD.php';
 
 		try {
 			if ($_SERVER["REQUEST_METHOD"] == "GET") {
@@ -18,7 +18,7 @@
 				$civilite = $_GET['civilite'];
 
 				$sql = "SELECT * FROM medecin WHERE nom = :nom AND prenom = :prenom AND civilite = :civilite";
-				$stmt = $bdd->prepare($sql);
+				$stmt = $linkpdo->prepare($sql);
 				$stmt->bindParam(':nom', $nom, PDO::PARAM_STR);
 				$stmt->bindParam(':prenom', $prenom, PDO::PARAM_STR);
 				$stmt->bindParam(':civilite', $civilite, PDO::PARAM_STR);
@@ -51,7 +51,7 @@
 				$civilite = $_POST['civilite'];
 
 				$sql = "UPDATE medecin SET nom = :nom, prenom = :prenom, civilite = :civilite WHERE id_medecin = :id_medecin";
-				$stmt = $bdd->prepare($sql);
+				$stmt = $linkpdo->prepare($sql);
 				$stmt->bindParam(':nom', $nom, PDO::PARAM_STR);
 				$stmt->bindParam(':prenom', $prenom, PDO::PARAM_STR);
 				$stmt->bindParam(':civilite', $civilite, PDO::PARAM_STR);

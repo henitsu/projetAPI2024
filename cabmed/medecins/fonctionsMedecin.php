@@ -72,11 +72,11 @@
     }
 
     // DELETE
-    function deleteMedecin($linkpdo, $id){
+    function deleteMedecin($linkpdo, $id_medecin){
         try {
-            $sql = "DELETE FROM medecin WHERE id = :id";
+            $sql = "DELETE FROM medecin WHERE id_medecin = :id_medecin";
             $stmt = $linkpdo->prepare($sql);
-            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->bindParam(':id_medecin', $id_medecin, PDO::PARAM_INT);
             $stmt->execute();
             if($stmt->rowCount() == 0){
                 deliverResponse(404, "Médecin inexistant", null);
