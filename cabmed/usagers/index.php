@@ -44,7 +44,7 @@
             // suppression patient
             $id = htmlspecialchars($_GET['id']);
             if (!isset($id)){
-                deliver_response(404, "Requête mal formée", NULL);
+                deliverResponse(404, "Requête mal formée", NULL);
             }
 
             echo deletePatient($linkpdo, $id);
@@ -52,7 +52,7 @@
             break;
         
         default:
-            deliver_response(405, "Méthode non autorisée", NULL);
+            deliverResponse(405, "Méthode non autorisée", NULL);
     }
 
 ?>
