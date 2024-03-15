@@ -14,20 +14,20 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
 ## Pour les usagers
-RewriteRule ^usagers/([0-9]+)$ usagers/index.php?id=$1 [QSA,L]
+RewriteRule ^cabmed/usagers/([0-9]+)$ usagers/index.php?id=$1 [QSA,L]
 
 ## Pour les médecins
-RewriteRule ^medecins/([0-9]+)$ medecins/index.php?id=$1 [QSA,L]
+RewriteRule ^cabmed/medecins/([0-9]+)$ medecins/index.php?id=$1 [QSA,L]
 
 ## Pour les consultations
-RewriteRule ^consultations/([0-9]+)$ consultations/index.php?id=$1 [QSA,L]
+RewriteRule ^cabmed/consultations/([0-9]+)$ consultations/index.php?id=$1 [QSA,L]
 
 ## Pour les statistiques
 ## Médecins
-RewriteRule ^stats/medecins stats/medecins/index.php [L]
+RewriteRule ^cabmed/stats/medecins stats/medecins/index.php [L]
 
 ## Usagers
-RewriteRule ^stats/usagers stats/usagers/index.php [L]
+RewriteRule ^cabmed/stats/usagers stats/usagers/index.php [L]
 
 ## Pour l'utilisation de AuthAPI
 RewriteRule ^authapi/authapi authapi/authapi.php [L]

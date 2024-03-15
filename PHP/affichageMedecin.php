@@ -38,7 +38,7 @@
                     echo '<td>' . $medecin['prenom'] . '</td>';
                     echo '<td>';
                     echo '<a href="modifierMedecin.php?id_medecin=' . $medecin['id_medecin'] . '">Modifier</a> | ';
-                    echo '<a href="javascript:void(0);" onclick="confirmDelete(' . $medecin['id_medecin'] . ')">Supprimer</a>';
+                    echo '<a href="javascript:void(0);" onclick="confirmDelete(' . $medecin['id_medecin'] . ', ' . $baseUrl .', "médecin")">Supprimer</a>';
                     echo '</td>';
                     echo '</tr>';
                 }
@@ -51,31 +51,7 @@
         }
         ?>
 
-        <script>
-            function confirmDelete(id) {
-                var confirmation = confirm("Voulez-vous vraiment supprimer ce médecin ?");
-                if (confirmation) {
-                    const requestOptions = {
-                        method: 'DELETE', // Méthode HTTP
-                        headers: { 'Content-Type': 'application/json' }, // Type de contenu
-                    };
-
-                    var url = 'http://localhost/API/projetAPI2024/cabmed/medecins/index.php?id=' + id;
-                    fetch(url, requestOptions)
-                    .then(response => {
-                        if (response.ok) {
-                            // Médecin supprimé avec succès, actualiser la page
-                            location.reload();
-                        } else {
-                            throw new Error('Erreur lors de la suppression du médecin');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Erreur Fetch:', error);
-                    });
-                }
-            }
-        </script>
+        <script src="../JS/suppression.js"></script>
 
     </div>
 </body>
