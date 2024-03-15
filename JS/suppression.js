@@ -6,7 +6,7 @@ function confirmDelete(id, baseUrl, entity) {
             headers: { 'Content-Type': 'application/json' }, // Type de contenu
         };
 
-        var url = baseUrl + id;
+        var url = baseUrl +'/'+ id;
         fetch(url, requestOptions)
         .then(response => {
             if (response.ok) {
