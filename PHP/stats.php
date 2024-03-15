@@ -14,10 +14,9 @@
         $baseUrl = 'http://localhost/API2024/projetAPI2024/cabmed/stats/';
         $resource = 'index.php';
         // Récupérer les données JSON à partir de l'API
-        $jsonData = file_get_contents($baseUrl . $resource);
-        echo $jsonData;
         // Décoder les données JSON
-        $data = json_decode($jsonData, true);
+        $jsonData = json_decode(file_get_contents($baseUrl . $resource), true);
+        $data = $jsonData['data'];
     ?>
     <h1>Statistiques</h1>
         <div class='stats'>
@@ -83,7 +82,7 @@
         <?php
             $NbHeuresConsultation = $data['NbHeuresConsultations'];
             foreach($NbHeuresConsultation as $NbHeures){
-                echo "<div class='stats'>Le médecin " . $NbHeures['NomMedecin'] . " a réalisé " . round($NbHeures['NbHeures'],2) . " heures de consultation <br> </div>";
+                echo "<div class='stats'>Le médecin " . $NbHeures['NomMedecin'] . " a réalisé " . round($NbHeures['NbHeures'],2) . " heures de consultation. <br> </div>";
             }
         ?>
 </body>
