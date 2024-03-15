@@ -11,7 +11,7 @@
     <?php
         include 'header.php';
 
-        $baseUrl = 'http://localhost/API2024/projetAPI2024/cabmed/stats/';
+        $baseUrl = 'http://localhost/API/projetAPI2024/cabmed/stats/';
         $resource = 'index.php';
         // Récupérer les données JSON à partir de l'API
         // Décoder les données JSON
