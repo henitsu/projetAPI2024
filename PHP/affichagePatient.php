@@ -41,8 +41,7 @@
             . '&adresse=' . $patient['adresse'] . '&ville='. $patient['ville'] . '&code_postal=' . $patient['code_postal'] . '&sexe=' . $patient["sexe"]
             . '&date_nais=' . $patient['date_nais'] . '&lieu_nais=' . $patient['lieu_nais'] 
             . '&num_secu=' . $patient['num_secu'] . '">Modifier</a> | 
-            <a href="supprimerPatient.php?id=' . $patient['id'] . '&nom=' . $patient['nom'] . '&prenom='
-            . '&num_secu=' . $patient['num_secu'] . '">Supprimer</a></td>';
+            <<a href="javascript:void(0);" onclick="confirmDelete(' . $patient['id'] . ', ' . $baseUrl .', "patient")">Supprimer</a></td>';
             echo '</tr>';
         }
         echo '</table>';
@@ -50,5 +49,6 @@
         echo "<p>Aucun patient trouvé.</p>";
     }
     ?>
+    <script src="../JS/suppression.js"></script>
 </body>
 </html>
