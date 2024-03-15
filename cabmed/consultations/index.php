@@ -8,7 +8,7 @@
     switch ($http_method){
         case "GET" :
             // Lecture 
-            if(!isset($_GET['id'])) {
+            if(!isset($_GET['id_consult'])) {
                 echo getConsultations($linkpdo, null);
             }
             else {
@@ -28,7 +28,7 @@
             break;
         
         case "PATCH":
-            $id =  htmlspecialchars($_GET['id']);
+            $id =  htmlspecialchars($_GET['id_consult']);
             // mise à jour partielle
 
             // Récupération des données dans le corps
@@ -40,7 +40,7 @@
         
         case "DELETE":
             // suppression consultation
-            $id = htmlspecialchars($_GET['id']);
+            $id = htmlspecialchars($_GET['id_consult']);
             if (!isset($id)){
                 deliverResponse(404, "Requête mal formée", NULL);
             }

@@ -33,9 +33,9 @@
     // GET
     function getMedecins($linkpdo, $id=null){
         if($id!=null){
-            $sql = "SELECT * FROM medecin WHERE id = :id";
+            $sql = "SELECT * FROM medecin WHERE id_medecin = :id_medecin";
             $stmt = $linkpdo->prepare($sql);
-            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->bindParam(':id_medecin', $id, PDO::PARAM_INT);
             $stmt->execute();
             if($stmt->rowCount() == 0){
                 deliverResponse(404, "Médecin inexistant", null);
@@ -55,9 +55,9 @@
             $sqlValues = array_map(function($keys) {
                 return $keys . " = :" . $keys;
             }, $keys);
-            $sql = "UPDATE medecin SET  " . implode(", ", $sqlValues) . " WHERE id = :id";
+            $sql = "UPDATE medecin SET  " . implode(", ", $sqlValues) . " WHERE id_medecin = :id_medecin";
             $stmt = $linkpdo->prepare($sql);
-            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->bindParam(':id_medecin', $id, PDO::PARAM_INT);
             foreach($data as $key => $value){
                 $stmt->bindParam(':'.$key, $value, PDO::PARAM_STR);
             }
