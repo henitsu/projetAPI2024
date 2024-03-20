@@ -18,7 +18,7 @@
             $linkpdo->beginTransaction();
             $res = $stmt->execute();
             if(!$res){
-                deliverResponse(500, "Erreur lors de l'ajout de la phrase", null);
+                deliverResponse(500, "Erreur lors de l'ajout du médecin", null);
                 die('Erreur exécution requête : '.$stmt->errorInfo()[2]);
             }
             $id = $linkpdo->lastInsertId();
