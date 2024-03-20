@@ -8,23 +8,23 @@
         $login = $_POST['login'];
 
         // Vérification du login dans la BD
-        $sql_login = "SELECT * FROM user WHERE login = :login";
+        $sql_login = "SELECT * FROM user_auth_v1 WHERE login = :login";
         $res = $linkpdo->prepare($sql_login);
         $res->bindParam(':login', $login, PDO::PARAM_STR);
         $res->execute();
-        $db_password = $res->fetch()['password'];
+        $db_password = $res->fetch()['mdp'];
         if(!$res){
             header('HTTP/1.0 401 Unauthorized');
             echo 'Identifiant incorrect';
             exit;
         } else {
-            if(password_verify($_POST['password'], $db_password)){
+            if(password_verify($_POST['mdp'], $db_password)){
                 $pass = $db_password;
                 // Récupération de ses coordonnées dans la BD
-                $sql = "SELECT * FROM user WHERE login = :login AND password = :password";
+                $sql = "SELECT * FROM user_auth_v1 WHERE login = :login AND mdp = :mdp";
                 $stmt = $linkpdo->prepare($sql);
                 $stmt->bindParam(':login', $login, PDO::PARAM_STR);
-                $stmt->bindParam(':password', $pass, PDO::PARAM_STR);
+                $stmt->bindParam(':mdp', $pass, PDO::PARAM_STR);
                 $stmt->execute();
                 if($stmt->rowCount()==1){
                     // Envoi de token
