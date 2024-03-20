@@ -18,7 +18,7 @@
             echo 'Identifiant incorrect';
             exit;
         } else {
-            if(password_verify($_POST['mdp'], $db_password)){
+            if($_POST['mdp'] === $db_password){
                 $pass = $db_password;
                 // Récupération de ses coordonnées dans la BD
                 $sql = "SELECT * FROM user_auth_v1 WHERE login = :login AND mdp = :mdp";
@@ -34,8 +34,7 @@
                     $jwt_headers = ['alg' => 'HS256', 'typ' => 'JWT'];
     
                     // Récupération du payload
-                    $jwt_payload = ['user_id' => $user['id'],
-                        'login' => $user['login'],
+                    $jwt_payload = ['login' => $user['login'],
                         'exp' => time()*3000];
     
                     // Le secret ??
@@ -59,10 +58,20 @@
                 echo 'Mot de passe incorrect';
             }
         }
-    } else {
-        // Méthode non autorisée
-        header('HTTP/1.0 405 Method Not Allowed');
-        echo 'Method not allowed';
-        exit;
-    }
+    } elseif (!empty($http_method) && $http_method === 'GET') {
+        $jwt_token = get_bearer_token();
+        // Vérification
+        if (is_jwt_valid($jwt_token, "Un truc random hehe")) {
+            // Récupération des données de l'utilisateur
+            $tokenParts = explode('.', $jwt_token);
+            $payload = base64_decode($tokenParts[1]);
+            $decoded_payload = json_decode($payload, true);
+            $login = $decoded_payload['login'];
+            echo "Login récupéré : $login";
+        } else {
+            header('HTTP/1.0 401 Unauthorized');
+            echo 'Token invalide';
+            exit;
+        }
+    }    
 ?>
