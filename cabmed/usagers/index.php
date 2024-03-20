@@ -8,11 +8,11 @@
     switch ($http_method){
         case "GET" :
             // Lecture 
-            if(!isset($_GET['id'])) {
+            if(!isset($_GET['id_usager'])) {
                 echo getPatients($linkpdo, null);
             }
             else {
-                $id = htmlspecialchars($_GET['id']);
+                $id = htmlspecialchars($_GET['id_usager']);
                 echo getPatients($linkpdo, $id);
             }
             break;
@@ -30,7 +30,7 @@
             break;
         
         case "PATCH":
-            $id =  htmlspecialchars($_GET['id']);
+            $id =  htmlspecialchars($_GET['id_usager']);
             // mise à jour partielle
 
             // Récupération des données dans le corps
@@ -42,7 +42,7 @@
         
         case "DELETE":
             // suppression patient
-            $id = htmlspecialchars($_GET['id']);
+            $id = htmlspecialchars($_GET['id_usager']);
             if (!isset($id)){
                 deliverResponse(404, "Requête mal formée", NULL);
             }
