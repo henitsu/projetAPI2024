@@ -8,93 +8,69 @@
     <link rel="stylesheet" href="../CSS/modifier.css">
 </head>
 <body>
-	<?php include 'header.php';
-		require 'connexionBD.php';
+	<?php include 'header.php';?>
 
-		try {
-			if ($_SERVER["REQUEST_METHOD"] == "GET") {
-				$nom_usager = $_GET['nom_usager'];
-				$nom_medecin = $_GET['nom_medecin'];
-				$duree_consult = $_GET['duree_consult'];
-                $date_consult = $_GET["date_consult"];
-				$heure_consult = $_GET["heure_consult"];
+	<h1>Modification d'une consultation du docteur <?php echo $nom_medecin; ?></h1>
 
-				$sql = "SELECT consultation.id_usager, consultation.id_medecin, consultation.date_consult, consultation.heure_consult, consultation.duree_consult 
-                FROM consultation, usager, medecin WHERE usager.Nom = :nom_usager AND medecin.Nom = :nom_medecin AND 
-                consultation.date_consult = :date_consult AND consultation.heure_consult = :heure_consult AND consultation.duree_consult = :duree_consult ORDER BY consultation.date_consult, consultation.heure_consult";
-				$stmt = $bdd->prepare($sql);
-				$stmt->bindParam(':nom_usager', $nom_usager, PDO::PARAM_STR);
-				$stmt->bindParam(':nom_medecin', $nom_medecin, PDO::PARAM_STR);
-				$stmt->bindParam(':duree_consult', $duree_consult, PDO::PARAM_STR);
-                $stmt->bindParam(':date_consult', $date_consult, PDO::PARAM_STR);
-				$stmt->bindParam(':heure_consult', $heure_consult, PDO::PARAM_STR);
-				$stmt->execute();
-				$consultation = $stmt->fetch(PDO::FETCH_ASSOC);
+	<div class="form">
+		<form action="modifierRDV.php?id_usager=<?php echo $id_usager;?>&id_medecin=<?php echo $id_medecin ?>" method="post">
+			<label for="nom_medecin">Nom médecin :</label>
+			<input type="text" id="nom_medecin" name="nom_medecin" value="<?php echo $nom_medecin; ?>" readonly="readonly"><br>
+			<br><br>
 
-				$id_usager = $consultation['id_usager'];
-				$id_medecin = $consultation['id_medecin'];
-				?>
-				<h1>Modification d'une consultation du docteur <?php echo $nom_medecin; ?></h1>
+			<label for="nom_usager">Nom usager :</label>
+			<input type="text" id="nom_usager" name="nom_usager" value="<?php echo $nom_usager; ?>" readonly="readonly"><br>
+			<br><br>
+			
+			<label for="date_consult">Date :</label>
+			<input type="date" id="date_consult" name="date_consult" value="<?php echo $consultation['date_consult']; ?>" readonly="readonly"><br>
+			<br><br>
 
-				<div class="form">
-					<form action="modifierRDV.php?id_usager=<?php echo $id_usager;?>&id_medecin=<?php echo $id_medecin ?>" method="post">
-						<label for="nom_medecin">Nom médecin :</label>
-						<input type="text" id="nom_medecin" name="nom_medecin" value="<?php echo $nom_medecin; ?>" readonly="readonly"><br>
-						<br><br>
+			<label for="date_consult">Heure :</label>
+			<input type="time" id="heure_consult" name="heure_consult" value="<?php echo $consultation['heure_consult']; ?>" readonly="readonly"><br>
+			<br><br>
 
-						<label for="nom_usager">Nom usager :</label>
-						<input type="text" id="nom_usager" name="nom_usager" value="<?php echo $nom_usager; ?>" readonly="readonly"><br>
-						<br><br>
-						
-						<label for="date_consult">Date :</label>
-						<input type="date" id="date_consult" name="date_consult" value="<?php echo $consultation['date_consult']; ?>" readonly="readonly"><br>
-                        <br><br>
+			<label for="duree_consult">Durée :</label>
+			<input type="text" id="duree_consult" name="duree_consult" value="<?php echo $consultation['duree_consult']; ?>" required><br>
 
-						<label for="date_consult">Heure :</label>
-						<input type="time" id="heure_consult" name="heure_consult" value="<?php echo $consultation['heure_consult']; ?>" readonly="readonly"><br>
-                        <br><br>
+			<input type="submit" name="submit" value="Enregistrer les modifications">
+		</form>
+	</div>
 
-                        <label for="duree_consult">Durée :</label>
-						<input type="text" id="duree_consult" name="duree_consult" value="<?php echo $consultation['duree_consult']; ?>" required><br>
+	<?php 
+        if (isset($_POST['submit'])){
+            $data = array('id_medecin' => $_POST['id_medecin'], 'id_usager' => $_POST['id_usager'], 'nom_medecin' => $_POST['nom_medecin'], 'nom_usager' => $_POST['nom_usager'], 
+			'date_consult' => $_POST['date_consult'], 'heure_consult' => $_POST['heure_consult'], 'duree_consult' => $_POST['duree_consult']);
 
-						<input type="submit" value="Enregistrer les modifications">
-					</form>
-				</div>
-				
-			<?php
-			} elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
-				$duree_consult = $_POST['duree_consult'];
-                $date_consult = $_POST["date_consult"];
-				$heure_consult = $_POST["heure_consult"];
-				$id_usager = $_GET['id_usager'];
-				$id_medecin = $_GET['id_medecin'];
-				$nom_medecin = $_POST['nom_medecin'];
+            $options = array(
+                'http' => array(
+                    'method' => 'PATCH',
+                    'header' => "Content-Type: application/json\r\n",
+                    'content' => json_encode($data)
+                )
+            );
 
-				$req_id_medecin = "SELECT id_medecin FROM medecin WHERE nom = :nom_medecin";
-				$etat = $bdd->prepare($req_id_medecin);
-				$etat->bindParam(':nom_medecin', $nom_medecin, PDO::PARAM_STR);
-				$etat->execute();
-				$ids = $etat->fetch(PDO::FETCH_ASSOC);
-				$id = $ids['id_medecin'];
+            $context = stream_context_create($options);
 
-                $sql = "UPDATE consultation SET duree_consult = :duree_consult WHERE id_usager = :id_usager and id_medecin = :id_medecin and date_consult = :date_consult AND heure_consult = :heure_consult";
-                
-				$stmt = $bdd->prepare($sql);
-				$stmt->bindParam(':id_usager', $id_usager, PDO::PARAM_STR);
-				$stmt->bindParam(':id_medecin', $id, PDO::PARAM_STR);
-				$stmt->bindParam(':duree_consult', $duree_consult, PDO::PARAM_STR);
-                $stmt->bindParam(':date_consult', $date_consult, PDO::PARAM_STR);
-				$stmt->bindParam(':heure_consult', $heure_consult, PDO::PARAM_STR);
-				$stmt->execute();
-				$consultation = $stmt->fetch(PDO::FETCH_ASSOC);
-				
-				echo 'Consultation modifiée avec succès';
-			} else {
-				echo "Méthode non autorisée";
-			}
-		} catch (PDOException $e) {
-			echo "Erreur : " . $e->getMessage();
-		}
-	?>
+            // URL de l'API pour les médecins
+            $baseUrl = 'http://localhost/API/projetAPI2024/cabmed/consultations/';
+            $resource = 'index.php';
+
+            // Exécution de la requête avec file_get_contents
+            $result = file_get_contents($baseUrl . $resource, false, $context);
+
+            // Gérer la réponse de l'API
+            if ($result !== false) {
+                // Conversion de la réponse en tableau associatif PHP
+                $response = json_decode($result, true);
+                // Affichage de la réponse
+                print_r($response);
+            } else {
+                echo 'Erreur fetch';
+            }
+        }
+    ?>
+
 	<button onclick="window.location.href='affichageRDV.php'">Retour</button>
+
 </body>

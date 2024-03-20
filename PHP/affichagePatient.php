@@ -37,11 +37,11 @@
             echo '<td>' . date('d/m/Y', strtotime($patient['date_nais'])) . '</td>';
             echo '<td>' . $patient['lieu_nais'] . '</td>';
             echo '<td>' . $patient['num_secu'] . '</td>';
-            echo '<td><a href="modifierPatient.php?id=' . $patient['id'] . '&nom=' . $patient['nom'] . '&prenom=' . $patient['prenom'] 
+            echo '<td><a href="modifierPatient.php?id_usager=' . $patient['id_usager'] . '&nom=' . $patient['nom'] . '&prenom=' . $patient['prenom'] 
             . '&adresse=' . $patient['adresse'] . '&ville='. $patient['ville'] . '&code_postal=' . $patient['code_postal'] . '&sexe=' . $patient["sexe"]
             . '&date_nais=' . $patient['date_nais'] . '&lieu_nais=' . $patient['lieu_nais'] 
             . '&num_secu=' . $patient['num_secu'] . '">Modifier</a> | 
-            <<a href="javascript:void(0);" onclick="confirmDelete(' . $patient['id'] . ', ' . $baseUrl .', "patient")">Supprimer</a></td>';
+            <a href="javascript:void(0);" onclick="confirmDelete(' . $patient['id'] . ', ' . $baseUrl .', "patient")">Supprimer</a></td>';
             echo '</tr>';
         }
         echo '</table>';

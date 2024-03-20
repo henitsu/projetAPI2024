@@ -13,74 +13,43 @@
     <div class="creer">
         Ajouter une nouvelle consultation : <strong><a href="creationRDV.php">Ajouter</a></strong>
     </div>
-    <?php
+    <?php    
 
-    require 'connexionBD.php';
-    // Vérifier s'il y a un message dans la variable de session
-    if(isset($_SESSION['message'])){
-        echo '<p>' . $_SESSION['message'] . '</p>';
-        // Supprimer le message de la variable de session pour éviter qu'il ne soit affiché à chaque chargement de la page
-        unset($_SESSION['message']);
-    }
+        // URL de l'API pour les consultations
+        $baseUrl = 'http://localhost/API/projetAPI2024/cabmed/consultations/';
+        $resource = 'index.php';
 
-    $reponseTri = $bdd->query("SELECT DISTINCT nom FROM medecin");
-    $medecins = $reponseTri->fetchAll();
-    echo '<form action="affichageRDV.php" method="post">';
-    echo '<label for="medecin">Trier par médecin : </label>';
-    echo '<select name="medecin" id="medecin">';
-    echo '<option value="tous">Tous</option>';
-    foreach ($medecins as $medecin) {
-        echo '<option value="' . $medecin['nom'] . '">' . $medecin['nom'] . '</option>';
-    }
-    echo '</select>';
-    echo '<input type="submit" value="Trier">';
-    echo '</form>';
+        $result = file_get_contents($baseUrl . $resource);
 
-    $donnees = array();
-    if (isset($_POST['medecin'])) {
-        if ($_POST['medecin'] != 'tous') {
-            $reponse = $bdd->query(
-                "SELECT DISTINCT usager.id_usager id_usager, medecin.id_medecin id_medecin, usager.nom nom_usager, medecin.nom nom_medecin, consultation.date_consult, consultation.heure_consult, consultation.duree_consult
-                FROM consultation, usager, medecin
-                WHERE consultation.id_usager = usager.id_usager AND medecin.id_medecin = consultation.id_medecin AND medecin.nom = '" . $_POST['medecin'] . "'
-                ORDER BY 2, 3");
-            $donnees = $reponse->fetchAll();
+        $response = json_decode($result, true);
+
+        if ($response !== null && isset($response['data'])) {
+            // Récupération des données des médecins
+            $medecins = $response['data'];
+            
+            // Affichage des données
+            if (isset($response)) {
+                echo '<table border="1">';
+                echo '<tr><th>Nom médecin</th><th>Nom patient</th><th>Date</th><th>Heure</th><th>Durée (en minutes)</th><th>Action</th></tr>';
+
+                foreach ($response['data'] as $donnee) {
+                    // Affiche les résultats
+                    echo '<tr>';
+                    echo '<td>' . $donnee['nom_medecin'] . '</td>';
+                    echo '<td>' . $donnee['nom_usager'] . '</td>';
+                    echo '<td>' . date('d/m/Y', strtotime($donnee['date_consult'])) . '</td>';
+                    echo '<td>' . date('H:i', strtotime($donnee['heure_consult'])) . '</td>';
+                    echo '<td>' . $donnee['duree_consult'] . '</td>';
+                    echo '<td><a href="modifierRDV.php?id_usager=' . $donnee['id_usager'] . '&id_medecin=' . $donnee['id_medecin'] . '&date_consult=' . $donnee['date_consult'] . '&heure_consult=' . $donnee['heure_consult']
+                    . '&duree_consult=' . $donnee['duree_consult'] . '">Modifier</a> | 
+                    <a href="supprimerRDV.php?id_usager=' . $donnee['id_usager'] . '&id_medecin=' . $donnee['id_medecin'] . '&date_consult=' . $donnee['date_consult'] . '&heure_consult=' . $donnee['heure_consult']
+                    . '&duree_consult=' . $donnee['duree_consult'] . '">Supprimer</a></td>';
+                    echo '</tr>';
+                }
+            } else {
+                echo "Aucune donnée de consultation disponible.";
+            }
         }
-        else {
-            $reponse = $bdd->query(
-                "SELECT DISTINCT usager.id_usager id_usager, medecin.id_medecin id_medecin, usager.nom nom_usager, medecin.nom nom_medecin, consultation.date_consult, consultation.heure_consult
-                FROM consultation, usager, medecin
-                WHERE consultation.id_usager = usager.id_usager AND medecin.id_medecin = consultation.id_medecin");
-            $donnees = $reponse->fetchAll();
-        }
-    } 
-    else {
-        $reponse = $bdd->query(
-            "SELECT DISTINCT usager.id_usager id_usager, medecin.id_medecin id_medecin, usager.nom nom_usager, medecin.nom nom_medecin, consultation.date_consult, consultation.heure_consult, consultation.duree_consult
-            FROM consultation, usager, medecin
-            WHERE consultation.id_usager = usager.id_usager AND medecin.id_medecin = consultation.id_medecin");
-        $donnees = $reponse->fetchAll();
-    }
-    
-    
-    echo '<table border="1">';
-    echo '<tr><th>Nom médecin</th><th>Nom patient</th><th>Date</th><th>Heure</th><th>Durée (en minutes)</th><th>Action</th></tr>';
 
-    foreach ($donnees as $donnee) {
-        // Affiche les résultats
-        
-        echo '<tr>';
-        echo '<td>' . $donnee['nom_medecin'] . '</td>';
-        echo '<td>' . $donnee['nom_usager'] . '</td>';
-        echo '<td>' . date('d/m/Y', strtotime($donnee['date_consult'])) . '</td>';
-        echo '<td>' . date('H:i', strtotime($donnee['heure_consult'])) . '</td>';
-        echo '<td>' . $donnee['duree_consult'] . '</td>';
-        echo '<td><a href="modifierRDV.php?id_usager=' . $donnee['id_usager'] . '&id_medecin=' . $donnee['id_medecin'] . '&nom_usager=' . $donnee['nom_usager'] . '&nom_medecin=' . $donnee['nom_medecin'] . '&date_consult=' . $donnee['date_consult'] . '&heure_consult=' . $donnee['heure_consult']
-        . '&duree_consult=' . $donnee['duree_consult'] . '">Modifier</a> | 
-        <a href="supprimerRDV.php?id_usager=' . $donnee['id_usager'] . '&id_medecin=' . $donnee['id_medecin'] . '&nom_usager=' . $donnee['nom_usager'] . '&nom_medecin=' . $donnee['nom_medecin'] . '&date_consult=' . $donnee['date_consult'] . '&heure_consult=' . $donnee['heure_consult']
-        . '&duree_consult=' . $donnee['duree_consult'] . '">Supprimer</a></td>';
-        echo '</tr>';
-        
-    }
     ?>
 </body>
