@@ -74,10 +74,16 @@
 
             // Mise à jour de la phrase
             $sql = "UPDATE usager SET  " . implode(", ", $sqlValues) .
-                ", WHERE id_usager = :id_usager";
+                " WHERE id_usager = :id_usager;";
+
+            // Préparation de la requête
+            $sth = $linkpdo->prepare($sql);
+            if($sth==false){
+                die('Erreur préparation requête : ');
+            }
             $stmt = $linkpdo->prepare($sql);
             foreach($data as $key => $value){
-                $stmt->bindValue(':'.$key, $value, PDO::PARAM_STR);
+                $stmt->bindParam(':'.$key, $value, PDO::PARAM_STR);
             }
 
             $stmt->bindParam(':id_usager', $id_usager, PDO::PARAM_INT);

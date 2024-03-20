@@ -18,6 +18,7 @@
     $url = 'http://localhost/API/projetAPI2024/cabmed/usagers/index.php';
     $response = file_get_contents($url);
     $patients = json_decode($response, true);
+    echo $response;
 
     if ($patients !== null && !empty($patients)) {
         echo '<table border="1">';
@@ -26,7 +27,7 @@
 
         foreach ($patients as $patient) {
             echo '<tr>';
-            echo '<td>' . $patient['id'] . '</td>';
+            echo '<td>' . $patient['id_usager'] . '</td>';
             echo '<td>' . $patient['nom'] . '</td>';
             echo '<td>' . $patient['prenom'] . '</td>';
             echo '<td>' . $patient['civilite'] . '</td>';
