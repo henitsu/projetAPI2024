@@ -42,11 +42,11 @@
     function getNbHeuresConsultations($linkpdo){
         $sql = "SELECT SUM(duree_consult)/60 as NbHeures, medecin.nom as NomMedecin FROM consultation, medecin WHERE medecin.id_medecin = consultation.id_medecin GROUP BY medecin.id_medecin";
         $stmt = $linkpdo->query($sql);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        deliverResponse(200, "OK", $stmt->fetchAll(PDO::FETCH_ASSOC));
     }
 
-    // récupération des statistiques
-    function getStats($linkpdo){
+    // récupération des statistiques des usagers
+    function getStatsUsagers($linkpdo){
         $data = array();
         $data['NbFemmesMoins25Ans'] = getNbFemmesMoins25Ans($linkpdo);
         $data['NbFemmesMilieu'] = getNbFemmesMilieu($linkpdo);
@@ -54,7 +54,6 @@
         $data['NbHommesMoins25Ans'] = getNbHommesMoins25Ans($linkpdo);
         $data['NbHommesMilieu'] = getNbHommesMilieu($linkpdo);
         $data['NbHommesPlus50Ans'] = getNbHommesPlus50Ans($linkpdo);
-        $data['NbHeuresConsultations'] = getNbHeuresConsultations($linkpdo);
         deliverResponse(200, "OK", $data);
     }
 ?>

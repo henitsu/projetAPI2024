@@ -12,11 +12,18 @@
         include 'header.php';
 
         $baseUrl = 'http://localhost/API/projetAPI2024/cabmed/stats/';
-        $resource = 'index.php';
+        $resourceUsagers = '/usagers/index.php';
         // Récupérer les données JSON à partir de l'API
         // Décoder les données JSON
-        $jsonData = json_decode(file_get_contents($baseUrl . $resource), true);
+        $jsonData = json_decode(file_get_contents($baseUrl . $resourceUsagers), true);
         $data = $jsonData['data'];
+
+        // Données des médecins
+        $resourceMedecins = '/medecins/index.php';
+        // Récupérer les données JSON à partir de l'API
+        // Décoder les données JSON
+        $jsonData = json_decode(file_get_contents($baseUrl . $resourceMedecins), true);
+        $dataMedecins = $jsonData['data'];
     ?>
     <h1>Statistiques</h1>
         <div class='stats'>
@@ -80,7 +87,7 @@
         </table></div><br><br>
 
         <?php
-            $NbHeuresConsultation = $data['NbHeuresConsultations'];
+            $NbHeuresConsultation = $dataMedecins['NbHeuresConsultations'];
             foreach($NbHeuresConsultation as $NbHeures){
                 echo "<div class='stats'>Le médecin " . $NbHeures['NomMedecin'] . " a réalisé " . round($NbHeures['NbHeures'],2) . " heures de consultation. <br> </div>";
             }
