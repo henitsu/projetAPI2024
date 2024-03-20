@@ -1,5 +1,4 @@
-<?php 
-    require 'rdv.php';
+<?php
     require '../connexionBD.php';
     require '../deliverResponse.php';
     

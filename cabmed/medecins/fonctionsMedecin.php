@@ -14,7 +14,6 @@
             $stmt->bindParam(':civilite', $civilite, PDO::PARAM_STR);
             $stmt->bindParam(':nom', $nom, PDO::PARAM_STR);
             $stmt->bindParam(':prenom', $prenom, PDO::PARAM_STR);
-            $stmt->execute();
             $linkpdo->beginTransaction();
             $res = $stmt->execute();
             if(!$res){

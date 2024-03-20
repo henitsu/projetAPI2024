@@ -1,7 +1,7 @@
 <?php
 
     include '../connexionBD.php';
-    include 'fonctionsUsager.php';
+    include './fonctionsUsager.php';
 
     $http_method = $_SERVER['REQUEST_METHOD'];
 

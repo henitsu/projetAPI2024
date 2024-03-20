@@ -1,6 +1,4 @@
 <?php 
-
-    require 'usager.php';
     require '../connexionBD.php';
     require '../deliverResponse.php';
 
@@ -35,8 +33,6 @@
         if($sth==false){
             die('Erreur Préparation Requête : ');
         }
-
-        $date_ajout = date("Y-m-d H:i:s");
 
         $sth->bindParam(':civilite', $civilite, PDO::PARAM_STR); 
         $sth->bindParam(':nom', $nom, PDO::PARAM_STR);
