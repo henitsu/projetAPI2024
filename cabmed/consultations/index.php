@@ -1,7 +1,7 @@
 <?php
 
-    include 'connexionDB.php';
-    include 'fonctionsConsultation.php';
+    include '../connexionBD.php';
+    include './fonctionsConsultations.php';
 
     $http_method = $_SERVER['REQUEST_METHOD'];
 
