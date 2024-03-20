@@ -1,70 +1,104 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="utf-8">
     <title>Modification médecin</title>
-	<link rel="shortcut icon" href="../Donnees/patientele_icon.ico" />
+    <link rel="shortcut icon" href="../Donnees/patientele_icon.ico" />
     <link rel="stylesheet" href="../CSS/base.css">
     <link rel="stylesheet" href="../CSS/modifier.css">
 </head>
 <body>
-	<?php include 'header.php';
-		require '../cabmed/connexionBD.php';
 
-		try {
-			if ($_SERVER["REQUEST_METHOD"] == "GET") {
-				$nom = $_GET['nom'];
-				$prenom = $_GET['prenom'];
-				$civilite = $_GET['civilite'];
+<?php
+    include 'header.php';
+    require '../cabmed/connexionBD.php';
 
-				$sql = "SELECT * FROM medecin WHERE nom = :nom AND prenom = :prenom AND civilite = :civilite";
-				$stmt = $linkpdo->prepare($sql);
-				$stmt->bindParam(':nom', $nom, PDO::PARAM_STR);
-				$stmt->bindParam(':prenom', $prenom, PDO::PARAM_STR);
-				$stmt->bindParam(':civilite', $civilite, PDO::PARAM_STR);
-				$stmt->execute();
-				$medecin = $stmt->fetch(PDO::FETCH_ASSOC);
-				$id = $medecin['id_medecin'];
+    // Vérifier si l'ID du médecin est passé en paramètre
+    if(isset($_GET['id_medecin'])) {
+        // Récupérer l'ID du médecin depuis les paramètres d'URL
+        $id_medecin = $_GET["id_medecin"];
 
-				?>
-				<h1>Modification des informations de <?php echo $prenom ." ". $nom; ?></h1>
-				<div class="form">
-					<form action="modifierMedecin.php?id_medecin=<?php echo $id; ?>" method="post">
-						<label for="nom">Nom :</label>
-						<input type="text" id="nom" name="nom" value="<?php echo $medecin['nom']; ?>" required><br>
+        // Construire l'URL de la requête GET vers index.php avec l'ID du médecin
+        $url = 'http://localhost/API/projetAPI2024/cabmed/medecins/index.php?id=' . $id_medecin;
 
-						<label for="prenom">Prénom :</label>
-						<input type="text" id="prenom" name="prenom" value="<?php echo $medecin['prenom']; ?>" required><br>
+        // Effectuer la requête GET
+        $result = file_get_contents($url);
 
-						<label for="civilite">Civilité :</label>
-						<input type="text" id="civilite" name="civilite" value="<?php echo $medecin['civilite']; ?>" required><br>
+        // Vérifier si la requête a réussi
+        if($result !== false) {
+            // Convertir la réponse JSON en tableau associatif
+            $medecin = json_decode($result, true);
 
-						<input type="submit" value="Enregistrer les modifications">
-					</form>
-				</div>
-				
-				<?php
-			} elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
-				$id = $_GET['id_medecin'];
-				$nom = $_POST['nom'];
-				$prenom = $_POST['prenom'];
-				$civilite = $_POST['civilite'];
+            // Vérifier si des données de médecin ont été récupérées
+            if(isset($medecin['data'][0])) {
+                // Récupérer les informations du médecin depuis le tableau associatif
+                $nom = $medecin['data'][0]['nom'];
+                $prenom = $medecin['data'][0]['prenom'];
+                $civilite = $medecin['data'][0]['civilite'];
+            } else {
+                // Aucune donnée de médecin trouvée pour l'ID spécifié
+                echo "Aucune information trouvée pour le médecin avec l'ID : " . $id_medecin;
+            }
+        } else {
+            // Erreur lors de la récupération des données du médecin
+            echo "Erreur lors de la récupération des informations du médecin.";
+        }
+    } else {
+        // L'ID du médecin n'est pas spécifié dans les paramètres d'URL
+        echo "ID du médecin non spécifié.";
+    }
+    
+?>
 
-				$sql = "UPDATE medecin SET nom = :nom, prenom = :prenom, civilite = :civilite WHERE id_medecin = :id_medecin";
-				$stmt = $linkpdo->prepare($sql);
-				$stmt->bindParam(':nom', $nom, PDO::PARAM_STR);
-				$stmt->bindParam(':prenom', $prenom, PDO::PARAM_STR);
-				$stmt->bindParam(':civilite', $civilite, PDO::PARAM_STR);
-				$stmt->bindParam(':id_medecin', $id, PDO::PARAM_INT);
-				$stmt->execute();
+    <h1>Modification des informations de <?php echo $prenom ." ". $nom; ?></h1>
+    <div class="form">
+        <form action="modifierMedecin.php" method="post">
+            <input type="hidden" name="id_medecin" value="<?php echo $_GET['id_medecin']; ?>">
+            <label for="nom">Nom :</label>
+            <input type="text" id="nom" name="nom" value="<?php echo $nom; ?>" required><br>
 
-				echo 'Médecin modifié avec succès';
-			} else {
-				echo "Méthode non autorisée";
-			}
-		} catch (PDOException $e) {
-			echo "Erreur : " . $e->getMessage();
-		}
-	?>
-	<button onclick="window.location.href='affichageMedecin.php'">Retour</button>
+            <label for="prenom">Prénom :</label>
+            <input type="text" id="prenom" name="prenom" value="<?php echo $prenom; ?>" required><br>
+
+            <label for="civilite">Civilité :</label>
+            <input type="text" id="civilite" name="civilite" value="<?php echo $civilite; ?>" required><br>
+
+            <input type="submit" name="submit" value="Enregistrer les modifications">
+        </form>
+    </div>
+    <button onclick="window.location.href='affichageMedecin.php'">Retour</button>
+
+    <?php 
+        if (isset($_POST['submit'])){
+            $data = array('id_medecin' => $_POST['id_medecin'],'nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'civilite' => $_POST['civilite']);
+
+            $options = array(
+                'http' => array(
+                    'method' => 'PATCH',
+                    'header' => "Content-Type: application/json\r\n",
+                    'content' => json_encode($data)
+                )
+            );
+
+            $context = stream_context_create($options);
+
+            // URL de l'API pour les médecins
+            $baseUrl = 'http://localhost/API/projetAPI2024/cabmed/medecins/';
+            $resource = 'index.php';
+
+            // Exécution de la requête avec file_get_contents
+            $result = file_get_contents($baseUrl . $resource, false, $context);
+
+            // Gérer la réponse de l'API
+            if ($result !== false) {
+                // Conversion de la réponse en tableau associatif PHP
+                $response = json_decode($result, true);
+                // Affichage de la réponse
+                print_r($response);
+            } else {
+                echo 'Erreur fetch';
+            }
+        }
+    ?>
 </body>
+</html>

@@ -40,7 +40,6 @@
         <?php           
             if (isset($_POST['submit'])){
 
-                $url = 'http://localhost/API/projetAPI2024/cabmed/medecins/index.php';
                 $data = array('nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'civilite' => $_POST['civilite']);
 
                 $options = array(
@@ -65,8 +64,13 @@
                 if ($result !== false) {
                     // Conversion de la réponse en tableau associatif PHP
                     $response = json_decode($result, true);
-                    // Affichage de la réponse
-                    print_r($response);
+
+                    if (isset($response["status_code"]) && $response["status_code"] == 200) {
+                        header('Location: affichageMedecin.php');
+                        exit();
+                    } else {
+                        echo "Erreur lors de la création du médecin";
+                    }
                 } else {
                     echo 'Erreur Fetch';
                 }

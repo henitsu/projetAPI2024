@@ -33,13 +33,13 @@
                 echo '<tr><th>Civilité</th><th>Nom</th><th>Prénom</th><th>Action</th></tr>';
                 foreach ($response['data'] as $medecin) {
                     echo '<tr>';
-                    echo '<td>' . $medecin['civilite'] . '</td>';
-                    echo '<td>' . $medecin['nom'] . '</td>';
-                    echo '<td>' . $medecin['prenom'] . '</td>';
-                    echo '<td>';
-                    echo '<a href="modifierMedecin.php?id_medecin=' . $medecin['id_medecin'] . '">Modifier</a> | ';
-                    echo '<a href="javascript:void(0);" onclick="confirmDelete(' . $medecin['id_medecin'] . ', ' . $baseUrl .', "médecin")">Supprimer</a>';
-                    echo '</td>';
+                        echo '<td>' . $medecin['civilite'] . '</td>';
+                        echo '<td>' . $medecin['nom'] . '</td>';
+                        echo '<td>' . $medecin['prenom'] . '</td>';
+                        echo '<td>';
+                        echo '<a href="modifierMedecin.php?id_medecin=' . $medecin['id_medecin'] . '">Modifier</a> | ';
+                        echo '<a href="javascript:void(0);" onclick="confirmDelete(\'' . $medecin['id_medecin'] . '\', \'' . $baseUrl . '\', \'médecin\')">Supprimer</a>';
+                        echo '</td>';                        
                     echo '</tr>';
                 }
                 echo '</table>';

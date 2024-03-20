@@ -30,11 +30,11 @@
     }
 
     // GET
-    function getMedecins($linkpdo, $id=null){
-        if($id!=null){
+    function getMedecins($linkpdo, $id_medecin=null){
+        if($id_medecin!=null){
             $sql = "SELECT * FROM medecin WHERE id_medecin = :id_medecin";
             $stmt = $linkpdo->prepare($sql);
-            $stmt->bindParam(':id_medecin', $id, PDO::PARAM_INT);
+            $stmt->bindParam(':id_medecin', $id_medecin, PDO::PARAM_INT);
             $stmt->execute();
             if($stmt->rowCount() == 0){
                 deliverResponse(404, "Médecin inexistant", null);
@@ -46,25 +46,31 @@
         deliverResponse(200, "OK", $stmt->fetchAll(PDO::FETCH_ASSOC));
     }
 
-    // PUT, PATCH
-    function updateMedecin($linkpdo, $id, $data){
+    // PATCH
+    function updateMedecin($linkpdo, $id_medecin, $data){
+        
         try {
             // Récupération des données du médecin
-            $keys = array_keys($data);
-            $sqlValues = array_map(function($keys) {
-                return $keys . " = :" . $keys;
-            }, $keys);
-            $sql = "UPDATE medecin SET  " . implode(", ", $sqlValues) . " WHERE id_medecin = :id_medecin";
+
+            $nom = $data["nom"];
+            $prenom = $data["prenom"];
+            $civilite = $data["civilite"];
+
+            $sql = "UPDATE medecin SET nom = :nom, prenom = :prenom, civilite = :civilite WHERE id_medecin = :id_medecin";
+
             $stmt = $linkpdo->prepare($sql);
-            $stmt->bindParam(':id_medecin', $id, PDO::PARAM_INT);
-            foreach($data as $key => $value){
-                $stmt->bindParam(':'.$key, $value, PDO::PARAM_STR);
-            }
+            $stmt->bindParam(':id_medecin', $id_medecin, PDO::PARAM_INT);
+            $stmt->bindParam(':nom', $nom, PDO::PARAM_STR);
+            $stmt->bindParam(':prenom', $prenom, PDO::PARAM_STR);
+            $stmt->bindParam(':civilite', $civilite, PDO::PARAM_STR);
+            
             $stmt->execute();
+            
             if($stmt->rowCount() == 0){
                 deliverResponse(404, "Médecin inexistant", null);
             }
             deliverResponse(200, "Médecin modifié", null);
+        
         } catch(Exception $e){
             echo 'Erreur : '.$e->getMessage();
         }

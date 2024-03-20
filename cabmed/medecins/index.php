@@ -20,20 +20,21 @@
                 echo $matchingdata;
             }
             break;
+        
         case 'POST':
             $postedData = file_get_contents('php://input');
             $data = json_decode($postedData, true);
             $matchingdata = createMedecin($linkpdo, $data['nom'], $data['prenom'], $data['civilite']);
             echo $matchingdata;
             break;
+        
         case 'PATCH':
-        case 'PUT':
-            $id = htmlspecialchars($_GET['id_medecin']);
-            $modifiedData = file_get_contents('php://input');
-            $data = json_decode($modifiedData,true);
-            $matchingdata = updateMedecin($linkpdo, $id, $data);
+            $modifiedData = json_decode(file_get_contents('php://input'), true);
+            $data = ["nom" => $modifiedData['nom'], "prenom" => $modifiedData['prenom'], "civilite" => $modifiedData['civilite']];
+            $matchingdata = updateMedecin($linkpdo, $modifiedData["id_medecin"], $data);
             echo $matchingdata;
             break;
+        
         case 'DELETE':
             $id_medecin = htmlspecialchars($_GET['id_medecin']);
             $matchingdata = deleteMedecin($linkpdo, $id_medecin);
