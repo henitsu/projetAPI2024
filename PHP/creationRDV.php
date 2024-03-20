@@ -1,6 +1,7 @@
 <?php
-    // Inclusion de la classe Patient et de la BD
+    // Inclusion de la BD
     include 'header.php';
+    include '../cabmed/connexionBD.php';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -20,7 +21,7 @@
                     <?php
                         // Récupération des patients
                         $sql = "SELECT * FROM usager";
-                        $stmt = $bdd->prepare($sql);
+                        $stmt = $linkpdo->prepare($sql);
                         $stmt->execute();
                         $patients = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -37,7 +38,7 @@
                     <?php
                         // Récupération des médecins
                         $sql = "SELECT * FROM medecin";
-                        $stmt = $bdd->prepare($sql);
+                        $stmt = $linkpdo->prepare($sql);
                         $stmt->execute();
                         $medecins = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -61,9 +62,51 @@
                 <input type="number" name="duree_consult" id="duree_consult" value="30">
             </p>
             <p>
-                <input type="submit" value="Créer le rendez-vous">
+                <input type="submit" name="submit" value="Créer le rendez-vous">
             </p> 
         </form>
         <button onclick="window.location.href='affichageRDV.php'">Retour</button>
+
+        <?php           
+            if (isset($_POST['submit'])){
+
+                $data = array('id_medecin' => $_POST['id_medecin'], 'id_usager' => $_POST['id_usager'], 
+                'date_consult' => $_POST['date_consult'], 'heure_consult' => $_POST['heure_consult'], 'duree_consult' => $_POST['duree_consult']);
+
+                $options = array(
+                    'http' => array(
+                        'method' => 'POST',
+                        'header' => "Content-Type: application/json\r\n",
+                        'content' => json_encode($data)
+                    )
+                );
+
+                // Création du contexte de flux
+                $context = stream_context_create($options);
+
+                // URL de l'API pour les médecins
+                $baseUrl = 'http://localhost/API/projetAPI2024/cabmed/consultations/';
+                $resource = 'index.php';
+
+                // Exécution de la requête avec file_get_contents
+                $result = file_get_contents($baseUrl . $resource, false, $context);
+
+                // Gérer la réponse de l'API
+                if ($result !== false) {
+                    // Conversion de la réponse en tableau associatif PHP
+                    $response = json_decode($result, true);
+
+                    if (isset($response["status_code"]) && $response["status_code"] == 200) {
+                        header('Location: affichageRDV.php');
+                        exit();
+                    } else {
+                        echo "Erreur lors de la création de la consultation";
+                    }
+                } else {
+                    echo 'Erreur fetch';
+                }
+            }
+        ?>
+
     </body>
 </html>

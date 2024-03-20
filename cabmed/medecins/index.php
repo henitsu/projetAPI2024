@@ -29,10 +29,13 @@
             break;
         
         case 'PATCH':
-            $modifiedData = json_decode(file_get_contents('php://input'), true);
-            $data = ["nom" => $modifiedData['nom'], "prenom" => $modifiedData['prenom'], "civilite" => $modifiedData['civilite']];
-            $matchingdata = updateMedecin($linkpdo, $modifiedData["id_medecin"], $data);
-            echo $matchingdata;
+            $id =  htmlspecialchars($_GET['id_medecin']);
+            // mise à jour partielle
+
+            // Récupération des données dans le corps
+            $modifiedData = file_get_contents('php://input');
+            $data = json_decode($modifiedData, true);
+            echo updateMedecin($linkpdo, $id, $data);
             break;
         
         case 'DELETE':
