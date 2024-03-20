@@ -52,24 +52,41 @@
         try {
             // Récupération des données du médecin
 
-            $nom = $data["nom"];
-            $prenom = $data["prenom"];
-            $civilite = $data["civilite"];
+            // Récupération des clés dans $data
+            $keys = array_keys($data);
 
-            $sql = "UPDATE medecin SET nom = :nom, prenom = :prenom, civilite = :civilite WHERE id_medecin = :id_medecin";
+            $sqlValues = array_map(function($keys) {
+                return $keys . " = :" . $keys;
+            }, $keys);
 
-            $stmt = $linkpdo->prepare($sql);
-            $stmt->bindParam(':id_medecin', $id_medecin, PDO::PARAM_INT);
-            $stmt->bindParam(':nom', $nom, PDO::PARAM_STR);
-            $stmt->bindParam(':prenom', $prenom, PDO::PARAM_STR);
-            $stmt->bindParam(':civilite', $civilite, PDO::PARAM_STR);
-            
-            $stmt->execute();
-            
-            if($stmt->rowCount() == 0){
-                deliverResponse(404, "Médecin inexistant", null);
+            // Mise à jour de la phrase
+            $sql = "UPDATE medecin SET  " . implode(", ", $sqlValues) .
+                " WHERE id_medecin = :id_medecin;";
+
+            // Préparation de la requête
+            $sth = $linkpdo->prepare($sql);
+            if($sth==false){
+                die('Erreur préparation requête : ');
             }
-            deliverResponse(200, "Médecin modifié", null);
+            $stmt = $linkpdo->prepare($sql);
+            foreach($data as $key => $value){
+                $stmt->bindParam(':'.$key, $value, PDO::PARAM_STR);
+            }
+
+            $stmt->bindParam(':id_medecin', $id_medecin, PDO::PARAM_INT);
+            $stmt->execute();
+
+            // Vérification de la modification
+            $modif = "SELECT * FROM medecin WHERE id_medecin = :id_medecin";
+            $stmtM = $linkpdo->prepare($modif);
+            $stmtM->bindParam(':id_medecin', $id_medecin, PDO::PARAM_INT);
+            $stmtM->execute();
+            $rowCount = $stmt->rowCount();
+            if ($rowCount === 0) {
+                deliverResponse(200, "Aucune modification nécessaire", 0);
+            } else {
+                deliverResponse(200, "Médecin modifié", $stmtM->fetch());
+            }
         
         } catch(Exception $e){
             echo 'Erreur : '.$e->getMessage();

@@ -18,7 +18,6 @@
     $url = 'http://localhost/API/projetAPI2024/cabmed/usagers/index.php';
     $response = file_get_contents($url);
     $patients = json_decode($response, true);
-    echo $response;
 
     if ($patients !== null && !empty($patients)) {
         echo '<table border="1">';
