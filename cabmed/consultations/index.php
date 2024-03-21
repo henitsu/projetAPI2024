@@ -12,7 +12,7 @@
                 echo getConsultations($linkpdo, null);
             }
             else {
-                $id = htmlspecialchars($_GET['id']);
+                $id = htmlspecialchars($_GET['id_consult']);
                 echo getConsultations($linkpdo, $id);
             }
             break;
