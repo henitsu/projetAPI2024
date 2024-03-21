@@ -87,9 +87,8 @@
         </table></div><br><br>
 
         <?php
-            $NbHeuresConsultation = $dataMedecins['NbHeuresConsultations'];
-            foreach($NbHeuresConsultation as $NbHeures){
-                echo "<div class='stats'>Le médecin " . $NbHeures['NomMedecin'] . " a réalisé " . round($NbHeures['NbHeures'],2) . " heures de consultation. <br> </div>";
+            foreach($dataMedecins as $medecin){
+                echo "<div class='stats'>Le médecin " . $medecin['NomMedecin'] . " a réalisé " . round($medecin['NbHeures'],2) . " heures de consultation. <br> </div>";
             }
         ?>
 </body>

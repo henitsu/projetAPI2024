@@ -13,7 +13,7 @@ function confirmDelete(id, baseUrl, entity) {
                 // Médecin supprimé avec succès, actualiser la page
                 location.reload();
             } else {
-                throw new Error('Erreur lors de la suppression du médecin');
+                throw new Error('Erreur lors de la suppression du '+ entity + ' !' + response.status + ' : ' + response.statusText);
             }
         })
         .catch(error => {
