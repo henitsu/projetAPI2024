@@ -4,7 +4,7 @@
 
     function getPatients($linkpdo, $id = null){
         if (isset($id)){
-            $sth = $linkpdo->prepare('SELECT * FROM `usager` WHERE `id` = :id_usager');
+            $sth = $linkpdo->prepare('SELECT * FROM `usager` WHERE `id_usager` = :id_usager');
             if($sth==false){
                 die('Erreur Préparation Requête : ');
             }
