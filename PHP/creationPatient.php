@@ -1,5 +1,6 @@
 <?php
     include 'header.php';
+    require '../cabmed/connexionBD.php';
 ?>
 
 <!DOCTYPE html>
@@ -59,9 +60,70 @@
                 <input type="text" name="num_secu" id="num_secu" required>
             </p>
             <p>
+                <label for="id_medecin">Médecin :</label>
+                <select name="id_medecin" id="id_medecin">
+                    <?php
+                        // Récupération des médecins
+                        $sql = "SELECT * FROM medecin";
+                        $stmt = $linkpdo->prepare($sql);
+                        $stmt->execute();
+                        $medecins = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                        // Affichage des médecins
+                        foreach($medecins as $medecin){
+                            echo '<option value="'.$medecin['id_medecin'].'">'.$medecin['nom'].' '.$medecin['prenom'].'</option>';
+                        }
+                    ?>
+                </select>
+            </p>
+            <p>
                 <input type="submit" value="Créer le patient">
             </p>
         </form>
     <button onclick="window.location.href='affichagePatient.php'">Retour</button>
+
+    <?php           
+        if (isset($_POST['submit'])){
+
+            $data = array('nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'civilite' => $_POST['civilite'], 
+            'sexe' => $_POST['sexe'], 'adresse' => $_POST['adresse'], 'ville' => $_POST['ville'], 'code_postal' => $_POST['code_postal'],
+            'date_nais' => $_POST['date_nais'], 'lieu_nais' => $_POST['lieu_nais'], 'num_secu' => $_POST['num_secu'], 'id_medecin' => $_POST['id_medecin']);
+
+            $options = array(
+                'http' => array(
+                    'method' => 'POST',
+                    'header' => "Content-Type: application/json\r\n",
+                    'content' => json_encode($data)
+                )
+            );
+
+            // Création du contexte de flux
+            $context = stream_context_create($options);
+
+            // URL de l'API pour les médecins
+            $baseUrl = 'http://localhost/API/projetAPI2024/cabmed/usagers/';
+            $resource = 'index.php';
+
+            // Exécution de la requête avec file_get_contents
+            $result = file_get_contents($baseUrl . $resource, false, $context);
+
+            // Gérer la réponse de l'API
+            if ($result !== false) {
+                // Conversion de la réponse en tableau associatif PHP
+                $response = json_decode($result, true);
+
+                if (isset($response["status_code"]) && $response["status_code"] == 200) {
+                    header('Location: affichagePatient.php');
+                    exit();
+                } else {
+                    echo "Erreur lors de la création du patient";
+                }
+            } else {
+                echo 'Erreur fetch';
+            }
+        }
+    ?>
+
+
     </body>
 </html>
