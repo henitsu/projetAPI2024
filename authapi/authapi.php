@@ -67,7 +67,13 @@
             $payload = base64_decode($tokenParts[1]);
             $decoded_payload = json_decode($payload, true);
             $login = $decoded_payload['login'];
-            echo "Login récupéré : $login";
+            $sql = "SELECT * FROM user_auth_v1 WHERE login = :login";
+            $stmt = $linkpdo->prepare($sql);
+            $stmt->bindParam(':login', $login, PDO::PARAM_STR);
+            $stmt->execute();
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            header('Content-Type: application/json');
+            echo json_encode($user);
         } else {
             header('HTTP/1.0 401 Unauthorized');
             echo 'Token invalide';
