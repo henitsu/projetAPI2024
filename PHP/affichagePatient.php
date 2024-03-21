@@ -16,10 +16,11 @@
     <?php
     // Connexion à l'API pour récupérer les données des patients
     $url = 'http://localhost/API/projetAPI2024/cabmed/usagers/index.php';
-    $response = file_get_contents($url);
-    $patients = json_decode($response, true);
+    $result = file_get_contents($url);
+    $response = json_decode($result, true);
 
-    if ($patients !== null && !empty($patients)) {
+    if ($response !== null && isset($response['data'])) {
+        $patients = $response['data'];
         echo '<table border="1">';
         echo '<tr><th>ID</th><th>Nom</th><th>Prénom</th><th>Civilité</th><th>Adresse</th><th>Ville</th><th>Code postal</th>
         <th>Sexe</th><th>Date naissance</th><th>Lieu naissance</th><th>Numéro sécurité sociale</th><th>Action</th></tr>';
@@ -37,11 +38,10 @@
             echo '<td>' . date('d/m/Y', strtotime($patient['date_nais'])) . '</td>';
             echo '<td>' . $patient['lieu_nais'] . '</td>';
             echo '<td>' . $patient['num_secu'] . '</td>';
-            echo '<td><a href="modifierPatient.php?id_usager=' . $patient['id_usager'] . '&nom=' . $patient['nom'] . '&prenom=' . $patient['prenom'] 
-            . '&adresse=' . $patient['adresse'] . '&ville='. $patient['ville'] . '&code_postal=' . $patient['code_postal'] . '&sexe=' . $patient["sexe"]
-            . '&date_nais=' . $patient['date_nais'] . '&lieu_nais=' . $patient['lieu_nais'] 
-            . '&num_secu=' . $patient['num_secu'] . '">Modifier</a> | 
-            <a href="javascript:void(0);" onclick="confirmDelete(' . $patient['id'] . ', ' . $baseUrl .', "patient")">Supprimer</a></td>';
+            echo '<td>';
+            echo '<a href="modifierPatient.php?id_usager=' . $patient['id_usager'] . '">Modifier</a> | ';
+            echo '<a href="javascript:void(0);" onclick="confirmDelete(\'' . $patient['id_usager'] . '\', \'' . $url . '\', \'patient\')">Supprimer</a>';
+            echo '</td>';
             echo '</tr>';
         }
         echo '</table>';
