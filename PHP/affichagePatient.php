@@ -15,8 +15,9 @@
     </div>
     <?php
     // Connexion à l'API pour récupérer les données des patients
-    $url = 'http://localhost/API/projetAPI2024/cabmed/usagers/index.php';
-    $result = file_get_contents($url);
+    $baseUrl = 'http://localhost/API/projetAPI2024/cabmed/usagers/';
+    $resource = 'index.php';
+    $result = file_get_contents($baseUrl . $resource);
     $response = json_decode($result, true);
 
     if ($response !== null && isset($response['data'])) {
@@ -40,7 +41,7 @@
             echo '<td>' . $patient['num_secu'] . '</td>';
             echo '<td>';
             echo '<a href="modifierPatient.php?id_usager=' . $patient['id_usager'] . '">Modifier</a> | ';
-            echo '<a href="javascript:void(0);" onclick="confirmDelete(\'' . $patient['id_usager'] . '\', \'' . $url . '\', \'patient\')">Supprimer</a>';
+            echo '<a href="javascript:void(0);" onclick="confirmDelete(\'' . $patient['id_usager'] . '\', \'' . $baseUrl . '\', \'patient\')">Supprimer</a>';
             echo '</td>';
             echo '</tr>';
         }

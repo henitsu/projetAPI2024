@@ -33,7 +33,7 @@
         if($sth==false){
             die('Erreur Préparation Requête : ');
         }
-
+        $date = date('Y-m-d', strtotime(str_replace('/', '-', $date_nais)));
         $sth->bindParam(':civilite', $civilite, PDO::PARAM_STR); 
         $sth->bindParam(':nom', $nom, PDO::PARAM_STR);
         $sth->bindParam(':prenom', $prenom, PDO::PARAM_STR);
@@ -41,7 +41,7 @@
         $sth->bindParam(':adresse', $adresse, PDO::PARAM_STR);
         $sth->bindParam(':code_postal', $code_postal, PDO::PARAM_STR);
         $sth->bindParam(':ville', $ville, PDO::PARAM_STR);
-        $sth->bindParam(':date_nais', $date_nais, PDO::PARAM_STR);
+        $sth->bindParam(':date_nais', $date, PDO::PARAM_STR);
         $sth->bindParam(':lieu_nais', $lieu_nais, PDO::PARAM_STR);
         $sth->bindParam(':num_secu', $num_secu, PDO::PARAM_STR);
 
