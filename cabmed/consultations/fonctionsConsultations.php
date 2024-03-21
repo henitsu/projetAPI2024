@@ -68,7 +68,7 @@
 
             // Mise à jour de la phrase
             $sql = "UPDATE consultation SET  " . implode(", ", $sqlValues) .
-                ", WHERE id_consult = :id_consult";
+                " WHERE id_consult = :id_consult";
             $stmt = $linkpdo->prepare($sql);
             foreach($data as $key => $value){
                 $stmt->bindValue(':'.$key, $value, PDO::PARAM_STR);
@@ -97,7 +97,7 @@
 
     function deleteConsultation($linkpdo, $id){
 
-        $sth = $linkpdo->prepare('DELETE FROM `consultation` WHERE `id` = :id_consult');
+        $sth = $linkpdo->prepare('DELETE FROM `consultation` WHERE `id_consult` = :id_consult');
         if($sth==false){
             die('Erreur préparation requête : ');
         }
