@@ -7,7 +7,7 @@ Header always set Access-Control-Allow-Headers "Content-Type, Access-Control-All
 Options +FollowSymlinks
 DirectoryIndex authapi.php
 RewriteEngine On
-RewriteBase /api-patientele-auth.alwaysdata.net/
+RewriteBase http://api-patientele-auth.alwaysdata.net/
 
 ## Réécriture des URLs
 RewriteCond %{REQUEST_FILENAME} !-f

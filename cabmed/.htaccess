@@ -5,9 +5,9 @@ Header always set Access-Control-Allow-Headers "Content-Type, Access-Control-All
 
 ## Configuration des routes
 Options +FollowSymlinks
-#DirectoryIndex index.php
+DirectoryIndex index.php
 RewriteEngine On
-RewriteBase /api-patientele-cabmed.alwaysdata.net/
+RewriteBase http://api-patientele-cabmed.alwaysdata.net/
 
 ## Réécriture des URLs
 RewriteCond %{REQUEST_FILENAME} !-f

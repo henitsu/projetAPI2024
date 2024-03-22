@@ -5,7 +5,8 @@
     // Récupération du login et mot de passe
     $http_method = $_SERVER['REQUEST_METHOD'];
     if(!empty($http_method) && $http_method==='POST'){
-        $login = $_POST['login'];
+        $data = file_get_contents('php://input');
+        $login = $data['login'];
 
         // Vérification du login dans la BD
         $sql_login = "SELECT * FROM user_auth_v1 WHERE login = :login";
@@ -18,7 +19,7 @@
             echo 'Identifiant incorrect';
             exit;
         } else {
-            if($_POST['mdp'] === $db_password){
+            if($data['mdp'] === $db_password){
                 $pass = $db_password;
                 // Récupération de ses coordonnées dans la BD
                 $sql = "SELECT * FROM user_auth_v1 WHERE login = :login AND mdp = :mdp";
