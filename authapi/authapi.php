@@ -5,7 +5,8 @@
     // Récupération du login et mot de passe
     $http_method = $_SERVER['REQUEST_METHOD'];
     if(!empty($http_method) && $http_method==='POST'){
-        $data = file_get_contents('php://input');
+        $postedData = file_get_contents('php://input');
+        $data = json_decode($postedData, true);
         $login = $data['login'];
 
         // Vérification du login dans la BD
