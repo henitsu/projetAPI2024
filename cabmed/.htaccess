@@ -9,6 +9,10 @@ DirectoryIndex index.php
 RewriteEngine On
 RewriteBase /api-patientele-cabmed.alwaysdata.net/
 
+## Réécriture des URLs
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
 ## Pour les usagers
 RewriteRule ^cabmed/usagers/([0-9]+)$ cabmed/usagers/index.php?id_usager=$1 [QSA,L]
 
