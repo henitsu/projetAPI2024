@@ -30,4 +30,4 @@ RewriteRule ^cabmed/stats/medecins cabmed/stats/medecins/index.php [L]
 RewriteRule ^cabmed/stats/usagers cabmed/stats/usagers/index.php [L]
 
 ## Pour l'utilisation de AuthAPI
-RewriteRule ^authapi/authapi authapi/authapi.php [L]
+RewriteRule ^authapi/ authapi/authapi.php [L]
