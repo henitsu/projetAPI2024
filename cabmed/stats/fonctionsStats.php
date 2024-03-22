@@ -1,6 +1,6 @@
 <?php
-    require '/xampp/htdocs/API/projetAPI2024/cabmed/connexionBD.php';
-    require '/xampp/htdocs/API/projetAPI2024/cabmed/deliverResponse.php';
+    require '../connexionBD.php';
+    require '../deliverResponse.php';
 
     // fonctions de récupération des statistiques
     function getNbFemmesMoins25Ans($linkpdo){
