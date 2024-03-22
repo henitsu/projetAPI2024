@@ -1,6 +1,6 @@
 <?php
-    require './cabmed/connexionBD.php';
-    require './cabmed/deliverResponse.php';
+    require '/home/api-patientele-cabmed/www/cabmed/connexionBD.php';
+    require '/home/api-patientele-cabmed/www/cabmed/deliverResponse.php';
 
     // fonctions de récupération des statistiques
     function getNbFemmesMoins25Ans($linkpdo){
