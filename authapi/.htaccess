@@ -1,0 +1,17 @@
+## Configuration du header 
+Header always set Access-Control-Allow-Origin "*"
+Header always set Access-Control-Allow-Methods "GET, POST"
+Header always set Access-Control-Allow-Headers "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+
+## Configuration des routes
+Options +FollowSymlinks
+DirectoryIndex authapi.php
+RewriteEngine On
+RewriteBase /api-patientele-auth.alwaysdata.net/
+
+## Réécriture des URLs
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+## Pour l'utilisation de AuthAPI
+RewriteRule ^authapi/ authapi.php [L]

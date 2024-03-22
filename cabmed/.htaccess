@@ -7,11 +7,7 @@ Header always set Access-Control-Allow-Headers "Content-Type, Access-Control-All
 Options +FollowSymlinks
 DirectoryIndex index.php
 RewriteEngine On
-RewriteBase /API/projetAPI2024/
-
-## Réécriture des URLs
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
+RewriteBase /api-patientele-cabmed.alwaysdata.net/
 
 ## Pour les usagers
 RewriteRule ^cabmed/usagers/([0-9]+)$ cabmed/usagers/index.php?id_usager=$1 [QSA,L]
@@ -28,6 +24,3 @@ RewriteRule ^cabmed/stats/medecins cabmed/stats/medecins/index.php [L]
 
 ## Usagers
 RewriteRule ^cabmed/stats/usagers cabmed/stats/usagers/index.php [L]
-
-## Pour l'utilisation de AuthAPI
-RewriteRule ^authapi/ authapi/authapi.php [L]
