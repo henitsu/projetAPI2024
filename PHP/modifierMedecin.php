@@ -19,7 +19,7 @@
         $id_medecin = $_GET["id_medecin"];
 
         // Construire l'URL de la requête GET vers index.php avec l'ID du médecin
-        $url = 'http://localhost/API/projetAPI2024/cabmed/medecins/index.php?id=' . $id_medecin;
+        $url = 'http://localhost/API/projetAPI2024/cabmed/medecins/' . $id_medecin;
 
         // Effectuer la requête GET
         $result = file_get_contents($url);

@@ -10,8 +10,10 @@ CREATE TABLE usager(
    date_nais DATE NOT NULL,
    lieu_nais VARCHAR(50) NOT NULL,
    num_secu CHAR(15) NOT NULL,
+   id_medecin INT NOT NULL,
    CONSTRAINT PK_usager PRIMARY KEY(id_usager),
-   CONSTRAINT AK_usager UNIQUE(num_secu)
+   CONSTRAINT AK_usager UNIQUE(num_secu),
+   CONSTRAINT FK_usager_medecin FOREIGN KEY(id_medecin) REFERENCES medecin(id_medecin)
 );
 
 CREATE TABLE medecin(
