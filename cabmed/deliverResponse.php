@@ -1,16 +1,10 @@
 <?php
     // Envoi de la réponse au Client
     function deliverResponse($status_code, $status_message, $data=null){
-        $methods = 'GET, POST, PATCH, DELETE, OPTIONS';
+        // $methods = 'GET, POST, PATCH, DELETE, OPTIONS';
         // Paramétrage de l'entête HTTP
-        $headers = 'Content-Type, Authorization';
-        http_response_code($status_code); // Utilise un message standardisé en fonction du code HTTP
-        // header("HTTP/1.1 $status_code $status_message"); // Permet de personnaliser le message associé au code HTTP
-        header("Content-Type:application/json; charset=utf-8"); // Indique au client le format de la réponse
-        header("Access-Control-Allow-Origin: *");
-        header("Access-Control-Allow-Methods: $methods");
-        header("Access-Control-Allow-Headers: $headers");
-
+        http_response_code($status_code);
+        header("Content-Type: application/json; charset=utf-8");
         /// GESTION DES CORS DANS .htaccess
         $response['status_code'] = $status_code;
         $response['status_message'] = $status_message;
