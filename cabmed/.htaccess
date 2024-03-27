@@ -5,7 +5,6 @@ Header always set Access-Control-Allow-Headers "Content-Type, Access-Control-All
 
 ## Configuration des routes
 Options +FollowSymlinks
-DirectoryIndex index.php
 RewriteEngine On
 RewriteBase /cabmed/
 
