@@ -1,6 +1,7 @@
 ## Configuration du header 
 Header always set Access-Control-Allow-Origin "*"
 Header always set Access-Control-Allow-Methods "GET, POST, PATCH, DELETE"
+Header always set Allow "GET, POST, PATCH, DELETE"
 Header always set Access-Control-Allow-Headers "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
 
 ## Configuration des routes
