@@ -3,6 +3,10 @@
     include '../connexionBD.php';
     include './fonctionsUsager.php';
 
+    // Récupération de l'URI
+    $uri = $_SERVER['REQUEST_URI'];
+
+    // Récupération de la méthode HTTP utilisée
     $http_method = $_SERVER['REQUEST_METHOD'];
 
     switch ($http_method){
@@ -12,7 +16,7 @@
                 echo getPatients($linkpdo, null);
             }
             else {
-                $id = htmlspecialchars($_GET['id_usager']);
+                $id = basename($uri);
                 echo getPatients($linkpdo, $id);
             }
             break;
@@ -30,7 +34,7 @@
             break;
         
         case "PATCH":
-            $id =  htmlspecialchars($_GET['id_usager']);
+            $id = basename($uri);
             // mise à jour partielle
 
             // Récupération des données dans le corps
@@ -42,9 +46,9 @@
         
         case "DELETE":
             // suppression patient
-            $id = htmlspecialchars($_GET['id_usager']);
+            $id = basename($uri);
             if (!isset($id)){
-                deliverResponse(404, "Requête mal formée", NULL);
+                deliverResponse(400, "Requête mal formée", NULL);
             }
 
             echo deletePatient($linkpdo, $id);
