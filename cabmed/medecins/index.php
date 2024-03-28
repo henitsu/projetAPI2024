@@ -6,7 +6,6 @@
     include 'fonctionsMedecin.php';
 
     $http_method = $_SERVER['REQUEST_METHOD'];
-
     switch ($http_method) {
         case 'GET':
             $id = null;
