@@ -8,6 +8,7 @@
 
     // Récupération de la méthode HTTP utilisée
     $http_method = $_SERVER['REQUEST_METHOD'];
+    var_dump($http_method);
 
     switch ($http_method){
         case "GET" :
