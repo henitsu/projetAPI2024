@@ -5,6 +5,9 @@
     // Récupération des fonctions
     include 'fonctionsMedecin.php';
 
+    // Récupération de l'URI
+    $uri = $_SERVER['REQUEST_URI'];
+
     $http_method = $_SERVER['REQUEST_METHOD'];
     switch ($http_method) {
         case 'GET':
@@ -14,7 +17,7 @@
                 $matchingdata = getMedecins($linkpdo, $id);
                 echo $matchingdata;
             } else {
-                $id=htmlspecialchars($_GET['id_medecin']);
+                $id=basename($uri);
                 $matchingdata = getMedecins($linkpdo, $id);
                 echo $matchingdata;
             }
@@ -28,7 +31,7 @@
             break;
         
         case 'PATCH':
-            $id =  htmlspecialchars($_GET['id_medecin']);
+            $id = basename($uri);
             // mise à jour partielle
 
             // Récupération des données dans le corps
@@ -38,7 +41,7 @@
             break;
         
         case 'DELETE':
-            $id_medecin = htmlspecialchars($_GET['id_medecin']);
+            $id_medecin = basename($uri);
             $matchingdata = deleteMedecin($linkpdo, $id_medecin);
             echo $matchingdata;
             break;

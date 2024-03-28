@@ -3,6 +3,9 @@
     include '../connexionBD.php';
     include './fonctionsConsultations.php';
 
+    // Récupération de l'URI
+    $uri = $_SERVER['REQUEST_URI'];
+
     $http_method = $_SERVER['REQUEST_METHOD'];
 
     switch ($http_method){
@@ -12,7 +15,7 @@
                 echo getConsultations($linkpdo, null);
             }
             else {
-                $id = htmlspecialchars($_GET['id_consult']);
+                $id = basename($uri);
                 echo getConsultations($linkpdo, $id);
             }
             break;
@@ -28,7 +31,7 @@
             break;
         
         case "PATCH":
-            $id =  htmlspecialchars($_GET['id_consult']);
+            $id = basename($uri);
             // mise à jour partielle
 
             // Récupération des données dans le corps
@@ -40,9 +43,9 @@
         
         case "DELETE":
             // suppression consultation
-            $id = htmlspecialchars($_GET['id_consult']);
+            $id =basename($uri);
             if (!isset($id)){
-                deliverResponse(404, "Requête mal formée", NULL);
+                deliverResponse(400, "Requête mal formée", NULL);
             }
 
             echo deleteConsultation($linkpdo, $id);
