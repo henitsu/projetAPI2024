@@ -5,8 +5,8 @@ Header always set Access-Control-Allow-Headers "Content-Type, Access-Control-All
 
 ## Configuration des routes
 Options +FollowSymlinks
-RewriteEngine On
 DirectoryIndex index.php
+RewriteEngine On
 RewriteBase /API/projetAPI2024/
 
 ## Réécriture des URLs
@@ -18,15 +18,15 @@ RewriteRule ^authapi authapi.php [L]
 
 ## Pour les usagers
 RewriteRule ^cabmed/usagers cabmed/usagers/index.php [QSA,L]
-RewriteRule ^cabmed/usagers/([0-9]+)$ cabmed/usagers/index.php?id_usager=$1 [QSA,L]
+RewriteRule ^cabmed/usagers/([0-9]+)/?$ cabmed/usagers/index.php?id_usager=$1 [QSA,L]
 
 ## Pour les médecins
 RewriteRule ^cabmed/medecins cabmed/medecins/index.php [QSA,L]
-RewriteRule ^cabmed/medecins/([0-9]+)$ cabmed/medecins/index.php?id_medecin=$1 [QSA,L]
+RewriteRule ^cabmed/medecins/([0-9]+)/?$ cabmed/medecins/index.php?id_medecin=$1 [QSA,L]
 
 ## Pour les consultations
 RewriteRule ^cabmed/consultations cabmed/consultations/index.php [QSA,L]
-RewriteRule ^cabmed/consultations/([0-9]+)$ cabmed/consultations/index.php?id_consult=$1 [QSA,L]
+RewriteRule ^cabmed/consultations/([0-9]+)/?$ cabmed/consultations/index.php?id_consult=$1 [QSA,L]
 
 ## Pour les statistiques
 ## Médecins
