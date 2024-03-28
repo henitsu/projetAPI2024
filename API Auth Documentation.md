@@ -62,7 +62,7 @@ GET /authapi
 
 Token généré après la requête `POST` à mettre dans Auth, dans Bearer :
 
-![Untitled](API%20Auth%20Documentation%20538a40836fa84c2885d8ccdf732ba850/Untitled.png)
+![Bearer_Token]((bearer_token.png))
 
 Réponse :
 
