@@ -36,14 +36,16 @@
             $stmt = $linkpdo->prepare($sql);
             $stmt->bindParam(':id_medecin', $id_medecin, PDO::PARAM_INT);
             $stmt->execute();
-            if($stmt->rowCount() == 0){
-                deliverResponse(404, "Médecin inexistant", null);
-            }
         } else {
             $sql = "SELECT * FROM medecin";
             $stmt = $linkpdo->query($sql);
         }
-        deliverResponse(200, "OK", $stmt->fetchAll(PDO::FETCH_ASSOC));
+
+        if ($stmt->rowCount() == 0) {
+            deliverResponse(404, "Aucun médecin trouvé", null);
+        } else {
+            deliverResponse(200, "OK", $stmt->fetchAll(PDO::FETCH_ASSOC));
+        }
     }
 
     // PATCH

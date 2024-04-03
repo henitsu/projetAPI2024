@@ -3,7 +3,7 @@
     require '../deliverResponse.php';
     
     function getConsultations($linkpdo, $id = null){
-        if (isset($id)){
+        if ($id != null){
             $sth = $linkpdo->prepare('SELECT consultation.id_consult, consultation.id_medecin, consultation.id_usager, consultation.date_consult, consultation.heure_consult, consultation.duree_consult, usager.nom nom_usager, medecin.nom nom_medecin FROM consultation, usager, medecin WHERE consultation.id_consult = :id_consult');
             if($sth==false){
                 die('Erreur Préparation Requête : ');
@@ -21,7 +21,12 @@
             deliverResponse(500, "Erreur serveur", NULL);
             die('Erreur exécution requête : ');
         }
-        deliverResponse(200, "OK (récupération consultation(s))", $sth->fetchAll(PDO::FETCH_ASSOC));
+        if ($sth->rowCount() == 0) {
+            deliverResponse(404, "Aucune consultation trouvée", NULL);
+        } else {
+            // Récupération des données (fetch)
+            deliverResponse(200, "OK (récupération consultation(s))", $sth->fetchAll(PDO::FETCH_ASSOC));
+        }
     }
 
 

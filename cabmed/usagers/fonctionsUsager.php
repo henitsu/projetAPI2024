@@ -21,7 +21,12 @@
             deliverResponse(500, "Erreur serveur", NULL);
             die('Erreur Exécution Requête : ');
         }
-        deliverResponse(200, "OK (récupération patient(s))", $sth->fetchAll(PDO::FETCH_ASSOC));
+
+        if ($sth->rowCount() == 0) {
+            deliverResponse(404, "Aucun patient trouvé", NULL);
+        } else {
+            deliverResponse(200, "OK (récupération patient(s))", $sth->fetchAll(PDO::FETCH_ASSOC));
+        }
     }
 
 
