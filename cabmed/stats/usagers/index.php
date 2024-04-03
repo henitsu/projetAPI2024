@@ -8,6 +8,6 @@
         $matchingdata = getStatsUsagers($linkpdo);
         echo $matchingdata;
     } else {
-        deliverResponse(400, "Bad request", NULL);
+        deliverResponse(405, "Méthode non autorisée", NULL);
     }
 ?>

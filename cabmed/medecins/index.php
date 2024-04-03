@@ -45,5 +45,7 @@
             $matchingdata = deleteMedecin($linkpdo, $id_medecin);
             echo $matchingdata;
             break;
+        default:
+            deliverResponse(405, "Méthode non autorisée", NULL);
     }
 ?>
