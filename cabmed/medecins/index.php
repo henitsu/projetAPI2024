@@ -14,12 +14,10 @@
             $id = null;
             if(basename($uri) == "medecins")
             {
-                $matchingdata = getMedecins($linkpdo, $id);
-                echo $matchingdata;
+                echo getMedecins($linkpdo, $id);
             } else {
                 $id=basename($uri);
-                $matchingdata = getMedecins($linkpdo, $id);
-                echo $matchingdata;
+                echo getMedecins($linkpdo, $id);
             }
             break;
         
