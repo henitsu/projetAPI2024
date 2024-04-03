@@ -14,6 +14,7 @@ Header always set Access-Control-Allow-Headers "Content-Type, Access-Control-All
 Options +FollowSymlinks
 DirectoryIndex index.php
 RewriteEngine On
+RewriteBase /cabmed/
 
 ## Réécriture des URLs
 RewriteCond %{REQUEST_FILENAME} !-f
