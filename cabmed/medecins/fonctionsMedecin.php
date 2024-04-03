@@ -7,7 +7,7 @@
     // FONCTIONS de gestion des médecins
     // POST
     function createMedecin($linkpdo, $nom, $prenom, $civilite){
-        // Ajout du patient dans la BD
+        // Ajout du médecin dans la BD
         try{
             $sql = "INSERT INTO medecin (civilite, nom, prenom) VALUES (:civilite, :nom, :prenom)";
             $stmt = $linkpdo->prepare($sql);
@@ -59,7 +59,6 @@
                 return $keys . " = :" . $keys;
             }, $keys);
 
-            // Mise à jour de la phrase
             $sql = "UPDATE medecin SET  " . implode(", ", $sqlValues) .
                 " WHERE id_medecin = :id_medecin;";
 
