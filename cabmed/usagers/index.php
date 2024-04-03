@@ -30,7 +30,7 @@
             
             echo createPatient($linkpdo, $data['nom'], $data['prenom'], $data['sexe'], $data['adresse'], 
                 $data['code_postal'], $data['ville'], $data['date_nais'], $data['lieu_nais'], 
-                $data['num_secu'], $data['civilite']);  
+                $data['num_secu'], $data['civilite'], $data['id_medecin']);  
             break;
         
         case "PATCH":

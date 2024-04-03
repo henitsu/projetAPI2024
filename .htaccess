@@ -1,0 +1,40 @@
+<Limit GET POST PATCH DELETE OPTIONS>
+    Require all granted
+</Limit>
+<LimitExcept GET POST PATCH DELETE OPTIONS>
+    Require all denied
+</LimitExcept>
+
+## Configuration du header 
+Header always set Access-Control-Allow-Origin "*"
+Header always set Access-Control-Allow-Methods "GET, POST, PATCH, DELETE, OPTIONS"
+Header always set Access-Control-Allow-Headers "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+
+## Configuration des routes
+Options +FollowSymlinks
+DirectoryIndex index.php
+RewriteEngine On
+RewriteBase /cabmed/
+
+## Réécriture des URLs
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+## Pour les usagers
+RewriteRule ^usagers usagers/index.php [QSA,L]
+RewriteRule ^usagers/([0-9]+)$ usagers/index.php?id_usager=$1 [QSA,L]
+
+## Pour les médecins
+RewriteRule ^medecins medecins/index.php [QSA,L]
+RewriteRule ^medecins/([0-9]+)$ medecins/index.php?id_medecin=$1 [QSA,L]
+
+## Pour les consultations
+RewriteRule ^consultations consultations/index.php [QSA,L]
+RewriteRule ^consultations/([0-9]+)$ consultations/index.php?id_consult=$1 [QSA,L]
+
+## Pour les statistiques
+## Médecins
+RewriteRule ^/stats/medecins /stats/medecins/index.php [L]
+
+## Usagers
+RewriteRule ^/stats/usagers /stats/usagers/index.php [L]

@@ -25,11 +25,11 @@
     }
 
 
-    function createPatient($linkpdo, $nom, $prenom, $sexe, $adresse, $code_postal, $ville, $date_nais, $lieu_nais, $num_secu, $civilite){
+    function createPatient($linkpdo, $nom, $prenom, $sexe, $adresse, $code_postal, $ville, $date_nais, $lieu_nais, $num_secu, $civilite, $id_medecin){
 
         $sth = $linkpdo->prepare('INSERT INTO `usager` (`civilite`, `nom`, `prenom`, `sexe`,
-        `adresse`, `code_postal`, `ville`, `date_nais`, `lieu_nais`, `num_secu`) VALUES (:civilite, :nom, :prenom, 
-        :sexe, :adresse, :code_postal, :ville, :date_nais, :lieu_nais, :num_secu)');
+        `adresse`, `code_postal`, `ville`, `date_nais`, `lieu_nais`, `num_secu`, `id_medecin`) VALUES (:civilite, :nom, :prenom, 
+        :sexe, :adresse, :code_postal, :ville, :date_nais, :lieu_nais, :num_secu, :id_medecin)');
         if($sth==false){
             die('Erreur Préparation Requête : ');
         }
@@ -44,6 +44,7 @@
         $sth->bindParam(':date_nais', $date, PDO::PARAM_STR);
         $sth->bindParam(':lieu_nais', $lieu_nais, PDO::PARAM_STR);
         $sth->bindParam(':num_secu', $num_secu, PDO::PARAM_STR);
+        $sth->bindParam(':id_medecin', $id_medecin, PDO::PARAM_STR);
 
         $linkpdo->beginTransaction(); // Démarrage de la transaction
 
@@ -57,7 +58,7 @@
 
         $linkpdo->commit(); // Fin de la transaction et application des données
 
-        deliverResponse(201, "Patient créé ", $newId);
+        deliverResponse(201, "Patient créé", $newId);
 
     }  
     
