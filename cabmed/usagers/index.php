@@ -12,7 +12,7 @@
     switch ($http_method){
         case "GET" :
             // Lecture 
-            if(!isset($_GET['id_usager'])) {
+            if(basename($uri) == "usagers") {
                 echo getPatients($linkpdo, null);
             }
             else {

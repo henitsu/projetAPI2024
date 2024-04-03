@@ -11,7 +11,7 @@
     switch ($http_method){
         case "GET" :
             // Lecture 
-            if(!isset($_GET['id_consult'])) {
+            if(basename($uri) == "consultations") {
                 echo getConsultations($linkpdo, null);
             }
             else {

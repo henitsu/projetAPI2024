@@ -3,7 +3,7 @@
     require '../deliverResponse.php';
 
     function getPatients($linkpdo, $id = null){
-        if (isset($id)){
+        if ($id != null){
             $sth = $linkpdo->prepare('SELECT * FROM `usager` WHERE `id_usager` = :id_usager');
             if($sth==false){
                 die('Erreur Préparation Requête : ');

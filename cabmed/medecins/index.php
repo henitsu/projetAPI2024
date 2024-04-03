@@ -12,7 +12,7 @@
     switch ($http_method) {
         case 'GET':
             $id = null;
-            if(!isset($_GET['id_medecin']))
+            if(basename($uri) == "medecins")
             {
                 $matchingdata = getMedecins($linkpdo, $id);
                 echo $matchingdata;
