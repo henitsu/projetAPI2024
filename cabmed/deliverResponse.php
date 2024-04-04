@@ -1,7 +1,6 @@
 <?php
     // Envoi de la réponse au Client
     function deliverResponse($status_code, $status_message, $data=null){
-        // $methods = 'GET, POST, PATCH, DELETE, OPTIONS';
         // Paramétrage de l'entête HTTP
         http_response_code($status_code);
         header("Content-Type: application/json; charset=utf-8");

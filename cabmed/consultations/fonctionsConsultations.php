@@ -71,7 +71,7 @@
                 return $keys . " = :" . $keys;
             }, $keys);
 
-            // Mise à jour de la phrase
+            // Mise à jour de la consultation
             $sql = "UPDATE consultation SET  " . implode(", ", $sqlValues) .
                 " WHERE id_consult = :id_consult";
             $stmt = $linkpdo->prepare($sql);
