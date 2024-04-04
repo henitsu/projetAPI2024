@@ -1,6 +1,9 @@
 # projetAPI2024
 Projet en Architecture logicielle - Développement d'une API Rest en BUT2
 
+# Etudiantes
+Lilou PEDRO (@lilouuuuuuu) et Mirindra RANDRIANARISON RATSIANDAVANA (@henitsu)
+
 # API Authentification
 Cette API sert à l'authentification de l'utilisateur.
 La documentation de l'API se trouve dans le fichier `/api_documentations/api_auth/API Auth Documentation.md` ou `/api_documentations/api_auth/API Auth Documentation.pdf`
