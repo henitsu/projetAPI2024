@@ -4,7 +4,7 @@
     
     function getConsultations($linkpdo, $id = null){
         if ($id != null){
-            $sth = $linkpdo->prepare('SELECT consultation.id_consult, consultation.id_medecin, consultation.id_usager, consultation.date_consult, consultation.heure_consult, consultation.duree_consult, usager.nom nom_usager, medecin.nom nom_medecin FROM consultation, usager, medecin WHERE consultation.id_consult = :id_consult');
+            $sth = $linkpdo->prepare('SELECT consultation.id_consult, consultation.id_medecin, consultation.id_usager, consultation.date_consult, consultation.heure_consult, consultation.duree_consult, usager.nom nom_usager, medecin.nom nom_medecin FROM consultation, usager, medecin WHERE consultation.id_consult = :id_consult AND id_usager = usager.id_usager AND id_medecin = medecin.id_medecin ORDER BY consultation.date_consult, consultation.heure_consult');
             if($sth==false){
                 die('Erreur Préparation Requête : ');
             }
