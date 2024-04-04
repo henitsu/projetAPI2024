@@ -90,10 +90,9 @@ include '../cabmed/connexionBD.php';
 
         // URL de l'API pour les médecins
         $baseUrl = 'https://api-patientele-cabmed.alwaysdata.net/cabmed/consultations/';
-        $resource = 'index.php';
 
         // Exécution de la requête avec file_get_contents
-        $result = file_get_contents($baseUrl . $resource, false, $context);
+        $result = file_get_contents($baseUrl, false, $context);
 
         // Gérer la réponse de l'API
         if ($result !== false) {
