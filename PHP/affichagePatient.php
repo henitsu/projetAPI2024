@@ -18,8 +18,7 @@
     <?php
     // Connexion à l'API pour récupérer les données des patients
     $baseUrl = 'https://api-patientele-cabmed.alwaysdata.net/cabmed/usagers/';
-    $resource = 'index.php';
-    $result = file_get_contents($baseUrl . $resource);
+    $result = file_get_contents($baseUrl);
     $response = json_decode($result, true);
 
     if ($response !== null && isset($response['data'])) {

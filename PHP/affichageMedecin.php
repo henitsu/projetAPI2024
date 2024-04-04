@@ -19,9 +19,8 @@
         <?php
         // URL de l'API pour les médecins
         $baseUrl = 'https://api-patientele-cabmed.alwaysdata.net/cabmed/medecins/';
-        $resource = 'index.php';
 
-        $result = file_get_contents($baseUrl . $resource);
+        $result = file_get_contents($baseUrl);
 
         $response = json_decode($result, true);
 
