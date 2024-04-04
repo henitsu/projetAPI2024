@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-    <meta charset="utf-8">
-    <title>Gestion d'un cabinet médical</title>
-    <link rel="shortcut icon" href="Donnees/patientele_icon.ico" />
-    <link rel="stylesheet" href="CSS/base.css">
-    <link rel="stylesheet" href="CSS/index.css">
+	<meta charset="utf-8">
+	<title>Gestion d'un cabinet médical</title>
+	<link rel="shortcut icon" href="Donnees/patientele_icon.ico" />
+	<link rel="stylesheet" href="CSS/base.css">
+	<link rel="stylesheet" href="CSS/index.css">
 </head>
+
 <body>
 	<div class="container" id="container">
 		<div class="form-container log-in-container">
-			<form action="/authapi/authapi.php" method="post">
+			<form action="https://api-auth.alwaysdata.net/authapi" method="post">
 				<h1>Authentification</h1>
 				<input name="identifiant" type="text" placeholder="Identifiant" />
 				<input type="password" placeholder="Mot de passe" />
@@ -28,4 +30,5 @@
 		</div>
 	</div>
 </body>
+
 </html>
