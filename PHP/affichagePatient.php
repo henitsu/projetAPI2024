@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="utf-8">
     <title>Gestion d'un cabinet médical</title>
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="../CSS/base.css">
     <link rel="stylesheet" href="../CSS/affichage.css">
 </head>
+
 <body>
     <?php include 'header.php'; ?>
     <h1>Affichage des patients</h1>
@@ -15,7 +17,7 @@
     </div>
     <?php
     // Connexion à l'API pour récupérer les données des patients
-    $baseUrl = 'http://localhost/API/projetAPI2024/cabmed/usagers/';
+    $baseUrl = 'https://api-cabmed.alwaysdata.net/cabmed/usagers/';
     $resource = 'index.php';
     $result = file_get_contents($baseUrl . $resource);
     $response = json_decode($result, true);
@@ -52,4 +54,5 @@
     ?>
     <script src="../JS/suppression.js"></script>
 </body>
+
 </html>

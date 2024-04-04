@@ -1,81 +1,83 @@
 <?php
-    include 'header.php';
+include 'header.php';
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="utf-8">
-        <title>Création d'un médecin</title>
-        <link rel="shortcut icon" href="../Donnees/patientele_icon.ico" />
-        <link rel="stylesheet" href="../CSS/base.css">
-        <link rel="stylesheet" href="../CSS/creation.css">
-    </head>
-    <body>
-        <h1>Création d'un médecin</h1>
 
-        <form action="creationMedecin.php" method="post">
-            <p>
-                <label for="civilite">Civilité :</label>
-                <select name="civilite" id="civilite" required>
-                    <option value="M">M</option>
-                    <option value="Mme">Mme</option>
-                    <option value="Mlle">Mlle</option>
-                </select>
-            </p>
-            <p>
-                <label for="nom">Nom :</label>
-                <input type="text" name="nom" id="nom" required>
-            </p>
-            <p>
-                <label for="prenom">Prénom :</label>
-                <input type="text" name="prenom" id="prenom" required>
-            </p>
-            <p>
-                <input type="submit" name='submit' value="Créer le médecin">
-            </p>
-        </form>
-        <button onclick="window.location.href='affichageMedecin.php'">Retour</button>
+<head>
+    <meta charset="utf-8">
+    <title>Création d'un médecin</title>
+    <link rel="shortcut icon" href="../Donnees/patientele_icon.ico" />
+    <link rel="stylesheet" href="../CSS/base.css">
+    <link rel="stylesheet" href="../CSS/creation.css">
+</head>
 
-        <?php           
-            if (isset($_POST['submit'])){
+<body>
+    <h1>Création d'un médecin</h1>
 
-                $data = array('nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'civilite' => $_POST['civilite']);
+    <form action="creationMedecin.php" method="post">
+        <p>
+            <label for="civilite">Civilité :</label>
+            <select name="civilite" id="civilite" required>
+                <option value="M">M</option>
+                <option value="Mme">Mme</option>
+                <option value="Mlle">Mlle</option>
+            </select>
+        </p>
+        <p>
+            <label for="nom">Nom :</label>
+            <input type="text" name="nom" id="nom" required>
+        </p>
+        <p>
+            <label for="prenom">Prénom :</label>
+            <input type="text" name="prenom" id="prenom" required>
+        </p>
+        <p>
+            <input type="submit" name='submit' value="Créer le médecin">
+        </p>
+    </form>
+    <button onclick="window.location.href='affichageMedecin.php'">Retour</button>
 
-                $options = array(
-                    'http' => array(
-                        'method' => 'POST',
-                        'header' => "Content-Type: application/json\r\n",
-                        'content' => json_encode($data)
-                    )
-                );
+    <?php
+    if (isset($_POST['submit'])) {
 
-                // Création du contexte de flux
-                $context = stream_context_create($options);
+        $data = array('nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'civilite' => $_POST['civilite']);
 
-                // URL de l'API pour les médecins
-                $baseUrl = 'http://localhost/API/projetAPI2024/cabmed/medecins/';
-                $resource = 'index.php';
+        $options = array(
+            'http' => array(
+                'method' => 'POST',
+                'header' => "Content-Type: application/json\r\n",
+                'content' => json_encode($data)
+            )
+        );
 
-                // Exécution de la requête avec file_get_contents
-                $result = file_get_contents($baseUrl . $resource, false, $context);
+        // Création du contexte de flux
+        $context = stream_context_create($options);
 
-                // Gérer la réponse de l'API
-                if ($result !== false) {
-                    // Conversion de la réponse en tableau associatif PHP
-                    $response = json_decode($result, true);
+        // URL de l'API pour les médecins
+        $baseUrl = 'https://api-cabmed.alwaysdata.net/cabmed/medecins/';
+        $resource = 'index.php';
 
-                    if (isset($response["status_code"]) && $response["status_code"] == 200) {
-                        header('Location: affichageMedecin.php');
-                        exit();
-                    } else {
-                        echo "Erreur lors de la création du médecin";
-                    }
-                } else {
-                    echo 'Erreur Fetch';
-                }
+        // Exécution de la requête avec file_get_contents
+        $result = file_get_contents($baseUrl . $resource, false, $context);
+
+        // Gérer la réponse de l'API
+        if ($result !== false) {
+            // Conversion de la réponse en tableau associatif PHP
+            $response = json_decode($result, true);
+
+            if (isset($response["status_code"]) && $response["status_code"] == 200) {
+                header('Location: affichageMedecin.php');
+                exit();
+            } else {
+                echo "Erreur lors de la création du médecin";
             }
-        ?>
-    </body>
-    
+        } else {
+            echo 'Erreur Fetch';
+        }
+    }
+    ?>
+</body>
+
 </html>

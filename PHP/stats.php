@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="utf-8">
     <title>Gestion d'un cabinet médical</title>
@@ -7,26 +8,27 @@
     <link rel="stylesheet" href="../CSS/base.css">
     <link rel="stylesheet" href="../CSS/affichage.css">
 </head>
+
 <body>
     <?php
-        include 'header.php';
+    include 'header.php';
 
-        $baseUrl = 'http://localhost/API/projetAPI2024/cabmed/stats/';
-        $resourceUsagers = '/usagers/index.php';
-        // Récupérer les données JSON à partir de l'API
-        // Décoder les données JSON
-        $jsonData = json_decode(file_get_contents($baseUrl . $resourceUsagers), true);
-        $data = $jsonData['data'];
+    $baseUrl = 'https://api-cabmed.alwaysdata.net/cabmed/stats/';
+    $resourceUsagers = '/usagers/index.php';
+    // Récupérer les données JSON à partir de l'API
+    // Décoder les données JSON
+    $jsonData = json_decode(file_get_contents($baseUrl . $resourceUsagers), true);
+    $data = $jsonData['data'];
 
-        // Données des médecins
-        $resourceMedecins = '/medecins/index.php';
-        // Récupérer les données JSON à partir de l'API
-        // Décoder les données JSON
-        $jsonData = json_decode(file_get_contents($baseUrl . $resourceMedecins), true);
-        $dataMedecins = $jsonData['data'];
+    // Données des médecins
+    $resourceMedecins = '/medecins/index.php';
+    // Récupérer les données JSON à partir de l'API
+    // Décoder les données JSON
+    $jsonData = json_decode(file_get_contents($baseUrl . $resourceMedecins), true);
+    $dataMedecins = $jsonData['data'];
     ?>
     <h1>Statistiques</h1>
-        <div class='stats'>
+    <div class='stats'>
         <table>
             <tr>
                 <td class='creer'>
@@ -84,11 +86,12 @@
                     ?>
                 </td>
             </tr>
-        </table></div><br><br>
+        </table>
+    </div><br><br>
 
-        <?php
-            foreach($dataMedecins as $medecin){
-                echo "<div class='stats'>Le médecin " . $medecin['NomMedecin'] . " a réalisé " . round($medecin['NbHeures'],2) . " heures de consultation. <br> </div>";
-            }
-        ?>
+    <?php
+    foreach ($dataMedecins as $medecin) {
+        echo "<div class='stats'>Le médecin " . $medecin['NomMedecin'] . " a réalisé " . round($medecin['NbHeures'], 2) . " heures de consultation. <br> </div>";
+    }
+    ?>
 </body>

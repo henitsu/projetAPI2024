@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="utf-8">
     <title>Modification médecin</title>
@@ -7,30 +8,31 @@
     <link rel="stylesheet" href="../CSS/base.css">
     <link rel="stylesheet" href="../CSS/modifier.css">
 </head>
+
 <body>
 
-<?php
+    <?php
     include 'header.php';
     require '../cabmed/connexionBD.php';
 
     // Vérifier si l'ID du médecin est passé en paramètre
-    if(isset($_GET['id_medecin'])) {
+    if (isset($_GET['id_medecin'])) {
         // Récupérer l'ID du médecin depuis les paramètres d'URL
         $id_medecin = $_GET["id_medecin"];
 
         // Construire l'URL de la requête GET vers index.php avec l'ID du médecin
-        $url = 'http://localhost/API/projetAPI2024/cabmed/medecins/' . $id_medecin;
+        $url = 'https://api-cabmed.alwaysdata.net/cabmed/medecins/' . $id_medecin;
 
         // Effectuer la requête GET
         $result = file_get_contents($url);
 
         // Vérifier si la requête a réussi
-        if($result !== false) {
+        if ($result !== false) {
             // Convertir la réponse JSON en tableau associatif
             $medecin = json_decode($result, true);
 
             // Vérifier si des données de médecin ont été récupérées
-            if(isset($medecin['data'][0])) {
+            if (isset($medecin['data'][0])) {
                 // Récupérer les informations du médecin depuis le tableau associatif
                 $nom = $medecin['data'][0]['nom'];
                 $prenom = $medecin['data'][0]['prenom'];
@@ -47,10 +49,10 @@
         // L'ID du médecin n'est pas spécifié dans les paramètres d'URL
         echo "ID du médecin non spécifié.";
     }
-    
-?>
 
-    <h1>Modification des informations de <?php echo $prenom ." ". $nom; ?></h1>
+    ?>
+
+    <h1>Modification des informations de <?php echo $prenom . " " . $nom; ?></h1>
     <div class="form">
         <form action="modifierMedecin.php" method="post">
             <input type="hidden" name="id_medecin" value="<?php echo $_GET['id_medecin']; ?>">
@@ -68,37 +70,38 @@
     </div>
     <button onclick="window.location.href='affichageMedecin.php'">Retour</button>
 
-    <?php 
-        if (isset($_POST['submit'])){
-            $data = array('id_medecin' => $_POST['id_medecin'],'nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'civilite' => $_POST['civilite']);
+    <?php
+    if (isset($_POST['submit'])) {
+        $data = array('id_medecin' => $_POST['id_medecin'], 'nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'civilite' => $_POST['civilite']);
 
-            $options = array(
-                'http' => array(
-                    'method' => 'PATCH',
-                    'header' => "Content-Type: application/json\r\n",
-                    'content' => json_encode($data)
-                )
-            );
+        $options = array(
+            'http' => array(
+                'method' => 'PATCH',
+                'header' => "Content-Type: application/json\r\n",
+                'content' => json_encode($data)
+            )
+        );
 
-            $context = stream_context_create($options);
+        $context = stream_context_create($options);
 
-            // URL de l'API pour les médecins
-            $baseUrl = 'http://localhost/API/projetAPI2024/cabmed/medecins/';
-            $resource = 'index.php';
+        // URL de l'API pour les médecins
+        $baseUrl = 'http://localhost/API/projetAPI2024/cabmed/medecins/';
+        $resource = 'index.php';
 
-            // Exécution de la requête avec file_get_contents
-            $result = file_get_contents($baseUrl . $resource, false, $context);
+        // Exécution de la requête avec file_get_contents
+        $result = file_get_contents($baseUrl . $resource, false, $context);
 
-            // Gérer la réponse de l'API
-            if ($result !== false) {
-                // Conversion de la réponse en tableau associatif PHP
-                $response = json_decode($result, true);
-                // Affichage de la réponse
-                print_r($response);
-            } else {
-                echo 'Erreur fetch';
-            }
+        // Gérer la réponse de l'API
+        if ($result !== false) {
+            // Conversion de la réponse en tableau associatif PHP
+            $response = json_decode($result, true);
+            // Affichage de la réponse
+            print_r($response);
+        } else {
+            echo 'Erreur fetch';
         }
+    }
     ?>
 </body>
+
 </html>
