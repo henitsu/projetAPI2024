@@ -5,8 +5,7 @@
     $http_method = $_SERVER['REQUEST_METHOD'];
     $data = array();
     if($http_method == 'GET'){
-        $matchingdata = getNbHeuresConsultations($linkpdo);
-        echo $matchingdata;
+        echo getNbHeuresConsultations($linkpdo);
     } else {
         deliverResponse(405, "Méthode non autorisée", NULL);
     }

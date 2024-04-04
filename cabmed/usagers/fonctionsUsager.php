@@ -78,7 +78,7 @@
                 return $keys . " = :" . $keys;
             }, $keys);
 
-            // Mise à jour de la phrase
+            // Mise à jour de l'usager
             $sql = "UPDATE usager SET  " . implode(", ", $sqlValues) .
                 " WHERE id_usager = :id_usager;";
 
