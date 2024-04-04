@@ -18,7 +18,7 @@
     <?php
 
     // URL de l'API pour les consultations
-    $baseUrl = 'https://api-cabmed.alwaysdata.net/cabmed/consultations/';
+    $baseUrl = 'https://api-patientele-cabmed.alwaysdata.net/cabmed/consultations/';
     $resource = 'index.php';
 
     $result = file_get_contents($baseUrl . $resource);

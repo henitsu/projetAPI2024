@@ -20,7 +20,7 @@
             $id_usager = $_GET["id_usager"];
 
             // Construire l'URL de la requête GET vers index.php avec l'ID du usager
-            $url = 'https://api-cabmed.alwaysdata.net/cabmed/usagers/' . $id_usager;
+            $url = 'https://api-patientele-cabmed.alwaysdata.net/cabmed/usagers/' . $id_usager;
 
             // Effectuer la requête GET
             $result = file_get_contents($url);

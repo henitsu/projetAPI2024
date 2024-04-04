@@ -105,7 +105,7 @@ require '../cabmed/connexionBD.php';
         $context = stream_context_create($options);
 
         // URL de l'API pour les médecins
-        $baseUrl = 'https://api-cabmed.alwaysdata.net/cabmed/usagers/';
+        $baseUrl = 'https://api-patientele-cabmed.alwaysdata.net/cabmed/usagers/';
         $resource = 'index.php';
 
         // Exécution de la requête avec file_get_contents

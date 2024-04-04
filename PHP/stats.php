@@ -13,7 +13,7 @@
     <?php
     include 'header.php';
 
-    $baseUrl = 'https://api-cabmed.alwaysdata.net/cabmed/stats/';
+    $baseUrl = 'https://api-patientele-cabmed.alwaysdata.net/cabmed/stats/';
     $resourceUsagers = '/usagers/index.php';
     // Récupérer les données JSON à partir de l'API
     // Décoder les données JSON

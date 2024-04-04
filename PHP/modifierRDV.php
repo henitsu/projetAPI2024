@@ -19,7 +19,7 @@
         $id_consult = $_GET["id_consult"];
 
         // Construire l'URL de la requête GET vers index.php avec l'ID du rdv
-        $url = 'https://api-cabmed.alwaysdata.net/cabmed/consultations/' . $id_consult;
+        $url = 'https://api-patientele-cabmed.alwaysdata.net/cabmed/consultations/' . $id_consult;
 
         // Effectuer la requête GET
         $result = file_get_contents($url);

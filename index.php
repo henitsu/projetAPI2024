@@ -12,7 +12,7 @@
 <body>
 	<div class="container" id="container">
 		<div class="form-container log-in-container">
-			<form action="https://api-auth.alwaysdata.net/authapi" method="post">
+			<form action="https://api-patientele-auth.alwaysdata.net/authapi" method="post">
 				<h1>Authentification</h1>
 				<input name="identifiant" type="text" placeholder="Identifiant" />
 				<input type="password" placeholder="Mot de passe" />

@@ -21,7 +21,7 @@
         $id_medecin = $_GET["id_medecin"];
 
         // Construire l'URL de la requête GET vers index.php avec l'ID du médecin
-        $url = 'https://api-cabmed.alwaysdata.net/cabmed/medecins/' . $id_medecin;
+        $url = 'https://api-patientele-cabmed.alwaysdata.net/cabmed/medecins/' . $id_medecin;
 
         // Effectuer la requête GET
         $result = file_get_contents($url);
