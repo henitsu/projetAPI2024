@@ -22,19 +22,19 @@
     }
 
     function getNbHommesMoins25Ans($linkpdo){
-        $sql = "SELECT COUNT(*) AS NbHommesMoins25ans FROM usager WHERE DATEDIFF(DATE(NOW()), date_nais) < 9125 AND sexe = 'H'";
+        $sql = "SELECT COUNT(*) AS NbHommesMoins25ans FROM usager WHERE DATEDIFF(DATE(NOW()), date_nais) < 9125 AND sexe = 'M'";
         $stmt = $linkpdo->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }  
 
     function getNbHommesMilieu($linkpdo){
-        $sql = "SELECT COUNT(*) AS NbHommesMilieu FROM usager WHERE sexe = 'H' AND DATEDIFF(DATE(NOW()), date_nais) BETWEEN 9125 AND 14600";
+        $sql = "SELECT COUNT(*) AS NbHommesMilieu FROM usager WHERE sexe = 'M' AND DATEDIFF(DATE(NOW()), date_nais) BETWEEN 9125 AND 14600";
         $stmt = $linkpdo->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     function getNbHommesPlus50Ans($linkpdo){
-        $sql = "SELECT COUNT(*) AS NbHommesPlus50ans FROM usager WHERE DATEDIFF(DATE(NOW()), date_nais) > 14600 AND sexe = 'H'";
+        $sql = "SELECT COUNT(*) AS NbHommesPlus50ans FROM usager WHERE DATEDIFF(DATE(NOW()), date_nais) > 14600 AND sexe = 'M'";
         $stmt = $linkpdo->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
