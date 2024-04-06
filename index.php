@@ -45,14 +45,11 @@
 
 		// Appeler l'API d'authentification pour obtenir le token
 		$url = 'https://api-patientele-auth.alwaysdata.net/authapi/';
-		$data = array(
-			'login' => $identifiant,
-			'mdp' => $mot_de_passe
-		);
+		
 
 		$curl = curl_init($url);
 		curl_setopt($curl, CURLOPT_POST, true);
-		curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
+		curl_setopt($curl, CURLOPT_POSTFIELDS, file_get_contents('php://input'));
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 

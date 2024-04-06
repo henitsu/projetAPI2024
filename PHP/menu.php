@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Menu</title>
-    <link rel="shortcut icon" href="/Donnees/patientele_icon.ico" />
-    <link rel="stylesheet" href="/CSS/base.css">
-    <link rel="stylesheet" href="/CSS/menu.css">
+    <link rel="shortcut icon" href="../Donnees/patientele_icon.ico" />
+    <link rel="stylesheet" href="../CSS/base.css">
+    <link rel="stylesheet" href="../CSS/menu.css">
 </head>
 <body>
     <?php
