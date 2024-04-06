@@ -232,14 +232,14 @@ L’URL de base pour toutes les requêtes de l’API est :
     Requête :
     
     ```php
-    PATCH /usagers/1
+    PATCH /usagers/16
     ```
     
     Body :
     
     ```json
     {
-        "civilite":"Mme.",
+        "civilite":"Mme",
         "prenom":"Jeanne"
     }
     ```
@@ -248,9 +248,22 @@ L’URL de base pour toutes les requêtes de l’API est :
     
     ```json
     {
-        "status_code": 200,
-        "status_message": "Patient modifié",
-        "data": "1"
+      "status_code": 200,
+      "status_message": "Patient modifié",
+      "data": {
+        "id_usager": 16,
+        "civilite": "Mme",
+        "nom": "Dark",
+        "prenom": "Jeanne",
+        "sexe": "F",
+        "adresse": "101, rue de la roulade",
+        "code_postal": "91120",
+        "ville": "Routier",
+        "date_nais": "1952-05-29",
+        "lieu_nais": "Nantes",
+        "num_secu": "123245643221",
+        "id_medecin": 1
+      }
     }
     ```
     
@@ -438,21 +451,23 @@ Retourne un objet JSON avec les propriétés suivantes :
 - `status_message` : Le message du statut du résultat de la requête
 - `data` : Un tableau de données contenant les propriétés suivantes :
     - `id_medecin`: L’identifiant unique du médecin modifié
+    - `civilite` : La civilité du médecin modifié
+    - `nom` : Le nom du médecin modifié
+    - `prenom` : Le prénom du médecin modifié
 
 ### Exemple
 
 Requête :
 
 ```php
-PATCH /medecins/53
+PATCH /medecins/11
 ```
 
 Body :
 
 ```json
 {
-    "civilite":"Mme.",
-    "prenom":"Jeanne"
+    "prenom":"Gordon"
 }
 ```
 
@@ -460,9 +475,14 @@ Réponse :
 
 ```json
 {
-    "status_code": 200,
-    "status_message": "Médecin modifié",
-    "data": "53"
+  "status_code": 200,
+  "status_message": "Médecin modifié",
+  "data": {
+    "id_medecin": 11,
+    "civilite": "M.",
+    "nom": "Ramsay",
+    "prenom": "Gordon"
+  }
 }
 ```
 
@@ -676,7 +696,12 @@ Retourne un objet JSON avec les propriétés suivantes :
 - `status_code` : Le statut du résultat de la requête
 - `status_message` : Le message du statut du résultat de la requête
 - `data` : Un tableau de données contenant les propriétés suivantes :
-    - `id_consultation`: L’identifiant unique de la consultation modifiée
+    - `id_consult`: L’identifiant unique de la consultation modifiée
+    - `date_consult` : La date de la consultation modifiée
+    - `heure_consult`: L’heure de la consultation modifiée
+    - `duree_consult`: La durée de la consultation modifiée
+    - `id_medecin`: L’identifiant du médecin
+    - `id_usager` : L’identifiant de l’usager
 
 ### Exemple
 
@@ -690,7 +715,11 @@ Body :
 
 ```json
 {
-    "duree": 60
+    "id_usager":"16",
+    "id_medecin":"11",
+    "date_consult":"12/10/26",
+    "heure_consult":"12:30",
+    "duree_consult":"45"
 }
 ```
 
@@ -698,22 +727,16 @@ Réponse :
 
 ```json
 {
-    "status_code": 200,
-    "status_message": "Consultation modifiée",
-    "data": {
-        "id_consult": 3,
-        "0": 17,
-        "date_consult": "2012-09-24",
-        "1": "2012-09-24",
-        "heure_consult": "12:30:00",
-        "2": "12:30:00",
-        "duree_consult": 60,
-        "3": 45,
-        "id_medecin": 8,
-        "4": 8,
-        "id_usager": 2,
-        "5": 2
-    }
+  "status_code": 200,
+  "status_message": "Consultation modifiée",
+  "data": {
+    "id_consult": 26,
+    "date_consult": "2012-10-26",
+    "heure_consult": "12:30:00",
+    "duree_consult": 45,
+    "id_medecin": 11,
+    "id_usager": 16
+  }
 }
 ```
 
