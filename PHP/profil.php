@@ -1,8 +1,6 @@
 <?php
     include 'header.php';
-
-    $nom = $_SESSION['nom'];
-    $prenom = $_SESSION['prenom'];
+    $login = $_SESSION['login'];
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -24,15 +22,19 @@
                 <ul class="inner-box">
                     <li>
                         <h2>Nom</h2>
-                        <p><?php echo $secretaire['Nom']; ?></p>
+                        <p><?php if(!isset($_SESSION['nom'])){
+                            echo "Vous n'avez pas de nom";
+                        } else {echo $_SESSION['nom'];} ?></p>
                     </li>
                     <li>
                         <h2>Prénom</h2>
-                        <p><?php echo $secretaire['Prenom']; ?></p>
+                        <p><?php if(!isset($_SESSION['prenom'])){
+                            echo "Vous n'avez pas de prenom";
+                        } else {echo $_SESSION['prenom'];} ?></p>
                     </li>
                     <li>
                         <h2>Login</h2>
-                        <p><?php echo $secretaire['Login']; ?></p>
+                        <p><?php echo $_SESSION['login']; ?></p>
                     </li>
                 </ul>
             </div>

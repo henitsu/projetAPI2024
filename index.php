@@ -9,30 +9,6 @@
 	<link rel="stylesheet" href="CSS/index.css">
 </head>
 
-<body>
-	<div class="container" id="container">
-		<div class="form-container log-in-container">
-			<form action="./PHP/menu.php" method="post">
-				<h1>Authentification</h1>
-				<input name="identifiant" type="text" placeholder="Identifiant" />
-				<input name="mot_de_passe" type="password" placeholder="Mot de passe" />
-				<p>Mot de passe oublié ? Consultez le README</p>
-				<button>Se connecter</button>
-			</form>
-		</div>
-		<div class="overlay-container">
-			<div class="overlay">
-				<div class="overlay-panel overlay-right">
-					<h1>Gestion d'un cabinet médical</h1>
-					<img src="Donnees/doctor.png" alt="docteur">
-				</div>
-			</div>
-		</div>
-	</div>
-</body>
-
-</html>
-
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $identifiant = $_POST['identifiant'];
@@ -70,3 +46,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
+<body>
+	<div class="container" id="container">
+		<div class="form-container log-in-container">
+			<form action="./PHP/menu.php" method="post">
+				<h1>Authentification</h1>
+				<input name="identifiant" type="text" placeholder="Identifiant" />
+				<input name="mot_de_passe" type="password" placeholder="Mot de passe" />
+				<p>Mot de passe oublié ? Consultez le README</p>
+				<button>Se connecter</button>
+			</form>
+		</div>
+		<div class="overlay-container">
+			<div class="overlay">
+				<div class="overlay-panel overlay-right">
+					<h1>Gestion d'un cabinet médical</h1>
+					<img src="Donnees/doctor.png" alt="docteur">
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
