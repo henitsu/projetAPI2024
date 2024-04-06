@@ -75,7 +75,7 @@
             $stmt->execute();
 
             // Vérification de la modification
-            $modif = "SELECT id_medecin, civilite, nom, prenom FROM medecin WHERE id_medecin = :id_medecin";
+            $modif = "SELECT * FROM medecin WHERE id_medecin = :id_medecin";
             $stmtM = $linkpdo->prepare($modif);
             $stmtM->bindParam(':id_medecin', $id_medecin, PDO::PARAM_INT);
             $stmtM->execute();
@@ -83,7 +83,7 @@
             if ($rowCount === 0) {
                 deliverResponse(200, "Aucune modification nécessaire", 0);
             } else {
-                deliverResponse(200, "Médecin modifié", $stmtM->fetch());
+                deliverResponse(200, "Médecin modifié", $stmtM->fetch(PDO::FETCH_ASSOC));
             }
         
         } catch(Exception $e){

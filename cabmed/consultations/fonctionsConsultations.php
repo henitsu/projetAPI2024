@@ -91,7 +91,7 @@
             if ($rowCount === 0) {
                 deliverResponse(200, "Aucune modification nécessaire", 0);
             } else {
-                deliverResponse(200, "Consultation modifiée", $stmtM->fetch());
+                deliverResponse(200, "Consultation modifiée", $stmtM->fetch(PDO::FETCH_ASSOC));
             }
         } catch (PDOException $e) {
             deliverResponse(500, "Erreur lors de la modification de la consultation");

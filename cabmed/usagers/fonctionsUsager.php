@@ -94,7 +94,7 @@
             $stmt->execute();
     
             // Vérification de la modification
-            $modif = "SELECT id_usager, civilite, nom, prenom, sexe, adresse, code_postal, ville, date_nais, lieu_nais, num_secu, id_medecin FROM usager WHERE id_usager = :id_usager";
+            $modif = "SELECT * FROM usager WHERE id_usager = :id_usager";
             $stmtM = $linkpdo->prepare($modif);
             $stmtM->bindParam(':id_usager', $id_usager, PDO::PARAM_INT);
             $stmtM->execute();
@@ -102,7 +102,7 @@
             if ($rowCount === 0) {
                 deliverResponse(200, "Aucune modification nécessaire", 0);
             } else {
-                deliverResponse(200, "Patient modifié", $stmtM->fetch());
+                deliverResponse(200, "Patient modifié", $stmtM->fetch(PDO::FETCH_ASSOC));
             }
         } catch (PDOException $e) {
             deliverResponse(500, "Erreur lors de la modification du patient");
