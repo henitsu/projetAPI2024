@@ -69,38 +69,33 @@
     
         
     function updatePatient($linkpdo, $id_usager, $data) {
-
         try {
             // Récupération des clés dans $data
             $keys = array_keys($data);
-
+    
             $sqlValues = array_map(function($keys) {
                 return $keys . " = :" . $keys;
             }, $keys);
-
+    
             // Mise à jour de l'usager
             $sql = "UPDATE usager SET  " . implode(", ", $sqlValues) .
                 " WHERE id_usager = :id_usager;";
-
+    
             // Préparation de la requête
-            $sth = $linkpdo->prepare($sql);
-            if($sth==false){
-                die('Erreur préparation requête : ');
-            }
             $stmt = $linkpdo->prepare($sql);
             foreach($data as $key => $value){
-                $stmt->bindParam(':'.$key, $value, PDO::PARAM_STR);
+                $stmt->bindParam(':'.$key, $data[$key], PDO::PARAM_STR);
             }
-
+    
             $stmt->bindParam(':id_usager', $id_usager, PDO::PARAM_INT);
             $stmt->execute();
-
+    
             // Vérification de la modification
             $modif = "SELECT * FROM usager WHERE id_usager = :id_usager";
             $stmtM = $linkpdo->prepare($modif);
             $stmtM->bindParam(':id_usager', $id_usager, PDO::PARAM_INT);
             $stmtM->execute();
-            $rowCount = $stmt->rowCount();
+            $rowCount = $stmtM->rowCount();
             if ($rowCount === 0) {
                 deliverResponse(200, "Aucune modification nécessaire", 0);
             } else {
@@ -111,7 +106,6 @@
             die('Erreur préparation/execution requête : ' . $e-> getMessage());
         }
     }
-
 
     function deletePatient($linkpdo, $id){
 

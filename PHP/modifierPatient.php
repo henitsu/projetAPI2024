@@ -61,14 +61,20 @@
      <h1>Modification des informations de <?php echo $prenom . " " . $nom; ?></h1>
      <div class="form">
          <form action="modifierPatient.php" method="post">
-             <label for="Nom">Nom :</label>
-             <input type="text" id="nom" name="Nom" value="<?php echo $nom; ?>" required><br>
+             <label for="nom">Nom :</label>
+             <input type="text" id="nom" name="nom" value="<?php echo $nom; ?>" required><br>
 
-             <label for="Prenom">Prénom :</label>
-             <input type="text" id="prenom" name="Prenom" value="<?php echo $prenom; ?>" required><br>
+             <label for="prenom">Prénom :</label>
+             <input type="text" id="prenom" name="prenom" value="<?php echo $prenom; ?>" required><br>
 
-             <label for="Adresse">Adresse :</label>
-             <input type="text" id="adresse" name="Adresse" value="<?php echo $adresse; ?>" required><br>
+             <label for="civilite">Civilité :</label>
+             <input type="text" id="civilite" name="civilite" value="<?php echo $civilite; ?>" required><br>
+
+             <label for="sexe">Sexe :</label>
+             <input type="text" id="sexe" name="sexe" value="<?php echo $sexe; ?>" required><br>
+
+             <label for="adresse">Adresse :</label>
+             <input type="text" id="adresse" name="adresse" value="<?php echo $adresse; ?>" required><br>
 
              <label for="ville">Ville :</label>
              <input type="text" id="ville" name="ville" value="<?php echo $ville; ?>" required><br>
@@ -84,9 +90,6 @@
 
              <label for="num_secu">Numéro de sécurité sociale :</label>
              <input type="text" id="num_secu" name="num_secu" value="<?php echo $num_secu; ?>" required><br>
-
-             <label for="sexe">Sexe :</label>
-             <input type="text" id="sexe" name="sexe" value="<?php echo $sexe; ?>" required><br>
 
              <p>
                  <label for="id_medecin">Médecin :</label>
@@ -114,11 +117,18 @@
      <?php
         if (isset($_POST['submit'])) {
             $data = array(
-                'id_medecin' => $_POST['id_medecin'], 'nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'civilite' => $_POST['civilite'],
-                'adresse' => $_POST['adresse'], 'ville' => $_POST['ville'], 'code_postal' => $_POST['code_postal'], 'date_nais' => $_POST['date_nais'],
-                'lieu_nais' => $_POST['lieu_nais'], 'num_secu' => $_POST['num_secu'], 'sexe' => $_POST['sexe']
+                'id_medecin' => $_POST['id_medecin'],
+                'nom' => $_POST['nom'],
+                'prenom' => $_POST['prenom'],
+                'civilite' => $_POST['civilite'],
+                'adresse' => $_POST['adresse'],
+                'ville' => $_POST['ville'],
+                'code_postal' => $_POST['code_postal'],
+                'date_nais' => $_POST['date_nais'],
+                'lieu_nais' => $_POST['lieu_nais'],
+                'num_secu' => $_POST['num_secu'],
+                'sexe' => $_POST['sexe']
             );
-
             $options = array(
                 'http' => array(
                     'method' => 'PATCH',
@@ -129,12 +139,13 @@
 
             $context = stream_context_create($options);
 
+            $id_usager = basename($_SERVER['REQUEST_URI']);
+
             // URL de l'API pour les médecins
-            $baseUrl = 'https://api-cabmed.alwaysdata.net/cabmed/usagers/';
-            $resource = 'index.php';
+            $baseUrl = 'https://api-patientele-cabmed.alwaysdata.net/cabmed/usagers/' . $id_usager;
 
             // Exécution de la requête avec file_get_contents
-            $result = file_get_contents($baseUrl . $resource, false, $context);
+            $result = file_get_contents($baseUrl, false, $context);
 
             // Gérer la réponse de l'API
             if ($result !== false) {
