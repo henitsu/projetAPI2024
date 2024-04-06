@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data_string = json_encode($data);
 
     // Initialisation de la requête
-    $ch = curl_init('http://your-api-url.com');
+    $ch = curl_init('https://api-patientele-auth.alwaysdata.net/authapi');
 
     // Configuration des options de la requête
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
