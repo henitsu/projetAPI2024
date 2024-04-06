@@ -13,7 +13,8 @@
         $sql_login = "SELECT * FROM user_auth_v1 WHERE login = :login";
         $res = $linkpdo->prepare($sql_login);
         $res->bindParam(':login', $login, PDO::PARAM_STR);
-        $user = $res->execute();
+        $res->execute();
+        $user = $res->fetch();
         if(!$user){
             header('HTTP/1.0 401 Unauthorized');
             echo 'Identifiant incorrect';
