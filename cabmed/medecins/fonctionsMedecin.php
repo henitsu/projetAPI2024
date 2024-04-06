@@ -77,7 +77,7 @@
             $stmt->execute();
 
             // Vérification de la modification
-            $modif = "SELECT * FROM medecin WHERE id_medecin = :id_medecin";
+            $modif = "SELECT id_medecin, civilite, nom, prenom FROM medecin WHERE id_medecin = :id_medecin";
             $stmtM = $linkpdo->prepare($modif);
             $stmtM->bindParam(':id_medecin', $id_medecin, PDO::PARAM_INT);
             $stmtM->execute();
