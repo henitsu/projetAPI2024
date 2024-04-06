@@ -1,15 +1,8 @@
 <?php
     include 'header.php';
-    require 'connexionBD.php';
 
     $nom = $_SESSION['nom'];
     $prenom = $_SESSION['prenom'];
-    $sql = "SELECT * FROM secretaire WHERE Nom = :Nom AND Prenom = :Prenom";
-    $stmt = $bdd->prepare($sql);
-    $stmt->bindParam(':Nom', $nom, PDO::PARAM_STR);
-    $stmt->bindParam(':Prenom', $prenom, PDO::PARAM_STR);
-    $stmt->execute();
-    $secretaire = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="fr">

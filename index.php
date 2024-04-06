@@ -34,39 +34,39 @@
 </html>
 
 <?php
-	// Démarrer la session
-	session_start();
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $identifiant = $_POST['identifiant'];
+    $mot_de_passe = $_POST['mot_de_passe'];
 
-	// Vérifier si le formulaire de connexion a été soumis
-	if ($_SERVER["REQUEST_METHOD"] == "POST") {
-		// Récupérer les données du formulaire
-		$identifiant = $_POST['identifiant'];
-		$mot_de_passe = $_POST['mot_de_passe'];
+    // Préparation des données à envoyer
+    $data = array('login' => $identifiant, 'mdp' => $mot_de_passe);
+    $data_string = json_encode($data);
 
-		// Appeler l'API d'authentification pour obtenir le token
-		$url = 'https://api-patientele-auth.alwaysdata.net/authapi/';
-		
+    // Initialisation de la requête
+    $ch = curl_init('http://your-api-url.com');
 
-		$curl = curl_init($url);
-		curl_setopt($curl, CURLOPT_POST, true);
-		curl_setopt($curl, CURLOPT_POSTFIELDS, file_get_contents('php://input'));
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+    // Configuration des options de la requête
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        'Content-Type: application/json',
+        'Content-Length: ' . strlen($data_string))
+    );
 
-		$response = curl_exec($curl);
-		curl_close($curl);
+    // Envoi de la requête et récupération de la réponse
+    $result = curl_exec($ch);
 
-		// Vérifier la réponse de l'API
-		$decoded_response = json_decode($response, true);
-		if (isset($decoded_response['token'])) {
-			// Stocker le token dans une variable de session
-			$_SESSION['token'] = $decoded_response['token'];
-			// Rediriger l'utilisateur vers une page sécurisée, comme le menu
-			header("Location: menu.php");
-			exit();
-		} else {
-			// Gérer les erreurs d'authentification
-			echo "Erreur lors de l'authentification : " . $response;
-		}
-	}
+    // Gestion de la réponse
+    $response = json_decode($result, true);
+    if (isset($response['token'])) {
+        // Authentification réussie, redirection vers le menu
+        $_SESSION['token'] = $response['token'];
+        header('Location: menu.php');
+        exit;
+    } else {
+        // Authentification échouée, affichage d'un message d'erreur
+        $error_message = 'Identifiant ou mot de passe incorrect';
+    }
+}
 ?>
