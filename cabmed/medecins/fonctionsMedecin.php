@@ -1,6 +1,5 @@
 <?php
-    // Inclusion de la classe Medecin et de la BD
-    require 'medecin.php';
+    // Inclusion de la BD
     require '../connexionBD.php';
     require '../deliverResponse.php';
 
