@@ -87,6 +87,7 @@
                 die('Erreur préparation requête : ');
             }
             $stmt = $linkpdo->prepare($sql);
+            print_r($data);
             foreach($data as $key => $value){
                 $stmt->bindParam(':'.$key, $value, PDO::PARAM_STR);
             }
