@@ -10,48 +10,23 @@
 <body>
     <?php
         include 'header.php';
-        if (!empty($_POST['identifiant'])){
-            $_SESSION["identifiant"] = $_POST["identifiant"];
-            $session_id = session_id();
-        }
-        $login = $_SESSION['identifiant'];
-
-        require 'connexionBD.php';
-        $sql = "SELECT Nom, Prenom FROM secretaire WHERE login = :Login";
-        $stmt = $bdd->prepare($sql);
-        $stmt->bindParam(':Login', $login, PDO::PARAM_STR);
-        $stmt->execute();
-        $secretaire = $stmt->fetch(PDO::FETCH_ASSOC);
-        if(!$secretaire){
-            echo "<h2>Oh, il semble que vous ne soyez pas référencé en poste donné !</h2>";
-            header("refresh:3;url=/index.php");
-        } else {
-            $nom = $secretaire['Nom'];
-            $prenom = $secretaire['Prenom'];
-            
-            // Création des variables de session
-            $_SESSION['nom'] = $nom;
-            $_SESSION['prenom'] = $prenom;
-
-            echo 
-            '<main>
-                <h1>Bienvenue ' . $prenom . " " . $nom . ' !</h1>
-                <div class="grid">
-                    <div id="usagers" class="box">
-                        <a href="affichagePatient.php"><h2>Usagers</h2></a>
-                    </div>
-                    <div id="medecins" class="box">
-                        <a href="affichageMedecin.php"><h2>Médecins</h2></a>
-                    </div>
-                    <div id="consultations" class="box">
-                        <a href="affichageRDV.php"><h2>Consultations</h2></a>
-                    </div>
-                    <div id="statistiques" class="box">
-                        <a href="stats.php"><h2>Statistiques</h2></a>
-                    </div>
-                </div>
-            </main>
-            </body>
-            </html>';
-        }
     ?>
+        <main>
+            <h1>Bienvenue  !</h1>
+            <div class="grid">
+                <div id="usagers" class="box">
+                    <a href="affichagePatient.php"><h2>Usagers</h2></a>
+                </div>
+                <div id="medecins" class="box">
+                    <a href="affichageMedecin.php"><h2>Médecins</h2></a>
+                </div>
+                <div id="consultations" class="box">
+                    <a href="affichageRDV.php"><h2>Consultations</h2></a>
+                </div>
+                <div id="statistiques" class="box">
+                    <a href="stats.php"><h2>Statistiques</h2></a>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>
