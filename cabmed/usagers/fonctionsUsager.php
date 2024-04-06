@@ -83,8 +83,11 @@
     
             // Préparation de la requête
             $stmt = $linkpdo->prepare($sql);
+            if($stmt==false){
+                die('Erreur préparation requête : ');
+            }
             foreach($data as $key => $value){
-                $stmt->bindParam(':'.$key, $data[$key], PDO::PARAM_STR);
+                $stmt->bindParam(':'.$key, $value, PDO::PARAM_STR);
             }
     
             $stmt->bindParam(':id_usager', $id_usager, PDO::PARAM_INT);
