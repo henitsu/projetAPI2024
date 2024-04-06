@@ -13,13 +13,13 @@
         $sql_login = "SELECT * FROM user_auth_v1 WHERE login = :login";
         $res = $linkpdo->prepare($sql_login);
         $res->bindParam(':login', $login, PDO::PARAM_STR);
-        $res->execute();
-        $db_password = $res->fetch()['mdp'];
-        if(!$res){
+        $user = $res->execute();
+        if(!$user){
             header('HTTP/1.0 401 Unauthorized');
             echo 'Identifiant incorrect';
             exit;
         } else {
+            $db_password = $user['mdp'];
             if($data['mdp'] === $db_password){
                 $pass = $db_password;
                 // Récupération de ses coordonnées dans la BD
