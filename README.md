@@ -11,7 +11,12 @@ Cette API sert à l'authentification de l'utilisateur.
 La documentation de l'API se trouve dans le fichier `/api_documentations/api_auth/API Auth Documentation.md` ou `/api_documentations/api_auth/API Auth Documentation.pdf`
 
 Les identifiants pour l'authentification sont :
-
+```json
+{
+  "login":"secretaire1",
+  "mdp":"password1234!"
+}
+```
 
 # API Cabmed
 L'URL de base utilisée pour cette API est `https://api-patientele-auth.alwaysdata.net/authapi`
