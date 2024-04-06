@@ -64,15 +64,13 @@
                 " WHERE id_medecin = :id_medecin;";
 
             // Préparation de la requête
-            $sth = $linkpdo->prepare($sql);
-            if($sth==false){
+            $stmt = $linkpdo->prepare($sql);
+            if($stmt==false){
                 die('Erreur préparation requête : ');
             }
-            $stmt = $linkpdo->prepare($sql);
             foreach($data as $key => $value){
-                $stmt->bindParam(':'.$key, $value, PDO::PARAM_STR);
+                $stmt->bindValue(':'.$key, $value, PDO::PARAM_STR);
             }
-
             $stmt->bindParam(':id_medecin', $id_medecin, PDO::PARAM_INT);
             $stmt->execute();
 
