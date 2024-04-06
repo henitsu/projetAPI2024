@@ -82,10 +82,11 @@
                 " WHERE id_usager = :id_usager;";
     
             // Préparation de la requête
-            $stmt = $linkpdo->prepare($sql);
-            if($stmt==false){
+            $sth = $linkpdo->prepare($sql);
+            if($sth==false){
                 die('Erreur préparation requête : ');
             }
+            $stmt = $linkpdo->prepare($sql);
             foreach($data as $key => $value){
                 $stmt->bindParam(':'.$key, $value, PDO::PARAM_STR);
             }
