@@ -17,10 +17,17 @@ require 'connexionBD.php';
 <?php
     if (isset($_POST['submit'])) {
 
+        $query = 'SELECT id_medecin FROM medecin WHERE nom = :nom AND prenom = :prenom';
+        $stmt = $linkpdo->prepare($query);
+        $stmt->bindParam(':nom', $_POST['id_medecin']['nom']);
+        $stmt->bindParam(':prenom', $_POST['id_medecin']['prenom']);
+        $stmt->execute();
+        $id_medecin = $stmt->fetch(PDO::FETCH_ASSOC);
+
         $data = array(
             'nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'civilite' => $_POST['civilite'],
             'sexe' => $_POST['sexe'], 'adresse' => $_POST['adresse'], 'ville' => $_POST['ville'], 'code_postal' => $_POST['code_postal'],
-            'date_nais' => $_POST['date_nais'], 'lieu_nais' => $_POST['lieu_nais'], 'num_secu' => $_POST['num_secu'], 'id_medecin' => $_POST['id_medecin']
+            'date_nais' => $_POST['date_nais'], 'lieu_nais' => $_POST['lieu_nais'], 'num_secu' => $_POST['num_secu'], 'id_medecin' => $id_medecin
         );
 
         $options = array(
