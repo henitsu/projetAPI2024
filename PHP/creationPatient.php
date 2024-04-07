@@ -45,7 +45,7 @@ require 'connexionBD.php';
             // Conversion de la réponse en tableau associatif PHP
             $response = json_decode($result, true);
 
-            if (isset($response["status_code"]) && $response["status_code"] == 200) {
+            if (isset($response["status_code"]) && $response["status_code"] == 201) {
                 header('Location: affichagePatient.php');
                 exit();
             } else {
