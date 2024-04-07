@@ -15,7 +15,7 @@
 				<h1>Authentification</h1>
 				<input name="identifiant" type="text" placeholder="Identifiant" />
 				<input name="mot_de_passe" type="password" placeholder="Mot de passe" />
-				<p>Gestion de l'authentification non gérée avec ce client</p>
+				<p>Mot de passe oublié ? Consultez le README</p>
 				<button>Se connecter</button>
 			</form>
 		</div>
@@ -31,3 +31,43 @@
 </body>
 
 </html>
+
+<?php
+    session_start();
+
+    if (isset($_POST['identifiant']) && isset($_POST['mot_de_passe'])) {
+        // Récupérer les identifiants saisis dans le formulaire
+        $data = array(
+            'login' => $_POST['identifiant'],
+            'mdp' => $_POST['mot_de_passe']
+        );
+        $options = array(
+            'http' => array(
+                'method' => 'POST',
+                'header' => "Content-Type: application/json\r\n",
+                'content' => json_encode($data)
+            )
+        );
+
+        // Envoyer une requête à l'API pour obtenir le token
+        $context = stream_context_create($options);
+        $baseUrl = 'https://api-patientele-auth.alwaysdata.net/authapi';
+        $result = file_get_contents($baseUrl, false, $context);
+        
+        // Vérifier si la requête a réussi et récupérer le token
+        if ($result !== false) {
+            $response = json_decode($result, true);
+            $token = $response['token'];
+            
+            // Stocker le token dans la session
+            $_SESSION['token'] = $token;
+
+            // Redirection vers menu.php ou toute autre page appropriée
+            header('Location: ./PHP/menu.php');
+            exit;
+        } else {
+            // Afficher un message d'erreur si l'authentification a échoué
+            echo '<script>alert("Identifiant ou mot de passe incorrect")</script>';
+        }
+    }
+?>

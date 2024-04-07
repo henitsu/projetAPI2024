@@ -42,7 +42,7 @@ function is_jwt_valid($jwt, $secret) {
 }
 
 function base64url_encode($data) {
-    return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
+    return strtr(base64_encode($data), '+/', '-_');
 }
 
 function get_authorization_header(){
