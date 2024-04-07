@@ -123,8 +123,11 @@
             deliverResponse(500, "Erreur serveur", NULL);
             die('Erreur exécution requête : ');
         }
-        
-        deliverResponse(200, "Patient supprimé", $id);
+        if($sth->rowCount() == 0){
+            deliverResponse(404, "Patient inexistant", NULL);
+        } else {
+            deliverResponse(200, "Patient supprimé", $id);
+        }
     }    
     
 ?>

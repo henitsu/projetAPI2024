@@ -113,8 +113,11 @@
             deliverResponse(500, "Erreur serveur", NULL);
             die('Erreur exécution requête : ');
         }
-        
-        deliverResponse(200, "Consultation supprimée", $id);
+        if($sth->rowCount() == 0){
+            deliverResponse(404, "Consultation inexistante", NULL);
+        } else {
+            deliverResponse(200, "Consultation supprimée", $id);
+        }
     }       
     
 ?>

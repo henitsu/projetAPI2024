@@ -100,8 +100,9 @@
             $stmt->execute();
             if($stmt->rowCount() == 0){
                 deliverResponse(404, "Médecin inexistant", null);
+            } else {
+                deliverResponse(200, "Médecin supprimé", $id_medecin);
             }
-            deliverResponse(200, "Médecin supprimé", $id_medecin);
         } catch(Exception $e){
             echo 'Erreur : '.$e->getMessage();
         }
