@@ -13,33 +13,7 @@ include 'header.php';
     <link rel="stylesheet" href="../CSS/creation.css">
 </head>
 
-<body>
-    <h1>Création d'un médecin</h1>
-
-    <form action="creationMedecin.php" method="post">
-        <p>
-            <label for="civilite">Civilité :</label>
-            <select name="civilite" id="civilite" required>
-                <option value="M">M</option>
-                <option value="Mme">Mme</option>
-                <option value="Mlle">Mlle</option>
-            </select>
-        </p>
-        <p>
-            <label for="nom">Nom :</label>
-            <input type="text" name="nom" id="nom" required>
-        </p>
-        <p>
-            <label for="prenom">Prénom :</label>
-            <input type="text" name="prenom" id="prenom" required>
-        </p>
-        <p>
-            <input type="submit" name='submit' value="Créer le médecin">
-        </p>
-    </form>
-    <button onclick="window.location.href='affichageMedecin.php'">Retour</button>
-
-    <?php
+<?php
     if (isset($_POST['submit'])) {
 
         $data = array('nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'civilite' => $_POST['civilite']);
@@ -77,6 +51,32 @@ include 'header.php';
         }
     }
     ?>
+
+<body>
+    <h1>Création d'un médecin</h1>
+
+    <form action="creationMedecin.php" method="post">
+        <p>
+            <label for="civilite">Civilité :</label>
+            <select name="civilite" id="civilite" required>
+                <option value="M">M</option>
+                <option value="Mme">Mme</option>
+                <option value="Mlle">Mlle</option>
+            </select>
+        </p>
+        <p>
+            <label for="nom">Nom :</label>
+            <input type="text" name="nom" id="nom" required>
+        </p>
+        <p>
+            <label for="prenom">Prénom :</label>
+            <input type="text" name="prenom" id="prenom" required>
+        </p>
+        <p>
+            <input type="submit" name='submit' value="Créer le médecin">
+        </p>
+    </form>
+    <button onclick="window.location.href='affichageMedecin.php'">Retour</button>
 </body>
 
 </html>

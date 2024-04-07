@@ -13,6 +13,49 @@ include 'header.php';
     <link rel="stylesheet" href="../CSS/creation.css">
 </head>
 
+<?php
+    if (isset($_POST['submit'])) {
+
+        $data = array(
+            'nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'civilite' => $_POST['civilite'],
+            'sexe' => $_POST['sexe'], 'adresse' => $_POST['adresse'], 'ville' => $_POST['ville'], 'code_postal' => $_POST['code_postal'],
+            'date_nais' => $_POST['date_nais'], 'lieu_nais' => $_POST['lieu_nais'], 'num_secu' => $_POST['num_secu'], 'id_medecin' => $_POST['id_medecin']
+        );
+
+        $options = array(
+            'http' => array(
+                'method' => 'POST',
+                'header' => "Content-Type: application/json\r\n",
+                'content' => json_encode($data)
+            )
+        );
+
+        // Création du contexte de flux
+        $context = stream_context_create($options);
+
+        // URL de l'API pour les médecins
+        $baseUrl = 'https://api-patientele-cabmed.alwaysdata.net/cabmed/usagers/';
+
+        // Exécution de la requête avec file_get_contents
+        $result = file_get_contents($baseUrl, false, $context);
+
+        // Gérer la réponse de l'API
+        if ($result !== false) {
+            // Conversion de la réponse en tableau associatif PHP
+            $response = json_decode($result, true);
+
+            if (isset($response["status_code"]) && $response["status_code"] == 200) {
+                header('Location: affichagePatient.php');
+                exit();
+            } else {
+                echo "Erreur lors de la création du patient";
+            }
+        } else {
+            echo 'Erreur fetch';
+        }
+    }
+    ?>
+
 <body>
     <h1>Création d'un patient</h1>
     <form action="creationPatient.php" method="post">
@@ -65,7 +108,7 @@ include 'header.php';
             <select name="id_medecin" id="id_medecin">
                 <?php
                 // Récupération des médecins
-                $sql = "SELECT * FROM medecin";
+                $sql = "SELECT id FROM medecin";
                 $stmt = $linkpdo->prepare($sql);
                 $stmt->execute();
                 $medecins = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -82,50 +125,6 @@ include 'header.php';
         </p>
     </form>
     <button onclick="window.location.href='affichagePatient.php'">Retour</button>
-
-    <?php
-    if (isset($_POST['submit'])) {
-
-        $data = array(
-            'nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'civilite' => $_POST['civilite'],
-            'sexe' => $_POST['sexe'], 'adresse' => $_POST['adresse'], 'ville' => $_POST['ville'], 'code_postal' => $_POST['code_postal'],
-            'date_nais' => $_POST['date_nais'], 'lieu_nais' => $_POST['lieu_nais'], 'num_secu' => $_POST['num_secu'], 'id_medecin' => $_POST['id_medecin']
-        );
-
-        $options = array(
-            'http' => array(
-                'method' => 'POST',
-                'header' => "Content-Type: application/json\r\n",
-                'content' => json_encode($data)
-            )
-        );
-
-        // Création du contexte de flux
-        $context = stream_context_create($options);
-
-        // URL de l'API pour les médecins
-        $baseUrl = 'https://api-patientele-cabmed.alwaysdata.net/cabmed/usagers/';
-
-        // Exécution de la requête avec file_get_contents
-        $result = file_get_contents($baseUrl, false, $context);
-
-        // Gérer la réponse de l'API
-        if ($result !== false) {
-            // Conversion de la réponse en tableau associatif PHP
-            $response = json_decode($result, true);
-
-            if (isset($response["status_code"]) && $response["status_code"] == 200) {
-                header('Location: affichagePatient.php');
-                exit();
-            } else {
-                echo "Erreur lors de la création du patient";
-            }
-        } else {
-            echo 'Erreur fetch';
-        }
-    }
-    ?>
-
 
 </body>
 
