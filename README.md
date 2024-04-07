@@ -29,7 +29,7 @@ Le repository GIT du projet se trouve au lien suivant : [`projetAPI2024`](https:
 
 # Partie Front-End
 La partie Front-End de l'application a été réalisée, notamment dans le répertoire `PHP`et le fichier `index.php`à la racine du projet.
-Le client se trouve à l'adresse suivante :
+Le client se trouve à l'adresse suivante : [`Client Front End`](https://client-patientele.alwaysdata.net/)
 
 ## Ce qui n'a pas été fait dans la partie Front-end
-- L'utilisation de l'API authentification
+- L'utilisation de l'API authentification pour l'authentification du secrétaire.
