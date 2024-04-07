@@ -43,7 +43,8 @@
                 echo '<td>' . $donnee['duree_consult'] . '</td>';
                 echo '<td><a href="modifierRDV.php?id_usager=' . $donnee['id_usager'] . '&id_medecin=' . $donnee['id_medecin'] . '&date_consult=' . $donnee['date_consult'] . '&heure_consult=' . $donnee['heure_consult']
                     . '&duree_consult=' . $donnee['duree_consult'] . '">Modifier</a> | 
-                    <a href="javascript:void(0);" onclick="confirmDelete(\'' . $donnee['id_consult'] . '\', \'' . $baseUrl . '\', \'rendez-vous\')">Supprimer</a>';
+                    <a href="javascript:void(0);" onclick="confirmDelete(' . $donnee['id_consult'] . ', \'' . $baseUrl . '\', \'rendez-vous\')">Supprimer</a></td>';
+
                 echo '</tr>';
             }
         } else {

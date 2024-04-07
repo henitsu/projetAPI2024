@@ -6,14 +6,14 @@ function confirmDelete(id, baseUrl, entity) {
             headers: { 'Content-Type': 'application/json' }, // Type de contenu
         };
 
-        var url = baseUrl + id;
+        var url = baseUrl + '/' + entity + '/' + id;
         fetch(url, requestOptions)
         .then(response => {
             if (response.ok) {
-                // Médecin supprimé avec succès, actualiser la page
+                // Entité supprimée avec succès, actualiser la page
                 location.reload();
             } else {
-                throw new Error('Erreur lors de la suppression du '+ entity + ' !' + response.status + ' : ' + response.statusText);
+                throw new Error('Erreur lors de la suppression de ' + entity + ' ! ' + response.status + ' : ' + response.statusText);
             }
         })
         .catch(error => {
