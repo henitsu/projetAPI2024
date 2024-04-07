@@ -22,7 +22,7 @@
             $id = $linkpdo->lastInsertId();
             $linkpdo->commit();
             
-            deliverResponse(200, "Médecin rajouté", $id);
+            deliverResponse(201, "Médecin rajouté", $id);
         } catch(Exception $e){
             echo 'Erreur : '.$e->getMessage();
         }  
