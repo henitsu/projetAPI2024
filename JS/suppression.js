@@ -3,7 +3,9 @@ function confirmDelete(id, baseUrl, entity) {
     if (confirmation) {
         const requestOptions = {
             method: 'DELETE', // Méthode HTTP
-            headers: { 'Content-Type': 'application/json' }, // Type de contenu
+            headers: { 
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json' }, // Type de contenu
         };
 
         var url = baseUrl + id;
