@@ -39,7 +39,7 @@
                     echo '<td>' . $medecin['prenom'] . '</td>';
                     echo '<td>';
                     echo '<a href="modifierMedecin.php?id_medecin=' . $medecin['id_medecin'] . '">Modifier</a> | ';
-                    echo '<a href="javascript:void(0);" onclick="confirmDelete(\'' . $medecin['id_medecin'] . '\', \'' . $baseUrl . 'medecin\', \'medecin\')">Supprimer</a>';
+                    echo '<a href="javascript:void(0);" onclick="confirmDelete(\'' . $medecin['id_medecin'] . '\', \'' . $baseUrl . 'medecin\')">Supprimer</a>';
 
                     echo '</td>';
                     echo '</tr>';
