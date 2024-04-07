@@ -42,7 +42,7 @@
             echo '<td>' . $patient['num_secu'] . '</td>';
             echo '<td>';
             echo '<a href="modifierPatient.php?id_usager=' . $patient['id_usager'] . '">Modifier</a> | ';
-            echo '<a href="javascript:void(0);" onclick="confirmDelete(\'' . $patient['id_usager'] . '\', \'' . $baseUrl . 'patient\')">Supprimer</a>';
+            echo '<a href="javascript:void(0);" onclick="confirmDelete(\'' . $patient['id_usager'] . '\', \'' . $baseUrl . 'patient' . '\')">Supprimer</a>';
             echo '</td>';
             echo '</tr>';
         }
