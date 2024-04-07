@@ -105,24 +105,21 @@ require 'connexionBD.php';
             <input type="text" name="num_secu" id="num_secu" required>
         </p>
         <p>
-        <label for="id_medecin">Médecin :</label>
-        <select name="id_medecin" id="id_medecin" onchange="getSelectedMedecinId(this)">
-            <?php
-            // Récupération des médecins depuis votre API ou une autre source de données
-            // Supposons que $medecins contient les données des médecins avec leurs ID
-            foreach ($medecins as $medecin) {
-                echo '<option value="' . $medecin['id'] . '">' . $medecin['nom'] . ' ' . $medecin['prenom'] . '</option>';
-            }
-            ?>
-        </select>
-        <script>
-            function getSelectedMedecinId(select) {
-                var selectedMedecinId = select.value;
-                console.log('ID du médecin sélectionné : ' + selectedMedecinId);
-                // Vous pouvez faire ce que vous voulez avec l'ID du médecin sélectionné ici, comme l'envoyer à un formulaire ou à une autre fonction pour un traitement ultérieur
-            }
-        </script>
+            <label for="id_medecin">Médecin :</label>
+            <select name="id_medecin" id="id_medecin">
+                <?php
+                // Récupération des médecins
+                $sql = "SELECT * FROM medecin";
+                $stmt = $linkpdo->prepare($sql);
+                $stmt->execute();
+                $medecins = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+                // Affichage des médecins
+                foreach ($medecins as $medecin) {
+                    echo '<option value="' . $medecin['id_medecin'] . '">' . $medecin['nom'] . ' ' . $medecin['prenom'] . '</option>';
+                }
+                ?>
+            </select>
         </p>
         <p>
             <input type="submit" value="Créer le patient">
