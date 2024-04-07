@@ -17,12 +17,7 @@ require 'connexionBD.php';
 <?php
     if (isset($_POST['submit'])) {
 
-        $query = 'SELECT id_medecin FROM medecin WHERE nom = :nom AND prenom = :prenom';
-        $stmt = $linkpdo->prepare($query);
-        $stmt->bindParam(':nom', $_POST['id_medecin']['nom']);
-        $stmt->bindParam(':prenom', $_POST['id_medecin']['prenom']);
-        $stmt->execute();
-        $id_medecin = $stmt->fetch(PDO::FETCH_ASSOC);
+        $id_medecin = $_POST['id_medecin'];
 
         $data = array(
             'nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'civilite' => $_POST['civilite'],
@@ -112,11 +107,11 @@ require 'connexionBD.php';
             <input type="text" name="num_secu" id="num_secu" required>
         </p>
         <p>
-            <label for="id_medecin">Médecin :</label>
+        <label for="id_medecin">Médecin :</label>
             <select name="id_medecin" id="id_medecin">
                 <?php
                 // Récupération des médecins
-                $sql = "SELECT * FROM medecin";
+                $sql = "SELECT id_medecin, nom, prenom FROM medecin";
                 $stmt = $linkpdo->prepare($sql);
                 $stmt->execute();
                 $medecins = $stmt->fetchAll(PDO::FETCH_ASSOC);
