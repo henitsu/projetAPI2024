@@ -15,7 +15,7 @@
 				<h1>Authentification</h1>
 				<input name="identifiant" type="text" placeholder="Identifiant" />
 				<input name="mot_de_passe" type="password" placeholder="Mot de passe" />
-				<p>Mot de passe oublié ? Consultez le README</p>
+				<p>Gestion de l'authentification non gérée avec ce client</p>
 				<button>Se connecter</button>
 			</form>
 		</div>
