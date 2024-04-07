@@ -1,7 +1,5 @@
 DROP DATABASE IF EXISTS patientele_db_app;
 create database patientele_db_app;
-grant all privileges on patientele_db_app.* TO '344078_etu'@'mysql-patientele.alwaysdata.net' identified by 'iutinfo';
-flush privileges;
 USE patientele_db_app;
 
 -- Création de la table medecin
