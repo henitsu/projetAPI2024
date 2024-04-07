@@ -109,7 +109,7 @@ require 'connexionBD.php';
             <select name="id_medecin" id="id_medecin">
                 <?php
                 // Récupération des médecins
-                $sql = "SELECT id FROM medecin";
+                $sql = "SELECT * FROM medecin";
                 $stmt = $linkpdo->prepare($sql);
                 $stmt->execute();
                 $medecins = $stmt->fetchAll(PDO::FETCH_ASSOC);
