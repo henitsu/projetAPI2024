@@ -1,7 +1,6 @@
 <?php
 // Inclusion de la BD
 include 'header.php';
-include '../cabmed/connexionBD.php';
 ?>
 <!DOCTYPE html>
 <html lang="fr">

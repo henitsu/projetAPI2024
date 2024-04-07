@@ -1,6 +1,5 @@
 <?php
 include 'header.php';
-require '../cabmed/connexionBD.php';
 ?>
 
 <!DOCTYPE html>
