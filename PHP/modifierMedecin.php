@@ -50,11 +50,41 @@
         echo "ID du médecin non spécifié.";
     }
 
-    ?>
+    if (isset($_POST['submit'])) {
+        $data = array('id_medecin' => $_POST['id_medecin'], 'nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'civilite' => $_POST['civilite']);
 
+        $options = array(
+            'http' => array(
+                'method' => 'PATCH',
+                'header' => "Content-Type: application/json\r\n",
+                'content' => json_encode($data)
+            )
+        );
+
+        $context = stream_context_create($options);
+
+        // URL de l'API pour les médecins
+        $baseUrl = 'https://api-patientele-cabmed.alwaysdata.net/cabmed/medecins/' . $id_medecin;
+
+        // Exécution de la requête avec file_get_contents
+        $result = file_get_contents($baseUrl, false, $context);
+
+        // Gérer la réponse de l'API
+        if ($result !== false) {
+            // Conversion de la réponse en tableau associatif PHP
+            $response = json_decode($result, true);
+            echo $response['status_message'];
+            $nom = $response['data']['nom'];
+            $prenom = $response['data']['prenom'];
+            $civilite = $response['data']['civilite'];
+        } else {
+            echo 'Erreur fetch';
+        }
+    }
+    ?>
     <h1>Modification des informations de <?php echo $prenom . " " . $nom; ?></h1>
     <div class="form">
-        <form action="modifierMedecin.php" method="post">
+        <form action="modifierMedecin.php?id_medecin=<?php echo $id_medecin; ?>" method="post">
             <input type="hidden" name="id_medecin" value="<?php echo $_GET['id_medecin']; ?>">
             <label for="nom">Nom :</label>
             <input type="text" id="nom" name="nom" value="<?php echo $nom; ?>" required><br>
@@ -70,38 +100,6 @@
     </div>
     <button onclick="window.location.href='affichageMedecin.php'">Retour</button>
 
-    <?php
-    if (isset($_POST['submit'])) {
-        $data = array('id_medecin' => $_POST['id_medecin'], 'nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'civilite' => $_POST['civilite']);
-
-        $options = array(
-            'http' => array(
-                'method' => 'PATCH',
-                'header' => "Content-Type: application/json\r\n",
-                'content' => json_encode($data)
-            )
-        );
-
-        $context = stream_context_create($options);
-
-        // URL de l'API pour les médecins
-        $baseUrl = 'http://localhost/API/projetAPI2024/cabmed/medecins/';
-        $resource = 'index.php';
-
-        // Exécution de la requête avec file_get_contents
-        $result = file_get_contents($baseUrl . $resource, false, $context);
-
-        // Gérer la réponse de l'API
-        if ($result !== false) {
-            // Conversion de la réponse en tableau associatif PHP
-            $response = json_decode($result, true);
-            // Affichage de la réponse
-            print_r($response);
-        } else {
-            echo 'Erreur fetch';
-        }
-    }
-    ?>
 </body>
 
 </html>

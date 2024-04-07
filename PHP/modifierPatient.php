@@ -57,10 +57,63 @@
             echo "ID du usager non spécifié.";
         }
 
-        ?>
+        if (isset($_POST['submit']) && $_POST['_method'] == 'PATCH') {
+            $data = array(
+                'id_medecin' => $_POST['id_medecin'],
+                'nom' => $_POST['nom'],
+                'prenom' => $_POST['prenom'],
+                'civilite' => $_POST['civilite'],
+                'adresse' => $_POST['adresse'],
+                'ville' => $_POST['ville'],
+                'code_postal' => $_POST['code_postal'],
+                'date_nais' => $_POST['date_nais'],
+                'lieu_nais' => $_POST['lieu_nais'],
+                'num_secu' => $_POST['num_secu'],
+                'sexe' => $_POST['sexe']
+            );
+            $options = array(
+                'http' => array(
+                    'method' => 'PATCH',
+                    'header' => "Content-Type: application/json\r\n",
+                    'content' => json_encode($data)
+                )
+            );
+
+            $context = stream_context_create($options);
+
+            $id_usager = $_GET['id_usager'];
+
+            // URL de l'API pour les médecins
+            $baseUrl = 'https://api-patientele-cabmed.alwaysdata.net/cabmed/usagers/' . $id_usager;
+
+            // Exécution de la requête avec file_get_contents
+            $result = file_get_contents($baseUrl, false, $context);
+
+            // Gérer la réponse de l'API
+            if ($result !== false) {
+                // Conversion de la réponse en tableau associatif PHP
+                $response = json_decode($result, true);
+                // Affichage de la réponse
+                echo $response['status_message'];
+                $nom = $response['data']['nom'];
+                $prenom = $response['data']['prenom'];
+                $civilite = $response['data']['civilite'];
+                $sexe = $response['data']['sexe'];
+                $adresse = $response['data']['adresse'];
+                $ville = $response['data']['ville'];
+                $code_postal = $response['data']['code_postal'];
+                $date_nais = $response['data']['date_nais'];
+                $lieu_nais = $response['data']['lieu_nais'];
+                $num_secu = $response['data']['num_secu'];
+            } else {
+                echo 'Erreur fetch';
+            }
+        }
+        ?> 
      <h1>Modification des informations de <?php echo $prenom . " " . $nom; ?></h1>
      <div class="form">
-         <form action="modifierPatient.php" method="post">
+         <form action="modifierPatient.php?id_usager=<?php echo $id_usager;?>" method="post">
+         <input type="hidden" name="_method" value="PATCH">
              <label for="nom">Nom :</label>
              <input type="text" id="nom" name="nom" value="<?php echo $nom; ?>" required><br>
 
@@ -96,14 +149,21 @@
                  <select name="id_medecin" id="id_medecin">
                      <?php
                         // Récupération des médecins
-                        $sql = "SELECT * FROM medecin";
+                        $sql = "SELECT medecin.*
+                        FROM medecin
+                        LEFT JOIN usager ON medecin.id_medecin = usager.id_medecin AND usager.id_usager = :id_usager
+                        ORDER BY CASE 
+                                     WHEN medecin.id_medecin = usager.id_medecin THEN 0 
+                                     ELSE 1 
+                                 END;";
                         $stmt = $linkpdo->prepare($sql);
+                        $stmt->bindParam(':id_usager', $id_usager, PDO::PARAM_INT);
                         $stmt->execute();
                         $medecins = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                         // Affichage des médecins
                         foreach ($medecins as $medecin) {
-                            echo '<option value="' . $medecin['id_medecin'] . '">' . $medecin['nom'] . ' ' . $medecin['prenom'] . '</option>';
+                            echo '<option value="' . $medecin['id_medecin'] . '">' . $medecin['prenom'] . ' ' . $medecin['nom'] . '</option>';
                         }
                         ?>
                  </select>
@@ -114,48 +174,5 @@
      </div>
      <button onclick="window.location.href='affichagePatient.php'">Retour</button>
 
-     <?php
-        if (isset($_POST['submit'])) {
-            $data = array(
-                'id_medecin' => $_POST['id_medecin'],
-                'nom' => $_POST['nom'],
-                'prenom' => $_POST['prenom'],
-                'civilite' => $_POST['civilite'],
-                'adresse' => $_POST['adresse'],
-                'ville' => $_POST['ville'],
-                'code_postal' => $_POST['code_postal'],
-                'date_nais' => $_POST['date_nais'],
-                'lieu_nais' => $_POST['lieu_nais'],
-                'num_secu' => $_POST['num_secu'],
-                'sexe' => $_POST['sexe']
-            );
-            $options = array(
-                'http' => array(
-                    'method' => 'PATCH',
-                    'header' => "Content-Type: application/json\r\n",
-                    'content' => json_encode($data)
-                )
-            );
-
-            $context = stream_context_create($options);
-
-            $id_usager = basename($_SERVER['REQUEST_URI']);
-
-            // URL de l'API pour les médecins
-            $baseUrl = 'https://api-patientele-cabmed.alwaysdata.net/cabmed/usagers/' . $id_usager;
-
-            // Exécution de la requête avec file_get_contents
-            $result = file_get_contents($baseUrl, false, $context);
-
-            // Gérer la réponse de l'API
-            if ($result !== false) {
-                // Conversion de la réponse en tableau associatif PHP
-                $response = json_decode($result, true);
-                // Affichage de la réponse
-                print_r($response);
-            } else {
-                echo 'Erreur fetch';
-            }
-        }
-        ?>
+     
  </body>
