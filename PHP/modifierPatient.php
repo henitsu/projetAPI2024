@@ -12,7 +12,7 @@
  <body>
      <?php
         include 'header.php';
-        require '../cabmed/connexionBD.php';
+        require 'connexionBD.php';
 
         // Vérifier si l'ID de l'usager est passé en paramètre
         if (isset($_GET['id_usager'])) {

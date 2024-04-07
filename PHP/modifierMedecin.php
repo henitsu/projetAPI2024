@@ -13,7 +13,7 @@
 
     <?php
     include 'header.php';
-    require '../cabmed/connexionBD.php';
+    require 'connexionBD.php';
 
     // Vérifier si l'ID du médecin est passé en paramètre
     if (isset($_GET['id_medecin'])) {

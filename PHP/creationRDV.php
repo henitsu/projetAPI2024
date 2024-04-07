@@ -1,6 +1,7 @@
 <?php
 // Inclusion de la BD
 include 'header.php';
+require 'connexionBD.php';
 ?>
 <!DOCTYPE html>
 <html lang="fr">

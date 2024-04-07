@@ -1,5 +1,6 @@
 <?php
 include 'header.php';
+require 'connexionBD.php';
 ?>
 
 <!DOCTYPE html>
