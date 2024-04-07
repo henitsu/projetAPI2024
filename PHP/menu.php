@@ -12,24 +12,11 @@
     include 'header.php'; // Inclure le header si nécessaire
 
     // Vérifier si le token est présent dans la session
-    if (!isset($_SESSION['token'])) {
-        // Si le token n'est pas présent, rediriger vers la page de connexion
+    if (!isset($_POST['identifiant']) || !isset($_POST['mot_de_passe'])) {
         header('Location: ../index.php');
-        exit;
+        exit();
     } else {
-        // Si le token est présent, inclure le token dans les requêtes ultérieures
-        $token = $_SESSION['token'];
-        $options = array(
-            'http' => array(
-                'method' => 'GET',
-                'header' => "Authorization: Bearer $token\r\n" .
-                            "Content-Type: application/json\r\n"
-            )
-        );
-        $context = stream_context_create($options);
-        $baseUrl = 'https://api-patientele-auth.alwaysdata.net/authapi/';
-        $result = file_get_contents($baseUrl, false, $context);
-        // Traitement de la réponse de l'API protégée...
+        $_SESSION['login'] = $_POST['identifiant'];
     }
 ?>
         <main>
